@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// HELLO
+// This script placed on MeleePrefab and RangePrefab:
 public class AttackScript : MonoBehaviour
 {
     public GameObject owner;

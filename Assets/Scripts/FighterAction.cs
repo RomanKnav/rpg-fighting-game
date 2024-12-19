@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// one of two scripts placed on the character objects:
 public class FighterAction : MonoBehaviour
 {
     private GameObject hero;
@@ -18,16 +19,32 @@ public class FighterAction : MonoBehaviour
     private Sprite faceIcon;
 
     private GameObject currentAttack;
+
+    // MY CRAP:
+    private GameObject friendliesParent;
+    private GameObject enemiesParent;
     
     void Awake()
     {
         hero = GameObject.FindGameObjectWithTag("Hero");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
+
+        friendliesParent = GameObject.Find("Friendlies");           // success
+        enemiesParent = GameObject.Find("Enemies");
     }
+
+    void Start() {
+        if (friendliesParent != null && enemiesParent != null)
+        {
+            Debug.Log("character parent objects found");
+        }
+    }
+
+    // what's this?
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;
-        if (tag == "Hero")
+        if (tag == "Hero")                      // what is this tag?
         {
             victim = enemy;
         }
