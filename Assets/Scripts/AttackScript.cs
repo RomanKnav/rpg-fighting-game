@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// HELLO
 public class AttackScript : MonoBehaviour
 {
     public GameObject owner;
