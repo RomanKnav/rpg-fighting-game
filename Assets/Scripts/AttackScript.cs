@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// This script placed on MeleePrefab and RangePrefab:
+// This script placed on MeleePrefab and RangePrefab (which compose the character object children):
 public class AttackScript : MonoBehaviour
 {
     public GameObject owner;
@@ -32,6 +32,7 @@ public class AttackScript : MonoBehaviour
     private FighterStats targetStats;
     private float damage = 0.0f;
     
+    // error is at wherever this is used:
     public void Attack(GameObject victim)
     {
         attackerStats = owner.GetComponent<FighterStats>();

@@ -18,6 +18,11 @@ public class FighterStats : MonoBehaviour, IComparable
     [Header("Stats")]
     public float health;
     public float magic;
+
+    // MY CRAP:
+    public float agility;
+    public bool isFriendly;
+
     public float melee;
     public float magicRange;
     public float defense;
