@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Transactions;
 using UnityEngine.SocialPlatforms;
+using System.Linq;
 
 // MACRO FILE:
 
@@ -19,7 +20,13 @@ public class GameController : MonoBehaviour
     // MY CRAP:
     private GameObject friendliesParent;
     private GameObject enemiesParent;
-    private GameObject[] charactersList;
+
+    // is this a list or array? ARRAYS:
+    // private GameObject[] charactersList;
+    // private GameObject[] priorityList;      // new, SORTED list of characters with correct priority.
+
+    private List<GameObject> charactersList;
+    private List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
 
     private void Awake()
     {
@@ -29,7 +36,7 @@ public class GameController : MonoBehaviour
         friendliesParent = GameObject.Find("Friendlies");           // success
         enemiesParent = GameObject.Find("Enemies");
 
-        charactersList = GameObject.FindGameObjectsWithTag("Character");
+        charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
     }
 
     void Start()
@@ -40,9 +47,24 @@ public class GameController : MonoBehaviour
             Debug.Log("character parent objects found");
         }
 
-        if (charactersList.Length > 0) {
+        if (charactersList.Count > 0) {
             Debug.Log("characterList is filled!");
+
+            float highestAgility = 0f;
+            foreach(GameObject character in charactersList) {
+                var characterScript = character.GetComponent<FighterStats>();
+                var currentAgility = characterScript.agility;
+
+                if (currentAgility > highestAgility) {
+                    highestAgility = currentAgility;
+                    priorityList.Add(character);
+                }
+
+                Debug.Log("HELLO!!!!!");
+            }
         }
+
+        Debug.Log(priorityList.Count);
 
         fighterStats = new List<FighterStats>();
 

@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 709661707}
   m_Layer: 0
   m_Name: GiantEnemy
-  m_TagString: Enemy
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1204,7 +1204,7 @@ MonoBehaviour:
   speed: 6
   experience: 0
   nextActTurn: 0
-  agility: 0
+  agility: 5
   isFriendly: 0
   deadSprite: {fileID: -4235905826448174622, guid: b55f9a2f4fed8b64a8f5fd2f8f9e3913,
     type: 3}
@@ -1315,9 +1315,9 @@ GameObject:
   m_Component:
   - component: {fileID: 757240849}
   - component: {fileID: 757240848}
+  - component: {fileID: 757240851}
   - component: {fileID: 757240850}
   - component: {fileID: 757240852}
-  - component: {fileID: 757240851}
   m_Layer: 0
   m_Name: WizardHero
   m_TagString: Character
@@ -1430,7 +1430,7 @@ MonoBehaviour:
   speed: 5
   experience: 0
   nextActTurn: 0
-  agility: 0
+  agility: 10
   isFriendly: 0
   deadSprite: {fileID: 0}
   currentSprite: {fileID: 0}
@@ -3341,7 +3341,7 @@ GameObject:
   - component: {fileID: 1911854240}
   m_Layer: 0
   m_Name: GiantEnemy 2
-  m_TagString: Enemy
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3404,7 +3404,7 @@ MonoBehaviour:
   speed: 6
   experience: 0
   nextActTurn: 0
-  agility: 0
+  agility: 3
   isFriendly: 0
   deadSprite: {fileID: -4235905826448174622, guid: b55f9a2f4fed8b64a8f5fd2f8f9e3913,
     type: 3}

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+// placed on INDIVIDUAL instances:
 public class FighterStats : MonoBehaviour, IComparable
 {
     [SerializeField]
@@ -46,6 +47,7 @@ public class FighterStats : MonoBehaviour, IComparable
     private GameObject GameControllerObj;
 
     // MY CRAP:
+    [Header("MY SHIT")]
     public float agility;
     public bool isFriendly;
     public Sprite deadSprite;
@@ -139,5 +141,3 @@ public class FighterStats : MonoBehaviour, IComparable
     }
 
 }
-
-

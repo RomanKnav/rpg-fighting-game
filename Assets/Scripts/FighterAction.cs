@@ -24,9 +24,8 @@ public class FighterAction : MonoBehaviour
     void Awake()
     {
         hero = GameObject.Find("WizardHero");
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
 
-        // enemy = GameObject.Find("GiantEnemy");
+        enemy = GameObject.Find("GiantEnemy");
     }
 
     // where's this used?
