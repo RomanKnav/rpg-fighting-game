@@ -77,6 +77,7 @@ public class FighterStats : MonoBehaviour, IComparable
         }
     }
 
+    // this is for the VICTIM:
     public void ReceiveDamage(float damage)
     {
         health = health - damage;
@@ -92,6 +93,8 @@ public class FighterStats : MonoBehaviour, IComparable
             // Destroy(gameObject);
 
             animator.enabled = false;
+            // currentSprite = deadSprite;
+            gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
         } else if (damage > 0)
         {
             xNewHealthScale = healthScale.x * (health / startHealth);
