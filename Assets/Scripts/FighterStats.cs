@@ -52,6 +52,7 @@ public class FighterStats : MonoBehaviour, IComparable
     public bool isFriendly;
     public Sprite deadSprite;
     public Sprite currentSprite; 
+    public bool turnIsOver;
 
     void Awake()
     {
@@ -110,6 +111,7 @@ public class FighterStats : MonoBehaviour, IComparable
         Invoke("ContinueGame", 2);
     }
 
+    // REDUCE the magic fill:
     public void updateMagicFill(float cost)
     {
         if(cost > 0)

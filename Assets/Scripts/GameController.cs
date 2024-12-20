@@ -57,6 +57,8 @@ public class GameController : MonoBehaviour
 
         // is not being set:
         FighterStats currentHeroStats = hero.GetComponent<FighterStats>();
+
+        // what is CalculateNextTurn()? takes integer argument.
         currentHeroStats.CalculateNextTurn(0);
         fighterStats.Add(currentHeroStats);
 

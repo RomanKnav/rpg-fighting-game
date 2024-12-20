@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // This script placed on MeleePrefab and RangePrefab PREFABS!!! (which compose the character object children):
+// so, this script used for BOTH the melee and ranged attacks:
 public class AttackScript : MonoBehaviour
 {
     // what is owner? The gameObject using the prefab. 
@@ -53,11 +54,15 @@ public class AttackScript : MonoBehaviour
 
         if (!targetStats.GetDead())
         {
+            // does melee use magic? NOPE
             if (attackerStats.magic >= magicCost)
             {
                 float multiplier = Random.Range(minAttackMultiplier, maxAttackMultiplier);
 
-                damage = multiplier * attackerStats.melee;
+                // we do melee attack by DEFAULT. This is simply setting the damage amount:
+                damage = multiplier * attackerStats.melee;      // this is a FLOAT
+
+                // otherwise, do the RANGED attack:
                 if (magicAttack)
                 {
                     damage = multiplier * attackerStats.magicRange;
@@ -74,6 +79,8 @@ public class AttackScript : MonoBehaviour
 
                 targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
                 attackerStats.updateMagicFill(magicCost);
+
+                attackerStats.turnIsOver = true;        // should REMAIN true until it is their turn on the priority list
             } else
             {
                 Invoke("SkipTurnContinueGame", 2);
