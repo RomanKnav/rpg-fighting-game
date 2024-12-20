@@ -23,10 +23,9 @@ public class FighterAction : MonoBehaviour
     // serious rehauling needed:
     void Awake()
     {
-        hero = GameObject.FindGameObjectWithTag("Hero");
+        hero = GameObject.Find("WizardHero");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
 
-        // hero = GameObject.Find("WizardHero");
         // enemy = GameObject.Find("GiantEnemy");
     }
 
@@ -36,8 +35,7 @@ public class FighterAction : MonoBehaviour
     {
         GameObject victim = hero;
 
-        // if (name == "WizardHero")                      // what is this tag?
-        if (tag == "Hero")
+        if (name == "WizardHero")                      // yes, object names can simply be retrieved like this
         {
             victim = enemy;
         }

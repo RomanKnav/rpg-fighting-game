@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Transactions;
 using UnityEngine.SocialPlatforms;
 
+// MACRO FILE:
 
 // put on GameControllerObject 
 public class GameController : MonoBehaviour
@@ -39,14 +40,13 @@ public class GameController : MonoBehaviour
             Debug.Log("character parent objects found");
         }
 
-        // if (charactersList.Length > 0) {
-        //     Debug.Log("characterList is filled!");
-        // }
+        if (charactersList.Length > 0) {
+            Debug.Log("characterList is filled!");
+        }
 
         fighterStats = new List<FighterStats>();
 
-        GameObject hero = GameObject.FindGameObjectWithTag("Hero");
-        // GameObject hero = GameObject.Find("WizardHero");
+        GameObject hero = GameObject.Find("WizardHero");
 
         // is not being set:
         FighterStats currentHeroStats = hero.GetComponent<FighterStats>();
@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour
             currentFighterStats.CalculateNextTurn(currentFighterStats.nextActTurn);
             fighterStats.Add(currentFighterStats);
             fighterStats.Sort();
-            if(currentUnit.tag == "Hero")
+            if (currentUnit.name == "WizardHero")
             {
                 this.battleMenu.SetActive(true);
             } else

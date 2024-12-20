@@ -65,7 +65,7 @@ public class FighterStats : MonoBehaviour, IComparable
         GameControllerObj = GameObject.Find("GameControllerObject");
 
         // MY SHIT:
-        // this sprite is CONSTANTLY changing:
+        // this sprite is CONSTANTLY changing due to animations:
         currentSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
 
         animator = gameObject.GetComponent<Animator>();
