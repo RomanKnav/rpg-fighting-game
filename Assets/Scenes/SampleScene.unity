@@ -1078,6 +1078,96 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &699521412
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1301861857}
+    m_Modifications:
+    - target: {fileID: 2564464361793249419, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_Name
+      value: WizardHero Old
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249419, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hero
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.5731559
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564464361793249431, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: healthFill
+      value: 
+      objectReference: {fileID: 481420674}
+    - target: {fileID: 2564464361793249431, guid: 4ef49edc456083b49844868cd5878a33,
+        type: 3}
+      propertyPath: magicFill
+      value: 
+      objectReference: {fileID: 527444512}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ef49edc456083b49844868cd5878a33, type: 3}
+--- !u!4 &699521413 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2564464361793249429, guid: 4ef49edc456083b49844868cd5878a33,
+    type: 3}
+  m_PrefabInstance: {fileID: 699521412}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &709661702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,6 +1290,7 @@ MonoBehaviour:
   magic: 25
   agility: 2
   isFriendly: 0
+  deadSprite: {fileID: 0}
   melee: 12
   magicRange: 6
   defense: 5
@@ -1988,7 +2079,7 @@ PrefabInstance:
     - target: {fileID: 2564464361793249419, guid: 4ef49edc456083b49844868cd5878a33,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2564464361793249428, guid: 4ef49edc456083b49844868cd5878a33,
         type: 3}
@@ -2222,6 +2313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 757240849}
+  - {fileID: 699521413}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3249,8 +3341,8 @@ GameObject:
   - component: {fileID: 1911854241}
   - component: {fileID: 1911854240}
   m_Layer: 0
-  m_Name: GiantEnemy 2
-  m_TagString: Character
+  m_Name: GiantEnemy Old
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3309,6 +3401,8 @@ MonoBehaviour:
   magic: 25
   agility: 1
   isFriendly: 0
+  deadSprite: {fileID: -4235905826448174622, guid: 472f69452bc952147bce1fb0d6de5565,
+    type: 3}
   melee: 12
   magicRange: 6
   defense: 5

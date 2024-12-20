@@ -7,7 +7,7 @@ using System;
 public class FighterStats : MonoBehaviour, IComparable
 {
     [SerializeField]
-    private Animator animator;
+    private Animator animator;          // how's this assigned?
 
     [SerializeField]
     private GameObject healthFill;
@@ -18,10 +18,6 @@ public class FighterStats : MonoBehaviour, IComparable
     [Header("Stats")]
     public float health;
     public float magic;
-
-    // MY CRAP:
-    public float agility;
-    public bool isFriendly;
 
     public float melee;
     public float magicRange;
@@ -49,6 +45,12 @@ public class FighterStats : MonoBehaviour, IComparable
 
     private GameObject GameControllerObj;
 
+    // MY CRAP:
+    public float agility;
+    public bool isFriendly;
+    public Sprite deadSprite;
+    public Sprite currentSprite; 
+
     void Awake()
     {
         healthTransform = healthFill.GetComponent<RectTransform>();
@@ -61,6 +63,18 @@ public class FighterStats : MonoBehaviour, IComparable
         startMagic = magic;
 
         GameControllerObj = GameObject.Find("GameControllerObject");
+
+        // MY SHIT:
+        // this sprite is CONSTANTLY changing:
+        currentSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        animator = gameObject.GetComponent<Animator>();
+    }
+
+    void Start() {
+        if (currentSprite != null) {
+            Debug.Log("current sprite found!");
+        }
     }
 
     public void ReceiveDamage(float damage)
@@ -75,7 +89,9 @@ public class FighterStats : MonoBehaviour, IComparable
             dead = true;
             gameObject.tag = "Dead";
             Destroy(healthFill);
-            Destroy(gameObject);
+            // Destroy(gameObject);
+
+            animator.enabled = false;
         } else if (damage > 0)
         {
             xNewHealthScale = healthScale.x * (health / startHealth);

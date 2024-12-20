@@ -106,6 +106,8 @@ MonoBehaviour:
   magic: 25
   agility: 3
   isFriendly: 1
+  deadSprite: {fileID: -4235905826448174622, guid: 472f69452bc952147bce1fb0d6de5565,
+    type: 3}
   melee: 20
   magicRange: 25
   defense: 4

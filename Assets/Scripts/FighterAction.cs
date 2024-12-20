@@ -20,17 +20,24 @@ public class FighterAction : MonoBehaviour
 
     private GameObject currentAttack;
     
+    // serious rehauling needed:
     void Awake()
     {
         hero = GameObject.FindGameObjectWithTag("Hero");
         enemy = GameObject.FindGameObjectWithTag("Enemy");
+
+        // hero = GameObject.Find("WizardHero");
+        // enemy = GameObject.Find("GiantEnemy");
     }
 
+    // where's this used?
     // what's this?
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;
-        if (tag == "Hero")                      // what is this tag?
+
+        // if (name == "WizardHero")                      // what is this tag?
+        if (tag == "Hero")
         {
             victim = enemy;
         }

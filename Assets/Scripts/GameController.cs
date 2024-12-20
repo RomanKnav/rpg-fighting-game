@@ -45,8 +45,8 @@ public class GameController : MonoBehaviour
 
         fighterStats = new List<FighterStats>();
 
-        // GameObject hero = GameObject.FindGameObjectWithTag("Hero");
-        GameObject hero = GameObject.Find("WizardHero");
+        GameObject hero = GameObject.FindGameObjectWithTag("Hero");
+        // GameObject hero = GameObject.Find("WizardHero");
 
         // is not being set:
         FighterStats currentHeroStats = hero.GetComponent<FighterStats>();

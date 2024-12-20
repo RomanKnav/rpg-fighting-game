@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// This script placed on MeleePrefab and RangePrefab (which compose the character object children):
+// This script placed on MeleePrefab and RangePrefab PREFABS!!! (which compose the character object children):
 public class AttackScript : MonoBehaviour
 {
+    // what is owner? The gameObject using the prefab. 
     public GameObject owner;
+
+    public FighterStats ownerStats;
 
     [SerializeField]
     private string animationName;
@@ -31,30 +34,53 @@ public class AttackScript : MonoBehaviour
     private FighterStats attackerStats;
     private FighterStats targetStats;
     private float damage = 0.0f;
+
+    // MY CRAP:
+    public Animator ownerAnimator;
+    public Animator victimAnimator;
+
+    public void Awake() {
+        ownerAnimator = owner.GetComponent<Animator>();
+    }
     
-    // error is at wherever this is used:
+    // TODO: get global var of victim:
     public void Attack(GameObject victim)
     {
+        victimAnimator = victim.GetComponent<Animator>();
+
         attackerStats = owner.GetComponent<FighterStats>();
         targetStats = victim.GetComponent<FighterStats>();
-        if (attackerStats.magic >= magicCost)
-        {
-            float multiplier = Random.Range(minAttackMultiplier, maxAttackMultiplier);
 
-            damage = multiplier * attackerStats.melee;
-            if (magicAttack)
+        if (!targetStats.GetDead())
+        {
+            if (attackerStats.magic >= magicCost)
             {
-                damage = multiplier * attackerStats.magicRange;
-            }
+                float multiplier = Random.Range(minAttackMultiplier, maxAttackMultiplier);
 
-            float defenseMultiplier = Random.Range(minDefenseMultiplier, maxDefenseMultiplier);
-            damage = Mathf.Max(0, damage - (defenseMultiplier * targetStats.defense));
-            owner.GetComponent<Animator>().Play(animationName);
-            targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
-            attackerStats.updateMagicFill(magicCost);
-        } else
-        {
-            Invoke("SkipTurnContinueGame", 2);
+                damage = multiplier * attackerStats.melee;
+                if (magicAttack)
+                {
+                    damage = multiplier * attackerStats.magicRange;
+                }
+
+                float defenseMultiplier = Random.Range(minDefenseMultiplier, maxDefenseMultiplier);
+                damage = Mathf.Max(0, damage - (defenseMultiplier * targetStats.defense));
+
+                // animation crap. Where are animations assigned? On the characters themselves (they have an "Animator" component, 
+                // which have a "controller", which contains MULTIPLE animations):
+
+                // owner.GetComponent<Animator>().Play(animationName);    
+                ownerAnimator.Play(animationName);  
+
+                targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
+                attackerStats.updateMagicFill(magicCost);
+            } else
+            {
+                Invoke("SkipTurnContinueGame", 2);
+            }  
+        } else {
+            // ownerAnimator.enabled = false;
+            // return;
         }
     }
 

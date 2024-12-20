@@ -14,6 +14,7 @@ public class MakeButton : MonoBehaviour
         string temp = gameObject.name;
         gameObject.GetComponent<Button>().onClick.AddListener(() => AttachCallback(temp));
         hero = GameObject.FindGameObjectWithTag("Hero");
+        // hero = GameObject.Find("WizardHero");
     }
 
     private void AttachCallback(string btn)
