@@ -54,8 +54,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     // MY CRAP:
     [Header("MY CRAP")]
     public Sprite thumbnail;
-    public bool actionReady = false;            // depends if its character's turn or not.
-    public bool gettingAttacked = false;        // true when character is victim
+    public bool actionReady = false;   // depends if its character's turn or not.
+    public bool victim = false;        // true when character is victim
 
     public GameObject ownerObject;
     public float agility;
@@ -166,7 +166,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
 
         // // if player is current victim/attacker:
-        if (oppFaceObject != null && (actionReady == true || gettingAttacked == true))
+        if (oppFaceObject != null && (actionReady == true || victim == true))
         {
 
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;

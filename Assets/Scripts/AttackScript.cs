@@ -45,6 +45,7 @@ public class AttackScript : MonoBehaviour
     }
     
     // TODO: get global var of victim:
+    // when does this run?
     public void Attack(GameObject victim)
     {
         victimAnimator = victim.GetComponent<Animator>();

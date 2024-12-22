@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // one of two scripts (other is FighterStats.cs) placed on the INDIVIDUAL character objects:
+// responsible for what? 
 public class FighterAction : MonoBehaviour
 {
     private GameObject hero;
@@ -24,7 +25,6 @@ public class FighterAction : MonoBehaviour
     void Awake()
     {
         hero = GameObject.Find("WizardHero");
-
         enemy = GameObject.Find("GiantEnemy");
     }
 
@@ -48,6 +48,20 @@ public class FighterAction : MonoBehaviour
         } else
         {
             Debug.Log("Run");
+        }
+    }
+
+    // SHORTEN THIS CRAP:
+    public void SetActiveCharacter() {
+        if (name == "WizardHero")
+        {
+            hero.GetComponent<FighterStatsScript>().actionReady = true;
+            hero.GetComponent<FighterStatsScript>().victim = true;
+        }
+        else if (name == "GiantEnemy")
+        {
+            enemy.GetComponent<FighterStatsScript>().actionReady = true;
+            enemy.GetComponent<FighterStatsScript>().victim = true;            
         }
     }
 }
