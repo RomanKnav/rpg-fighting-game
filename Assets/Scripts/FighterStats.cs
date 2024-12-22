@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+// when does this run? at beginning. Runs multiple times simult. if there's mult. characters
+
+// placed where? Individual characters
 public class FighterStats : MonoBehaviour, IComparable
 {
     [SerializeField]
@@ -28,6 +31,8 @@ public class FighterStats : MonoBehaviour, IComparable
     private float startMagic;
 
     [HideInInspector]
+
+    // what's this? some timing BS:
     public int nextActTurn;
 
     private bool dead = false;
@@ -44,6 +49,11 @@ public class FighterStats : MonoBehaviour, IComparable
 
     private GameObject GameControllerObj;
 
+    // MY STUFF:
+    public Sprite thumbnail;
+    public GameObject ownerObject;
+    public bool actionReady;            // depends if its character's turn or not.
+
     void Awake()
     {
         healthTransform = healthFill.GetComponent<RectTransform>();
@@ -56,6 +66,11 @@ public class FighterStats : MonoBehaviour, IComparable
         startMagic = magic;
 
         GameControllerObj = GameObject.Find("GameControllerObject");
+    }
+
+    void Start()
+    {
+        Debug.Log("FUCK!");
     }
 
     public void ReceiveDamage(float damage)
@@ -112,6 +127,19 @@ public class FighterStats : MonoBehaviour, IComparable
     {
         int nex = nextActTurn.CompareTo(((FighterStats)otherStats).nextActTurn);
         return nex;
+    }
+
+    // need reference to the "enemyFace" object, where the display-sprite is:
+    public void SetThumbnail()
+    {
+        ownerObject = this.gameObject;
+
+        //var GameObject faceObject = GameObject.Find("EnemyFace");
+
+        // if (faceObject != null && actionReady == true)
+        // {
+        //     faceObject.GetComponent<Image>().sprite = thumbnail;
+        // }
     }
 
 }

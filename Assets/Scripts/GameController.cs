@@ -7,19 +7,22 @@ using UnityEngine.SocialPlatforms;
 
 public class GameController : MonoBehaviour
 {
-    private List<FighterStats> fighterStats;
+    // a fucking list, not the script:
 
-    private GameObject battleMenu;
+    // private List<FighterStats> fighterStats;
+    private List<FighterStats> fighterStats = new List<FighterStats>();
+
+    private GameObject actionMenu;
 
     public Text battleText;
 
     private void Awake()
     {
-        battleMenu = GameObject.Find("ActionMenu");
+        actionMenu = GameObject.Find("ActionMenu");
     }
     void Start()
     {
-        fighterStats = new List<FighterStats>();
+        // fighterStats = new List<FighterStats>();
         GameObject hero = GameObject.FindGameObjectWithTag("Hero");
         FighterStats currentFighterStats = hero.GetComponent<FighterStats>();
         currentFighterStats.CalculateNextTurn(0);
@@ -47,12 +50,15 @@ public class GameController : MonoBehaviour
             currentFighterStats.CalculateNextTurn(currentFighterStats.nextActTurn);
             fighterStats.Add(currentFighterStats);
             fighterStats.Sort();
+
+
             if(currentUnit.tag == "Hero")
             {
-                this.battleMenu.SetActive(true);
+                this.actionMenu.SetActive(true);
+
             } else
             {
-                this.battleMenu.SetActive(false);
+                this.actionMenu.SetActive(false);
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
                 currentUnit.GetComponent<FighterAction>().SelectAttack(attackType);
             }
