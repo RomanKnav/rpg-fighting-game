@@ -7,10 +7,11 @@ using System;
 // when does this run? at beginning. Runs multiple times simult. if there's mult. characters
 
 // placed where? Individual characters
+// placed on INDIVIDUAL instances!
 public class FighterStats : MonoBehaviour, IComparable
 {
     [SerializeField]
-    private Animator animator;
+    private Animator animator;          // how's this assigned?
 
     [SerializeField]
     private GameObject healthFill;
@@ -21,6 +22,7 @@ public class FighterStats : MonoBehaviour, IComparable
     [Header("Stats")]
     public float health;
     public float magic;
+
     public float melee;
     public float magicRange;
     public float defense;
@@ -49,10 +51,17 @@ public class FighterStats : MonoBehaviour, IComparable
 
     private GameObject GameControllerObj;
 
-    // MY STUFF:
+    // MY CRAP:
     public Sprite thumbnail;
     public GameObject ownerObject;
     public bool actionReady;            // depends if its character's turn or not.
+
+    [Header("MY SHIT")]
+    public float agility;
+    public bool isFriendly;
+    public Sprite deadSprite;
+    public Sprite currentSprite; 
+    public bool turnIsOver;
 
     void Awake()
     {
@@ -66,13 +75,23 @@ public class FighterStats : MonoBehaviour, IComparable
         startMagic = magic;
 
         GameControllerObj = GameObject.Find("GameControllerObject");
+
+        // MY SHIT:
+        // this sprite is CONSTANTLY changing due to animations:
+        currentSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        animator = gameObject.GetComponent<Animator>();
     }
 
-    void Start()
-    {
+    void Start() {
         Debug.Log("FUCK!");
+
+        if (currentSprite != null) {
+            Debug.Log("current sprite found!");
+        }
     }
 
+    // this is for the VICTIM:
     public void ReceiveDamage(float damage)
     {
         health = health - damage;
@@ -85,7 +104,11 @@ public class FighterStats : MonoBehaviour, IComparable
             dead = true;
             gameObject.tag = "Dead";
             Destroy(healthFill);
-            Destroy(gameObject);
+            // Destroy(gameObject);
+
+            animator.enabled = false;
+            // currentSprite = deadSprite;
+            gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
         } else if (damage > 0)
         {
             xNewHealthScale = healthScale.x * (health / startHealth);
@@ -99,6 +122,7 @@ public class FighterStats : MonoBehaviour, IComparable
         Invoke("ContinueGame", 2);
     }
 
+    // REDUCE the magic fill:
     public void updateMagicFill(float cost)
     {
         if(cost > 0)
@@ -143,5 +167,3 @@ public class FighterStats : MonoBehaviour, IComparable
     }
 
 }
-
-

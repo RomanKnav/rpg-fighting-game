@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// one of two scripts placed on the character objects:
+// one of two scripts (other is FighterStats.cs) placed on the INDIVIDUAL character objects:
 public class FighterAction : MonoBehaviour
 {
     private GameObject hero;
@@ -19,32 +19,22 @@ public class FighterAction : MonoBehaviour
     private Sprite faceIcon;
 
     private GameObject currentAttack;
-
-    // MY CRAP:
-    private GameObject friendliesParent;
-    private GameObject enemiesParent;
     
+    // serious rehauling needed:
     void Awake()
     {
-        hero = GameObject.FindGameObjectWithTag("Hero");
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        hero = GameObject.Find("WizardHero");
 
-        friendliesParent = GameObject.Find("Friendlies");           // success
-        enemiesParent = GameObject.Find("Enemies");
+        enemy = GameObject.Find("GiantEnemy");
     }
 
-    void Start() {
-        if (friendliesParent != null && enemiesParent != null)
-        {
-            Debug.Log("character parent objects found");
-        }
-    }
-
+    // where's this used?
     // what's this?
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;
-        if (tag == "Hero")                      // what is this tag?
+
+        if (name == "WizardHero")                      // yes, object names can simply be retrieved like this
         {
             victim = enemy;
         }

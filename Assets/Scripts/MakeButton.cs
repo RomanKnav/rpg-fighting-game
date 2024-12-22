@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// where's this put on? on the melee, range, and run buttons in the ActionMenu:
 public class MakeButton : MonoBehaviour
 {
     [SerializeField]
@@ -13,7 +14,7 @@ public class MakeButton : MonoBehaviour
     {
         string temp = gameObject.name;
         gameObject.GetComponent<Button>().onClick.AddListener(() => AttachCallback(temp));
-        hero = GameObject.FindGameObjectWithTag("Hero");
+        hero = GameObject.Find("WizardHero");
     }
 
     private void AttachCallback(string btn)
