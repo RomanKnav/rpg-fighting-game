@@ -9,7 +9,7 @@ public class AttackScript : MonoBehaviour
     // what is owner? The gameObject using the prefab. 
     public GameObject owner;
 
-    public FighterStats ownerStats;
+    public FighterStatsScript ownerStats;
 
     [SerializeField]
     private string animationName;
@@ -32,8 +32,8 @@ public class AttackScript : MonoBehaviour
     [SerializeField]
     private float maxDefenseMultiplier;
 
-    private FighterStats attackerStats;
-    private FighterStats targetStats;
+    private FighterStatsScript attackerStats;
+    private FighterStatsScript targetStats;
     private float damage = 0.0f;
 
     // MY CRAP:
@@ -49,8 +49,8 @@ public class AttackScript : MonoBehaviour
     {
         victimAnimator = victim.GetComponent<Animator>();
 
-        attackerStats = owner.GetComponent<FighterStats>();
-        targetStats = victim.GetComponent<FighterStats>();
+        attackerStats = owner.GetComponent<FighterStatsScript>();
+        targetStats = victim.GetComponent<FighterStatsScript>();
 
         if (!targetStats.GetDead())
         {

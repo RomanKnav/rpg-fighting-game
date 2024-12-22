@@ -8,7 +8,7 @@ using System;
 
 // placed where? Individual characters
 // placed on INDIVIDUAL instances!
-public class FighterStats : MonoBehaviour, IComparable
+public class FighterStatsScript : MonoBehaviour, IComparable
 {
     [SerializeField]
     private Animator animator;          // how's this assigned?
@@ -150,7 +150,8 @@ public class FighterStats : MonoBehaviour, IComparable
 
     public int CompareTo(object otherStats)
     {
-        int nex = nextActTurn.CompareTo(((FighterStats)otherStats).nextActTurn);
+        // WTF IS THIS???
+        int nex = nextActTurn.CompareTo(((FighterStatsScript)otherStats).nextActTurn);
         return nex;
     }
 

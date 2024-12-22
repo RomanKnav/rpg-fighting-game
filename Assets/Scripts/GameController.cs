@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 {
     // a fucking list, not the script:
 
-    // what exactly is this?
+    // what exactly is this? SCRIPT!!!  
     private List<FighterStatsScript> fighterStatsScript = new List<FighterStatsScript>();
 
     private GameObject actionMenu;
@@ -74,7 +74,6 @@ public class GameController : MonoBehaviour
         fighterStatsScript.Add(currentEnemyStats);
 
         fighterStatsScript.Sort();
-        
         NextTurn();
     }
 
