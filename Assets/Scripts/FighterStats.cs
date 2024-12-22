@@ -52,11 +52,12 @@ public class FighterStats : MonoBehaviour, IComparable
     private GameObject GameControllerObj;
 
     // MY CRAP:
+    [Header("MY CRAP")]
     public Sprite thumbnail;
-    public GameObject ownerObject;
-    public bool actionReady;            // depends if its character's turn or not.
+    public bool actionReady = false;            // depends if its character's turn or not.
+    public bool gettingAttacked = false;        // true when character is victim
 
-    [Header("MY SHIT")]
+    public GameObject ownerObject;
     public float agility;
     public bool isFriendly;
     public Sprite deadSprite;
@@ -154,16 +155,20 @@ public class FighterStats : MonoBehaviour, IComparable
     }
 
     // need reference to the "enemyFace" object, where the display-sprite is:
+    // dont think it's best script to put func in?
+    // what script to use in?
     public void SetThumbnail()
     {
         ownerObject = this.gameObject;
 
-        //var GameObject faceObject = GameObject.Find("EnemyFace");
+        // the object to put the sprite on, not sprite itself:
+        GameObject oppFaceObject = GameObject.Find("EnemyFace");
 
-        // if (faceObject != null && actionReady == true)
-        // {
-        //     faceObject.GetComponent<Image>().sprite = thumbnail;
-        // }
+        // // if player is current victim/attacker:
+        if (oppFaceObject != null && (actionReady == true || gettingAttacked == true))
+        {
+
+            oppFaceObject.GetComponent<Image>().sprite = thumbnail;
+        }
     }
-
 }

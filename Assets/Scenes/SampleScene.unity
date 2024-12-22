@@ -1204,7 +1204,17 @@ MonoBehaviour:
   speed: 6
   experience: 0
   nextActTurn: 0
-  thumbnail: {fileID: 0}
+  thumbnail: {fileID: 4916917511840539703, guid: b55f9a2f4fed8b64a8f5fd2f8f9e3913,
+    type: 3}
+  actionReady: 0
+  gettingAttacked: 0
+  ownerObject: {fileID: 0}
+  agility: 0
+  isFriendly: 0
+  deadSprite: {fileID: -4235905826448174622, guid: 472f69452bc952147bce1fb0d6de5565,
+    type: 3}
+  currentSprite: {fileID: 0}
+  turnIsOver: 0
 --- !u!95 &709661707
 Animator:
   serializedVersion: 3
@@ -3201,6 +3211,15 @@ MonoBehaviour:
   experience: 0
   nextActTurn: 0
   thumbnail: {fileID: 21300000, guid: 02b4ff9617b9e48e69b60832bb39103c, type: 3}
+  actionReady: 0
+  gettingAttacked: 0
+  ownerObject: {fileID: 0}
+  agility: 0
+  isFriendly: 0
+  deadSprite: {fileID: -4235905826448174622, guid: 472f69452bc952147bce1fb0d6de5565,
+    type: 3}
+  currentSprite: {fileID: 0}
+  turnIsOver: 0
 --- !u!212 &1911854243
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3881,6 +3900,17 @@ PrefabInstance:
       propertyPath: magicFill
       value: 
       objectReference: {fileID: 527444512}
+    - target: {fileID: 8162613960989135267, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: melee
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162613960989135267, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: thumbnail
+      value: 
+      objectReference: {fileID: 21300000, guid: 230a03bb62924d6489368204bfa3eec0,
+        type: 3}
     - target: {fileID: 8162613960989135295, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_Name

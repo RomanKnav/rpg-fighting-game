@@ -13,8 +13,8 @@ public class GameController : MonoBehaviour
 {
     // a fucking list, not the script:
 
-    // private List<FighterStats> fighterStats;
-    private List<FighterStats> fighterStats = new List<FighterStats>();
+    // what exactly is this?
+    private List<FighterStatsScript> fighterStatsScript = new List<FighterStatsScript>();
 
     private GameObject actionMenu;
 
@@ -54,25 +54,26 @@ public class GameController : MonoBehaviour
 
         CreatePriorityList();
 
-        fighterStats = new List<FighterStats>();
+        // can I comment out?
+        // fighterStatsScript = new List<FighterStatsScript>();
 
         GameObject hero = GameObject.Find("WizardHero");
 
         // is not being set:
-        FighterStats currentHeroStats = hero.GetComponent<FighterStats>();
+        FighterStatsScript currentHeroStats = hero.GetComponent<FighterStatsScript>();
 
         // what is CalculateNextTurn()? takes integer argument.
         currentHeroStats.CalculateNextTurn(0);
-        fighterStats.Add(currentHeroStats);
+        fighterStatsScript.Add(currentHeroStats);
 
         // GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
         GameObject enemy = GameObject.Find("GiantEnemy");
 
-        FighterStats currentEnemyStats = enemy.GetComponent<FighterStats>();
+        FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
         currentEnemyStats.CalculateNextTurn(0);
-        fighterStats.Add(currentEnemyStats);
+        fighterStatsScript.Add(currentEnemyStats);
 
-        fighterStats.Sort();
+        fighterStatsScript.Sort();
         
         NextTurn();
     }
@@ -84,7 +85,7 @@ public class GameController : MonoBehaviour
 
             foreach(GameObject character in charactersList) {
 
-                var characterScript = character.GetComponent<FighterStats>();
+                var characterScript = character.GetComponent<FighterStatsScript>();
                 var currentAgility = characterScript.agility;
 
                 agilityPointsList.Add(currentAgility);
@@ -100,7 +101,7 @@ public class GameController : MonoBehaviour
                 
                 foreach(GameObject character in charactersList) {
                     
-                    var currentAgility = character.GetComponent<FighterStats>().agility;
+                    var currentAgility = character.GetComponent<FighterStatsScript>().agility;
 
                     if (currentAgility == highAgility) {
                         priorityList.Add(character);
@@ -118,14 +119,14 @@ public class GameController : MonoBehaviour
     public void NextTurn()
     {
         battleText.gameObject.SetActive(false);
-        FighterStats currentFighterStats = fighterStats[0];
-        fighterStats.Remove(currentFighterStats);
-        if (!currentFighterStats.GetDead())
+        FighterStatsScript currentFighterStatsScript = fighterStatsScript[0];
+        fighterStatsScript.Remove(currentFighterStatsScript);
+        if (!currentFighterStatsScript.GetDead())
         {
-            GameObject currentUnit = currentFighterStats.gameObject;
-            currentFighterStats.CalculateNextTurn(currentFighterStats.nextActTurn);
-            fighterStats.Add(currentFighterStats);
-            fighterStats.Sort();
+            GameObject currentUnit = currentFighterStatsScript.gameObject;
+            currentFighterStatsScript.CalculateNextTurn(currentFighterStatsScript.nextActTurn);
+            fighterStatsScript.Add(currentFighterStatsScript);
+            fighterStatsScript.Sort();
             if (currentUnit.name == "WizardHero")
             {
                 this.actionMenu.SetActive(true);
