@@ -2935,7 +2935,7 @@ PrefabInstance:
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.37
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
@@ -2992,6 +2992,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GiantEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394084809043202085, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.341406
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.499375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7845f560d50a24d6084afa3addee2fb5, type: 3}
@@ -3954,6 +3979,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: GiantEnemy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5394084809043202085, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.3414063
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.499375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7845f560d50a24d6084afa3addee2fb5, type: 3}
 --- !u!1 &2145378788
@@ -4115,6 +4165,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WizardHero
+      objectReference: {fileID: 0}
+    - target: {fileID: 5394084809043202085, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7845f560d50a24d6084afa3addee2fb5, type: 3}
