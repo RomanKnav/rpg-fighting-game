@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// what in here is responsible for the "clicking"?
+
 // where's this put on? on the melee, range, and run buttons in the ActionMenu:
 public class MakeButton : MonoBehaviour
 {
@@ -40,6 +42,15 @@ public class MakeButton : MonoBehaviour
     private void DisableActionMenu()
     {
         actionMenu.SetActive(false);
-        Debug.Log("Action menu disabled!");
+    }   
+
+    void OnMouseOver()
+    {
+        Debug.Log("Hovering over button!"); 
+    }
+
+    void OnMouseExit()
+    {
+        return;
     }
 }

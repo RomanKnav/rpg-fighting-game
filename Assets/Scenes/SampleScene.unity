@@ -320,6 +320,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357809654}
   m_CullTransparentMesh: 0
+--- !u!1 &390243743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8162613960989135295, guid: 7845f560d50a24d6084afa3addee2fb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8162613960231896496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &390243744
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390243743}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10572782, y: 0.040277213}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.61, y: 1.06}
+    newSize: {x: 1.61, y: 1.06}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7541104, y: 0.9794455}
+  m_EdgeRadius: 0
 --- !u!1 &406634516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1123,7 @@ GameObject:
   - component: {fileID: 709661706}
   - component: {fileID: 709661705}
   - component: {fileID: 709661707}
+  - component: {fileID: 709661708}
   m_Layer: 0
   m_Name: GiantEnemy
   m_TagString: Enemy
@@ -1204,10 +1237,9 @@ MonoBehaviour:
   speed: 6
   experience: 0
   nextActTurn: 0
-  thumbnail: {fileID: 4916917511840539703, guid: b55f9a2f4fed8b64a8f5fd2f8f9e3913,
-    type: 3}
+  thumbnail: {fileID: 21300000, guid: f08d1ed5cf9d642dba46c6391e6a36d2, type: 3}
   actionReady: 0
-  gettingAttacked: 0
+  victim: 0
   ownerObject: {fileID: 0}
   agility: 0
   isFriendly: 0
@@ -1234,6 +1266,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &709661708
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709661702}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.46295106, y: -0.751009}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.85, y: 3.1807616}
+    newSize: {x: 3.85, y: 3.1807616}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.9240978, y: 1.6787436}
+  m_EdgeRadius: 0
 --- !u!1 &719233328
 GameObject:
   m_ObjectHideFlags: 0
@@ -3145,6 +3203,7 @@ GameObject:
   - component: {fileID: 1911854242}
   - component: {fileID: 1911854241}
   - component: {fileID: 1911854240}
+  - component: {fileID: 1911854245}
   m_Layer: 0
   m_Name: GiantEnemy 2
   m_TagString: Enemy
@@ -3212,7 +3271,7 @@ MonoBehaviour:
   nextActTurn: 0
   thumbnail: {fileID: 21300000, guid: 02b4ff9617b9e48e69b60832bb39103c, type: 3}
   actionReady: 0
-  gettingAttacked: 0
+  victim: 0
   ownerObject: {fileID: 0}
   agility: 0
   isFriendly: 0
@@ -3287,6 +3346,32 @@ Transform:
   m_Father: {fileID: 1212200642}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1911854245
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911854239}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.3497851, y: -0.8538866}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.85, y: 3.1807616}
+    newSize: {x: 3.85, y: 3.1807616}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.6566153, y: 1.4729884}
+  m_EdgeRadius: 0
 --- !u!1 &2000693999
 GameObject:
   m_ObjectHideFlags: 0

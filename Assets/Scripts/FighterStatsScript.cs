@@ -166,8 +166,19 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         // // if player is current victim/attacker:
         if (oppFaceObject != null && (actionReady == true || victim == true))
         {
-
+            Debug.Log("ENEMY THUMBNAIL FOUND!");
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;
         }
     }
+
+    void OnMouseOver()
+    {
+        Debug.Log("Hovering over character!"); 
+    }
+
+    void OnMouseExit()
+    {
+        return;
+    }
+
 }
