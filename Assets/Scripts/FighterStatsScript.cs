@@ -85,8 +85,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     }
 
     void Start() {
-        Debug.Log("FUCK!");
-
         if (currentSprite != null) {
             Debug.Log("current sprite found!");
         }

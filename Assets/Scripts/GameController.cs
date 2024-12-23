@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     public Text battleText;
 
     // MY CRAP:
+    [Header("MY CRAP:")]
     private GameObject friendliesParent;
     private GameObject enemiesParent;
 
@@ -128,11 +129,21 @@ public class GameController : MonoBehaviour
             fighterStatsScript.Sort();
             if (currentUnit.name == "WizardHero")
             {
-                this.actionMenu.SetActive(true);
+                currentFighterStatsScript.turnIsOver = false;
+                currentFighterStatsScript.actionReady = true;
 
-            } else
+                this.actionMenu.SetActive(true);
+            }
+            
+            // if player is not current unit:
+            else
             {
+                currentFighterStatsScript.turnIsOver = false;
+                currentFighterStatsScript.actionReady = true;
+
                 this.actionMenu.SetActive(false);
+
+                // what is this? select random attack for enemy
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
                 currentUnit.GetComponent<FighterAction>().SelectAttack(attackType);
             }

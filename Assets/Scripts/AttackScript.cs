@@ -50,13 +50,16 @@ public class AttackScript : MonoBehaviour
     {
         victimAnimator = victim.GetComponent<Animator>();
 
+        // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
+
+        // stats of the one BEING attacked:
         targetStats = victim.GetComponent<FighterStatsScript>();
 
         if (!targetStats.GetDead())
         {
             // does melee use magic? NOPE
-            if (attackerStats.magic >= magicCost)
+            if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
             {
                 float multiplier = Random.Range(minAttackMultiplier, maxAttackMultiplier);
 
@@ -89,6 +92,7 @@ public class AttackScript : MonoBehaviour
         } else {
             // ownerAnimator.enabled = false;
             // return;
+            Debug.Log($"{owner.name} is dead!!!");
         }
     }
 
