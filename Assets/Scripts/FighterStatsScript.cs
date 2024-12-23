@@ -164,7 +164,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
 
         // // if player is current victim/attacker:
-        // if (oppFaceObject != null && (actionReady == true || victim == true))
         if (oppFaceObject != null)
         {
             Debug.Log("ENEMY THUMBNAIL FOUND!");
