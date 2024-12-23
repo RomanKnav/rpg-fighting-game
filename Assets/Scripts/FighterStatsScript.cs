@@ -56,7 +56,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public Sprite thumbnail;
     public bool actionReady = false;   // depends if its character's turn or not.
     public bool victim = false;        // true when character is victim
-
     public GameObject ownerObject;
     public float agility;
     public bool isFriendly;
@@ -158,13 +157,15 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     // what script to use in?
     public void SetThumbnail()
     {
+        Debug.Log(thumbnail.name);
         ownerObject = this.gameObject;
 
         // the object to put the sprite on, not sprite itself:
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
 
         // // if player is current victim/attacker:
-        if (oppFaceObject != null && (actionReady == true || victim == true))
+        // if (oppFaceObject != null && (actionReady == true || victim == true))
+        if (oppFaceObject != null)
         {
             Debug.Log("ENEMY THUMBNAIL FOUND!");
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;
@@ -174,6 +175,11 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     void OnMouseOver()
     {
         Debug.Log("Hovering over character!"); 
+
+        if (!isFriendly) 
+        {
+            SetThumbnail();
+        }
     }
 
     void OnMouseExit()
