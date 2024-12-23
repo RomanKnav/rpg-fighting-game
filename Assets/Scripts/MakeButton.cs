@@ -10,11 +10,15 @@ public class MakeButton : MonoBehaviour
     private bool physical;
 
     private GameObject hero;
+
+    private GameObject actionMenu;
     void Start()
     {
         string temp = gameObject.name;
         gameObject.GetComponent<Button>().onClick.AddListener(() => AttachCallback(temp));
+
         hero = GameObject.Find("WizardHero");
+        actionMenu = GameObject.Find("ActionMenu");
     }
 
     private void AttachCallback(string btn)
@@ -29,5 +33,13 @@ public class MakeButton : MonoBehaviour
         {
             hero.GetComponent<FighterAction>().SelectAttack("run");
         }
+
+        DisableActionMenu();
+    }
+
+    private void DisableActionMenu()
+    {
+        actionMenu.SetActive(false);
+        Debug.Log("Action menu disabled!");
     }
 }
