@@ -36,7 +36,9 @@ public class GameController : MonoBehaviour
     // I might need to import this in FighterStatsScript:
     public bool aCharacterIsSelected;   
     public string nextPlayerAction;
-    public Transform selectedCharacter;        // actual object of the selected character (there should be a default)
+
+    // this'll need to be exported elsewhere:
+    public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
 
     private void Awake()
     {
@@ -67,8 +69,6 @@ public class GameController : MonoBehaviour
         currentHeroStats.CalculateNextTurn(0);
         fighterStatsScript.Add(currentHeroStats);
 
-        // GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
-
         // make this stupid shit global:
         GameObject enemy = GameObject.Find("GiantEnemy");
         FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour
 
 
         if (enemiesParent.transform.childCount > 0) {
-            selectedCharacter = enemiesParent.transform.GetChild(0);
+            selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
             Debug.Log($"default character selected! {selectedCharacter.name}");
         }
         

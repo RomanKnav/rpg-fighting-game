@@ -183,7 +183,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     // what script to use in?
     public void SetThumbnail()
     {
-        Debug.Log(thumbnail.name);
         ownerObject = this.gameObject;
 
         // the object to put the sprite on, not sprite itself:

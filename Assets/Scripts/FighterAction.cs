@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class FighterAction : MonoBehaviour
 {
     private GameObject hero;
+
     private GameObject enemy;
 
     [SerializeField]
@@ -20,12 +21,26 @@ public class FighterAction : MonoBehaviour
     private Sprite faceIcon;
 
     private GameObject currentAttack;
+
+    // a SCRIPT:
+    private GameController gameControllerScript;
     
     // serious rehauling needed:
     void Awake()
     {
+        gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
+
         hero = GameObject.Find("WizardHero");
-        enemy = GameObject.Find("GiantEnemy");
+        // enemy = GameObject.Find("GiantEnemy");
+
+        // remember, selectedCharacter is the first child in "Enemies" parent:
+
+        if (gameControllerScript.selectedCharacter != null) {
+            enemy = gameControllerScript.selectedCharacter;
+            Debug.Log("Default character READY TO KILL");
+        } else {
+            Debug.Log("Default character not found!");
+        }
     }
 
     public void SelectAttack(string btn)
