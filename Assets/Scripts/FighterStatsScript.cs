@@ -49,7 +49,10 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     private float xNewHealthScale;
     private float xNewMagicScale;
 
-    private GameObject GameControllerObj;
+    private GameObject gameControllerObj;       // need to get "aCharacterIsSelected" property from this
+
+    // this is supposed to be a script:
+    private GameController gameControllerScript;
 
     // MY CRAP:
     [Header("MY CRAP")]
@@ -78,7 +81,11 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         startHealth = health;
         startMagic = magic;
 
-        GameControllerObj = GameObject.Find("GameControllerObject");
+        gameControllerObj = GameObject.Find("GameControllerObject");
+
+        if (gameControllerObj != null) {
+          gameControllerScript = gameControllerObj.GetComponent<GameController>();
+        }
 
         // MY SHIT:
         // this sprite is CONSTANTLY changing due to animations:
@@ -131,10 +138,13 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             xNewHealthScale = healthScale.x * (health / startHealth);
             healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
         }
-        if(damage > 0)
+        if (damage > 0)
         {
-            GameControllerObj.GetComponent<GameController>().battleText.gameObject.SetActive(true);
-            GameControllerObj.GetComponent<GameController>().battleText.text = damage.ToString();
+            // reference to the script on GameController:
+            // gameControllerObj.GetComponent<GameController>().battleText.gameObject.SetActive(true);
+            // gameControllerObj.GetComponent<GameController>().battleText.text = damage.ToString();
+            gameControllerScript.battleText.gameObject.SetActive(true);
+            gameControllerScript.battleText.text = damage.ToString();
         }
         Invoke("ContinueGame", 2);
     }
