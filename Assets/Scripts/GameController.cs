@@ -35,6 +35,8 @@ public class GameController : MonoBehaviour
     // prevent multiple characters from being selected
     // I might need to import this in FighterStatsScript:
     public bool aCharacterIsSelected;   
+    public string nextPlayerAction;
+    public Transform selectedCharacter;        // actual object of the selected character (there should be a default)
 
     private void Awake()
     {
@@ -75,6 +77,14 @@ public class GameController : MonoBehaviour
         fighterStatsScript.Add(currentEnemyStats);
 
         fighterStatsScript.Sort();
+
+
+        if (enemiesParent.transform.childCount > 0) {
+            selectedCharacter = enemiesParent.transform.GetChild(0);
+            Debug.Log($"default character selected! {selectedCharacter.name}");
+        }
+        
+
         NextTurn();
     }
 

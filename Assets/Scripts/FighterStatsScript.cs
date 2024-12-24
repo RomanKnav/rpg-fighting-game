@@ -140,9 +140,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         }
         if (damage > 0)
         {
-            // reference to the script on GameController:
-            // gameControllerObj.GetComponent<GameController>().battleText.gameObject.SetActive(true);
-            // gameControllerObj.GetComponent<GameController>().battleText.text = damage.ToString();
             gameControllerScript.battleText.gameObject.SetActive(true);
             gameControllerScript.battleText.text = damage.ToString();
         }

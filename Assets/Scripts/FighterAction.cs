@@ -28,14 +28,14 @@ public class FighterAction : MonoBehaviour
         enemy = GameObject.Find("GiantEnemy");
     }
 
-    // where's this used?
-    // what's this?
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;
 
         if (name == "WizardHero")                      // yes, object names can simply be retrieved like this
         {
+
+            // this to NOT be immediately determined:
             victim = enemy;
         }
         if (btn.CompareTo("melee") == 0)
@@ -45,29 +45,26 @@ public class FighterAction : MonoBehaviour
         } else if (btn.CompareTo("range") == 0)
         {
             rangePrefab.GetComponent<AttackScript>().Attack(victim);
-        } else
-        {
-            Debug.Log("Run");
         }
     }
 
     // SHORTEN THIS CRAP:
-    public void SetActiveCharacter() {
-        if (name == "WizardHero")
-        {
-            hero.GetComponent<FighterStatsScript>().actionReady = true;
-            hero.GetComponent<FighterStatsScript>().victim = true;
+    // public void SetActiveCharacter() {
+    //     if (name == "WizardHero")
+    //     {
+    //         hero.GetComponent<FighterStatsScript>().actionReady = true;
+    //         hero.GetComponent<FighterStatsScript>().victim = true;
 
-            enemy.GetComponent<FighterStatsScript>().actionReady = false;
-            enemy.GetComponent<FighterStatsScript>().victim = false;
-        }
-        else if (name == "GiantEnemy")
-        {
-            enemy.GetComponent<FighterStatsScript>().actionReady = true;
-            enemy.GetComponent<FighterStatsScript>().victim = true; 
+    //         enemy.GetComponent<FighterStatsScript>().actionReady = false;
+    //         enemy.GetComponent<FighterStatsScript>().victim = false;
+    //     }
+    //     else if (name == "GiantEnemy")
+    //     {
+    //         enemy.GetComponent<FighterStatsScript>().actionReady = true;
+    //         enemy.GetComponent<FighterStatsScript>().victim = true; 
 
-            hero.GetComponent<FighterStatsScript>().actionReady = false;
-            hero.GetComponent<FighterStatsScript>().victim = false;           
-        }
-    }
+    //         hero.GetComponent<FighterStatsScript>().actionReady = false;
+    //         hero.GetComponent<FighterStatsScript>().victim = false;           
+    //     }
+    // }
 }
