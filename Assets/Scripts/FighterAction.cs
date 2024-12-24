@@ -57,11 +57,17 @@ public class FighterAction : MonoBehaviour
         {
             hero.GetComponent<FighterStatsScript>().actionReady = true;
             hero.GetComponent<FighterStatsScript>().victim = true;
+
+            enemy.GetComponent<FighterStatsScript>().actionReady = false;
+            enemy.GetComponent<FighterStatsScript>().victim = false;
         }
         else if (name == "GiantEnemy")
         {
             enemy.GetComponent<FighterStatsScript>().actionReady = true;
-            enemy.GetComponent<FighterStatsScript>().victim = true;            
+            enemy.GetComponent<FighterStatsScript>().victim = true; 
+
+            hero.GetComponent<FighterStatsScript>().actionReady = false;
+            hero.GetComponent<FighterStatsScript>().victim = false;           
         }
     }
 }

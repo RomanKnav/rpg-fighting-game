@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Dead
   - Character
+  - Circle Outline
   layers:
   - Default
   - TransparentFX

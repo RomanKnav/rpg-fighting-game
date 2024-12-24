@@ -68,6 +68,8 @@ public class GameController : MonoBehaviour
         fighterStatsScript.Add(currentHeroStats);
 
         // GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
+
+        // make this stupid shit global:
         GameObject enemy = GameObject.Find("GiantEnemy");
 
         FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();

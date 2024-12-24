@@ -11,7 +11,7 @@ using System;
 public class FighterStatsScript : MonoBehaviour, IComparable
 {
     [SerializeField]
-    private Animator animator;          // how's this assigned?
+    private Animator animator;          // how's this assigned? manually
 
     [SerializeField]
     private GameObject healthFill;
@@ -62,6 +62,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public Sprite deadSprite;
     public Sprite currentSprite; 
     public bool turnIsOver;
+    public Transform circleOutline;
 
     void Awake()
     {
@@ -81,11 +82,24 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         currentSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
 
         animator = gameObject.GetComponent<Animator>();
+
+        // I've got MULTIPLE of these, so I shouldn't use tags:
+        circleOutline = transform.GetChild(2);
     }
 
     void Start() {
         if (currentSprite != null) {
             Debug.Log("current sprite found!");
+        }
+    }
+
+    // actionReady set in GameController:
+    void Update() {
+        if (actionReady) {
+            this.circleOutline.gameObject.SetActive(true);
+        } 
+        else {
+            this.circleOutline.gameObject.SetActive(false);
         }
     }
 
