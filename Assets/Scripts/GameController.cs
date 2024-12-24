@@ -33,6 +33,9 @@ public class GameController : MonoBehaviour
     private List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
     private List<float> agilityPointsList = new List<float>();
 
+    private FighterStatsScript EnemyScript;
+    private FighterStatsScript HeroScript;
+
     private void Awake()
     {
         actionMenu = GameObject.Find("ActionMenu");
@@ -42,11 +45,18 @@ public class GameController : MonoBehaviour
         enemiesParent = GameObject.Find("Enemies");
 
         charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
+
+        // Script getting crap:
+        HeroScript = GameObject.Find("WizardHero").GetComponent<FighterStatsScript>();
+        EnemyScript = GameObject.Find("GiantEnemy").GetComponent<FighterStatsScript>();
     }
 
     // runs only ONCE:
     void Start()
     {
+        if (HeroScript != null && EnemyScript != null) {
+            Debug.Log("hero and enemy scripts found!");         // success
+        }
         // MY CRAP:
         if (friendliesParent != null && enemiesParent != null)
         {
@@ -71,8 +81,8 @@ public class GameController : MonoBehaviour
 
         // make this stupid shit global:
         GameObject enemy = GameObject.Find("GiantEnemy");
-
         FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
+        
         currentEnemyStats.CalculateNextTurn(0);
         fighterStatsScript.Add(currentEnemyStats);
 
@@ -82,7 +92,6 @@ public class GameController : MonoBehaviour
 
     public void CreatePriorityList() {
         if (charactersList.Count > 0) {
-            Debug.Log("charactersList is filled!");
             Debug.Log($"Inside charactersList: {charactersList.Count}");                // successfully returns 3
 
             foreach(GameObject character in charactersList) {
@@ -132,7 +141,9 @@ public class GameController : MonoBehaviour
             if (currentUnit.name == "WizardHero")
             {
                 currentFighterStatsScript.turnIsOver = false;
-                currentFighterStatsScript.actionReady = true;
+                // currentFighterStatsScript.actionReady = true;
+                HeroScript.drawCircle = true;
+                EnemyScript.drawCircle = false;
 
                 this.actionMenu.SetActive(true);
             }
@@ -141,7 +152,9 @@ public class GameController : MonoBehaviour
             else
             {
                 currentFighterStatsScript.turnIsOver = false;
-                currentFighterStatsScript.actionReady = true;
+                // currentFighterStatsScript.actionReady = true;
+                HeroScript.drawCircle = false;
+                EnemyScript.drawCircle = true;
 
                 this.actionMenu.SetActive(false);
 

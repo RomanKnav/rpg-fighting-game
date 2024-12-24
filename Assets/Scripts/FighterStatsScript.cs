@@ -63,6 +63,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public Sprite currentSprite; 
     public bool turnIsOver;
     public Transform circleOutline;
+    public bool drawCircle;
 
     void Awake()
     {
@@ -95,7 +96,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     // actionReady set in GameController:
     void Update() {
-        if (actionReady) {
+        if (drawCircle) {
             this.circleOutline.gameObject.SetActive(true);
         } 
         else {
