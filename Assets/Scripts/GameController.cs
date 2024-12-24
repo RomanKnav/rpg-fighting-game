@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
 
     // prevent multiple characters from being selected
     // I might need to import this in FighterStatsScript:
-    private bool aCharacterIsSelected;   
+    public bool aCharacterIsSelected;   
 
     private void Awake()
     {

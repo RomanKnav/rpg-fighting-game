@@ -195,19 +195,20 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         // // if player is current victim/attacker:
         if (oppFaceObject != null)
         {
-            // FUCK
-            Debug.Log("ENEMY THUMBNAIL FOUND!");
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;
         }
     }
 
     void OnMouseOver()
     {
-        this.highlightCursor.gameObject.SetActive(true);
-
-        if (!isFriendly) 
+        if (gameControllerScript.aCharacterIsSelected == false)
         {
-            SetThumbnail();
+            this.highlightCursor.gameObject.SetActive(true);
+
+            if (!isFriendly) 
+            {
+                SetThumbnail();
+            }
         }
     }
 
@@ -221,7 +222,11 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseDown()
     {
-        selected = true;
+        if (gameControllerScript.aCharacterIsSelected == false)
+        {
+            selected = true;
+            gameControllerScript.aCharacterIsSelected = true;
+        } 
     }
 
 }
