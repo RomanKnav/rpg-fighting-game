@@ -25,16 +25,16 @@ public class GameController : MonoBehaviour
     private GameObject friendliesParent;
     private GameObject enemiesParent;
 
-    // is this a list or array? ARRAY:
-    // private GameObject[] charactersList;
-    // private GameObject[] priorityList;      // new, SORTED list of characters with correct priority.
-
     private List<GameObject> charactersList;
     private List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
     private List<float> agilityPointsList = new List<float>();
 
     private FighterStatsScript EnemyScript;
     private FighterStatsScript HeroScript;
+
+    // prevent multiple characters from being selected
+    // I might need to import this in FighterStatsScript:
+    private bool aCharacterSelected;   
 
     private void Awake()
     {
@@ -54,19 +54,7 @@ public class GameController : MonoBehaviour
     // runs only ONCE:
     void Start()
     {
-        if (HeroScript != null && EnemyScript != null) {
-            Debug.Log("hero and enemy scripts found!");         // success
-        }
-        // MY CRAP:
-        if (friendliesParent != null && enemiesParent != null)
-        {
-            Debug.Log("character parent objects found");
-        }
-
         CreatePriorityList();
-
-        // can I comment out?
-        // fighterStatsScript = new List<FighterStatsScript>();
 
         GameObject hero = GameObject.Find("WizardHero");
 
@@ -141,7 +129,8 @@ public class GameController : MonoBehaviour
             if (currentUnit.name == "WizardHero")
             {
                 currentFighterStatsScript.turnIsOver = false;
-                // currentFighterStatsScript.actionReady = true;
+
+                // enable/disable respective circles:
                 HeroScript.drawCircle = true;
                 EnemyScript.drawCircle = false;
 
@@ -152,7 +141,6 @@ public class GameController : MonoBehaviour
             else
             {
                 currentFighterStatsScript.turnIsOver = false;
-                // currentFighterStatsScript.actionReady = true;
                 HeroScript.drawCircle = false;
                 EnemyScript.drawCircle = true;
 

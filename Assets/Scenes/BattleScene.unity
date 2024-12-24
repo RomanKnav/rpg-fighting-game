@@ -1216,6 +1216,7 @@ MonoBehaviour:
   currentSprite: {fileID: 0}
   turnIsOver: 0
   circleOutline: {fileID: 0}
+  drawCircle: 0
 --- !u!95 &709661707
 Animator:
   serializedVersion: 3
@@ -3019,10 +3020,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: GiantEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3916839175798799318, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5394084809043202085, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089169661634797517, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089169661634797517, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.18
       objectReference: {fileID: 0}
     - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
@@ -3336,6 +3352,7 @@ MonoBehaviour:
   currentSprite: {fileID: 0}
   turnIsOver: 0
   circleOutline: {fileID: 0}
+  drawCircle: 0
 --- !u!212 &1911854243
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4031,10 +4048,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: GiantEnemy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3916839175798799318, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5394084809043202085, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089169661634797517, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089169661634797517, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.13
       objectReference: {fileID: 0}
     - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}

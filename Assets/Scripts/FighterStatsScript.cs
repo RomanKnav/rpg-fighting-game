@@ -64,6 +64,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public bool turnIsOver;
     public Transform circleOutline;
     public bool drawCircle;
+    private Transform highlightCursor;
+    private bool selected;
 
     void Awake()
     {
@@ -86,6 +88,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
         // I've got MULTIPLE of these, so I shouldn't use tags:
         circleOutline = transform.GetChild(2);
+
+        highlightCursor = transform.GetChild(5);
     }
 
     void Start() {
@@ -189,7 +193,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseOver()
     {
-        Debug.Log("Hovering over character!"); 
+        this.highlightCursor.gameObject.SetActive(true);
 
         if (!isFriendly) 
         {
@@ -199,7 +203,15 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseExit()
     {
-        return;
+        if (!selected)
+        {
+            this.highlightCursor.gameObject.SetActive(false);
+        }
+    }
+
+    void OnMouseDown()
+    {
+        selected = true;
     }
 
 }
