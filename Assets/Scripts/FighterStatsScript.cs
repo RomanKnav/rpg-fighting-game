@@ -180,6 +180,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         // // if player is current victim/attacker:
         if (oppFaceObject != null)
         {
+            // FUCK
             Debug.Log("ENEMY THUMBNAIL FOUND!");
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;
         }
