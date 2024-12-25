@@ -14,6 +14,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     private Animator animator;          // how's this assigned? manually
 
     [SerializeField]
+
+    // change this when new character selected:
     private GameObject healthFill;      // and this? manually (magicFill too)
 
     [SerializeField]
@@ -241,6 +243,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             gameControllerScript.selectedCharacter = ownerObject;
 
             playerActionScript.enemy = ownerObject;
+
+            // healthFill = transform.GetChild(6).gameObject;
 
             Debug.Log($"new character selected: {gameControllerScript.selectedCharacter}");
         } 
