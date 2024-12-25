@@ -118,6 +118,12 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         else {
             this.circleOutline.gameObject.SetActive(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
+            selected = false;
+            this.highlightCursor.gameObject.SetActive(false);
+            gameControllerScript.aCharacterIsSelected = false;
+        }
     }
 
     // this is for the VICTIM:
