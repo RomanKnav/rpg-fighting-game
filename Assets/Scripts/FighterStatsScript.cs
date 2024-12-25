@@ -14,7 +14,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     private Animator animator;          // how's this assigned? manually
 
     [SerializeField]
-    private GameObject healthFill;
+    private GameObject healthFill;      // and this? manually (magicFill too)
 
     [SerializeField]
     private GameObject magicFill;
@@ -139,14 +139,14 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             dead = true;
             gameObject.tag = "Dead";
             Destroy(healthFill);
-            // Destroy(gameObject);
 
             animator.enabled = false;
-            // currentSprite = deadSprite;
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
         } else if (damage > 0)
         {
             xNewHealthScale = healthScale.x * (health / startHealth);
+
+            // x size changes based on the health:
             healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
         }
         if (damage > 0)
@@ -195,7 +195,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         // the object to put the sprite on, not sprite itself:
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
 
-        // // if player is current victim/attacker:
+        // if player is current victim/attacker:
         if (oppFaceObject != null)
         {
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;

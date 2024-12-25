@@ -515,7 +515,8 @@ MonoBehaviour:
   battleText: {fileID: 813753879}
   aCharacterIsSelected: 0
   nextPlayerAction: 
-  selectedCharacter: 
+  playerActionScript: {fileID: 0}
+  selectedCharacter: {fileID: 0}
 --- !u!4 &421185457
 Transform:
   m_ObjectHideFlags: 0
