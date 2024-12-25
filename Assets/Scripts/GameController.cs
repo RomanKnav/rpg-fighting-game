@@ -62,6 +62,7 @@ public class GameController : MonoBehaviour
 
         if (EnemyScript != null) {
             EnemyScript.SetEnemyThumbnail();
+            EnemyScript.highlightCursor.gameObject.SetActive(true);
         }
         else {
             Debug.Log("Fuck! EnemyScript not found!");

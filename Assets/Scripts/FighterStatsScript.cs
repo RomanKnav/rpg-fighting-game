@@ -66,8 +66,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public bool turnIsOver;
     public Transform circleOutline;
     public bool drawCircle;
-    private Transform highlightCursor;
-    private bool selected;
+    public Transform highlightCursor;
+    public bool selected;
 
     void Awake()
     {
@@ -190,11 +190,18 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         }
     }
 
+    public void CursorHandler()
+    {
+        return;
+    }
+
     // show thumbnail when hovering over enemy:
     void OnMouseOver()
     {
+        // if another character isn't already selected:
         if (gameControllerScript.aCharacterIsSelected == false)
         {
+            selected = false;
             this.highlightCursor.gameObject.SetActive(true);
 
             if (!isFriendly) 
