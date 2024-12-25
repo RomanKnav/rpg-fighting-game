@@ -68,9 +68,12 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public bool drawCircle;
     public Transform highlightCursor;
     public bool selected;
+    public GameObject ownerObject;
 
     void Awake()
     {
+        ownerObject = this.gameObject;
+
         healthTransform = healthFill.GetComponent<RectTransform>();
         healthScale = healthFill.transform.localScale;
 
@@ -198,6 +201,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     // show thumbnail when hovering over enemy:
     void OnMouseOver()
     {
+        Debug.Log("Hovering over enemy!");
         // if another character isn't already selected:
         if (gameControllerScript.aCharacterIsSelected == false)
         {
@@ -225,7 +229,10 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         {
             selected = true;
             gameControllerScript.aCharacterIsSelected = true;
+            gameControllerScript.selectedCharacter = ownerObject;
+
+
+            Debug.Log($"new character selected: {gameControllerScript.selectedCharacter}");
         } 
     }
-
 }

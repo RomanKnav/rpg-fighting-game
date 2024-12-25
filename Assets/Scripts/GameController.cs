@@ -37,22 +37,37 @@ public class GameController : MonoBehaviour
     public bool aCharacterIsSelected;   
     public string nextPlayerAction;
 
+    public FighterAction playerActionScript;
+
     // this'll need to be exported elsewhere:
+    // so far, only used to set default character:
     public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
 
     private void Awake()
     {
+        playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
+
         actionMenu = GameObject.Find("ActionMenu");
 
         // seems unecessary to include this on EVERY character:
         friendliesParent = GameObject.Find("Friendlies");           // success
         enemiesParent = GameObject.Find("Enemies");
 
+        if (enemiesParent.transform.childCount > 0) {
+            selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
+            Debug.Log($"default character selected! {selectedCharacter.name}");
+        }
+
+        if (playerActionScript != null) {
+            playerActionScript.enemy = selectedCharacter;   // THIS IS NULL BY DEFAULT
+        }
+
         charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
 
         // Script getting crap:
         HeroScript = GameObject.Find("WizardHero").GetComponent<FighterStatsScript>();
-        EnemyScript = GameObject.Find("GiantEnemy").GetComponent<FighterStatsScript>();
+        // EnemyScript = GameObject.Find("GiantEnemy").GetComponent<FighterStatsScript>();
+        EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
     }
 
     // runs only ONCE:
@@ -63,9 +78,6 @@ public class GameController : MonoBehaviour
         if (EnemyScript != null) {
             EnemyScript.SetEnemyThumbnail();
             EnemyScript.highlightCursor.gameObject.SetActive(true);
-        }
-        else {
-            Debug.Log("Fuck! EnemyScript not found!");
         }
 
         GameObject hero = GameObject.Find("WizardHero");
@@ -78,19 +90,14 @@ public class GameController : MonoBehaviour
         fighterStatsScript.Add(currentHeroStats);
 
         // make this stupid shit global:
-        GameObject enemy = GameObject.Find("GiantEnemy");
+        // GameObject enemy = GameObject.Find("GiantEnemy");
+        GameObject enemy = selectedCharacter;
         FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
         
         currentEnemyStats.CalculateNextTurn(0);
         fighterStatsScript.Add(currentEnemyStats);
 
         fighterStatsScript.Sort();
-
-        if (enemiesParent.transform.childCount > 0) {
-            selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
-            Debug.Log($"default character selected! {selectedCharacter.name}");
-        }
-        
 
         NextTurn();
     }
