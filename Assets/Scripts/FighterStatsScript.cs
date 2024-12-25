@@ -69,10 +69,13 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public Transform highlightCursor;
     public bool selected;
     public GameObject ownerObject;
+    public FighterAction playerActionScript;
 
     void Awake()
     {
         ownerObject = this.gameObject;
+
+        playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
 
         healthTransform = healthFill.GetComponent<RectTransform>();
         healthScale = healthFill.transform.localScale;
@@ -231,6 +234,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             gameControllerScript.aCharacterIsSelected = true;
             gameControllerScript.selectedCharacter = ownerObject;
 
+            playerActionScript.enemy = ownerObject;
 
             Debug.Log($"new character selected: {gameControllerScript.selectedCharacter}");
         } 
