@@ -16,13 +16,13 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     [SerializeField]
 
     // change this when new character selected:
-    private GameObject healthFill;      // and this? manually (magicFill too)
+    private GameObject healthFill;      // and this? assigned manually, initially. found in the character's children.
 
     [SerializeField]
     private GameObject magicFill;
 
     [Header("Stats")]
-    public float health;
+    public float health;            // what's this?     a manually entered NUMBER
     public float magic;
 
     public float melee;
@@ -58,10 +58,10 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     // MY CRAP:
     [Header("MY CRAP")]
-    public Sprite thumbnail;
+    public Sprite thumbnail;           // each character has their own thumbnail assigned manually
     public bool actionReady = false;   // depends if its character's turn or not.
     public bool victim = false;        // true when character is victim
-    public float agility;
+    public float agility;               
     public bool isFriendly;
     public Sprite deadSprite;
     public Sprite currentSprite; 
@@ -76,6 +76,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     void Awake()
     {
         ownerObject = this.gameObject;
+
+        // healthFill = transform.GetChild(6).gameObject;
 
         playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
 
@@ -149,7 +151,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             xNewHealthScale = healthScale.x * (health / startHealth);
 
             // x size changes based on the health:
-            healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
+                healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
         }
         if (damage > 0)
         {
@@ -204,6 +206,21 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         }
     }
 
+    public void SetEnemyHealth()
+    {
+        // GameObject oppHealthBar = transform.GetChild(6).GetComponent<Image>().sprite;
+        // GameObject oppHealthBar = transform.GetChild(6).gameObject;
+        Sprite oppHealthBar = transform.GetChild(6).GetComponent<Image>().sprite;
+
+        GameObject oppMenuHealthDisplay = GameObject.Find("EnemyHealthFill");
+
+        if (oppHealthBar != null && oppMenuHealthDisplay != null) 
+        {
+            oppMenuHealthDisplay.GetComponent<Image>().sprite = oppHealthBar;
+            // oppMenuHealthDisplay = oppHealthBar;
+        }
+    }
+
     public void CursorHandler()
     {
         return;
@@ -214,6 +231,13 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     {
         Debug.Log("Hovering over enemy!");
         // if another character isn't already selected:
+
+        // healthFill = transform.GetChild(6).gameObject;
+        // healthTransform = healthFill.GetComponent<RectTransform>();
+        // healthScale = healthFill.transform.localScale;
+
+        // Debug.Log($"new health: {xNewHealthScale}");
+
         if (gameControllerScript.aCharacterIsSelected == false)
         {
             selected = false;
@@ -222,6 +246,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             if (!isFriendly) 
             {
                 SetEnemyThumbnail();
+                SetEnemyHealth();
             }
         }
     }

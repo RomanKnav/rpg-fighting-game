@@ -55,7 +55,6 @@ public class GameController : MonoBehaviour
 
         if (enemiesParent.transform.childCount > 0) {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
-            Debug.Log($"default character selected! {selectedCharacter.name}");
         }
 
         if (playerActionScript != null) {

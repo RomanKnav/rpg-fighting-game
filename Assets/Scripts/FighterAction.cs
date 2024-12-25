@@ -43,10 +43,6 @@ public class FighterAction : MonoBehaviour
         }
     }
 
-    void Start() {
-        Debug.Log($"default enemy: {enemy}");
-    }
-
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;
