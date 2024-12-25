@@ -31,7 +31,7 @@ public class FighterAction : MonoBehaviour
         gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
 
         hero = GameObject.Find("WizardHero");
-        // enemy = GameObject.Find("GiantEnemy");
+        enemy = GameObject.Find("GiantEnemy");
 
         // remember, selectedCharacter is the first child in "Enemies" parent:
 

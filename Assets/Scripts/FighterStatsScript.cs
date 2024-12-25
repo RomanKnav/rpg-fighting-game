@@ -59,7 +59,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public Sprite thumbnail;
     public bool actionReady = false;   // depends if its character's turn or not.
     public bool victim = false;        // true when character is victim
-    public GameObject ownerObject;
     public float agility;
     public bool isFriendly;
     public Sprite deadSprite;
@@ -178,13 +177,9 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         return nex;
     }
 
-    // need reference to the "enemyFace" object, where the display-sprite is:
-    // dont think it's best script to put func in?
-    // what script to use in?
-    public void SetThumbnail()
+    // need to run at runtime. I'll need to use this in GameController too:
+    public void SetEnemyThumbnail()
     {
-        ownerObject = this.gameObject;
-
         // the object to put the sprite on, not sprite itself:
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
 
@@ -195,6 +190,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         }
     }
 
+    // show thumbnail when hovering over enemy:
     void OnMouseOver()
     {
         if (gameControllerScript.aCharacterIsSelected == false)
@@ -203,7 +199,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
             if (!isFriendly) 
             {
-                SetThumbnail();
+                SetEnemyThumbnail();
             }
         }
     }

@@ -60,6 +60,13 @@ public class GameController : MonoBehaviour
     {
         CreatePriorityList();
 
+        if (EnemyScript != null) {
+            EnemyScript.SetEnemyThumbnail();
+        }
+        else {
+            Debug.Log("Fuck! EnemyScript not found!");
+        }
+
         GameObject hero = GameObject.Find("WizardHero");
 
         // is not being set:
@@ -77,7 +84,6 @@ public class GameController : MonoBehaviour
         fighterStatsScript.Add(currentEnemyStats);
 
         fighterStatsScript.Sort();
-
 
         if (enemiesParent.transform.childCount > 0) {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
