@@ -173,6 +173,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         {
             dead = true;
             gameObject.tag = "Dead";
+            gameControllerScript.selectedCharacter = null;      // successfully makes it empty
             // Destroy(healthFill);
 
             animator.enabled = false;
@@ -301,6 +302,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             selected = true;
             gameControllerScript.aCharacterIsSelected = true;
             gameControllerScript.selectedCharacter = ownerObject;
+            gameControllerScript.actionMenu.SetActive(true);
 
             playerActionScript.enemy = ownerObject;
 

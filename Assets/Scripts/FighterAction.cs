@@ -24,10 +24,13 @@ public class FighterAction : MonoBehaviour
 
     // a SCRIPT:
     private GameController gameControllerScript;
+
+    private GameController gameController;
     
     // serious rehauling needed:
     void Awake()
     {
+        // gameController = gameController.Instance;
         gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
 
         hero = GameObject.Find("WizardHero");
@@ -40,13 +43,13 @@ public class FighterAction : MonoBehaviour
         }
     }
 
+    // 1 of 3 strings can be passed: "melee", "range", "run":
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;
 
-        if (name == "WizardHero")                      // yes, object names can simply be retrieved like this
+        if (name == "WizardHero")       // yes, object names can simply be retrieved like this
         {
-
             // this to NOT be immediately determined:
             victim = enemy;
         }
@@ -59,5 +62,8 @@ public class FighterAction : MonoBehaviour
         {
             rangePrefab.GetComponent<AttackScript>().Attack(victim);
         }
+
+        // if (gameControllerScript.selectedCharacter != null) {
+        // }
     }
 }

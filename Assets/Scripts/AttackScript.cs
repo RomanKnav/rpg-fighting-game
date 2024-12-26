@@ -85,7 +85,7 @@ public class AttackScript : MonoBehaviour
                 targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
                 attackerStats.updateMagicFill(magicCost);
 
-                attackerStats.turnIsOver = true;        // should REMAIN true until it is their turn on the priority list
+                attackerStats.turnIsOver = true;    
             } else
             {
                 Invoke("SkipTurnContinueGame", 2);
@@ -93,7 +93,8 @@ public class AttackScript : MonoBehaviour
         } else {
             // ownerAnimator.enabled = false;
             // return;
-            Debug.Log($"{owner.name} is dead!!!");
+            // runs when trying to attack DEAD enemy:
+            Debug.Log($"{victim.name} is dead!!!");
         }
     }
 

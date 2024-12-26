@@ -14,6 +14,7 @@ public class MakeButton : MonoBehaviour
     private GameObject hero;
 
     private GameObject actionMenu;
+    
     void Start()
     {
         string temp = gameObject.name;
@@ -28,10 +29,12 @@ public class MakeButton : MonoBehaviour
         if (btn.CompareTo("MeleeBtn") == 0)
         {
             hero.GetComponent<FighterAction>().SelectAttack("melee");
-        } else if (btn.CompareTo("RangeBtn") == 0)
+        } 
+        else if (btn.CompareTo("RangeBtn") == 0)
         {
             hero.GetComponent<FighterAction>().SelectAttack("range");
-        } else
+        } 
+        else
         {
             hero.GetComponent<FighterAction>().SelectAttack("run");
         }

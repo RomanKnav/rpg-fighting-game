@@ -9,14 +9,17 @@ using System.Linq;
 // MACRO FILE:
 
 // put on GameControllerObject 
+
+// since I use this crap everywhere, let's make it a singleton:
 public class GameController : MonoBehaviour
 {
-    // a fucking list, not the script:
+    // how to access singletons everywhere again?
+    // public static GameController Instance { get; private set; } 
 
     // what exactly is this? SCRIPT!!!  
     private List<FighterStatsScript> fighterStatsScript = new List<FighterStatsScript>();
 
-    private GameObject actionMenu;
+    public GameObject actionMenu;
 
     public Text battleText;
 
@@ -53,8 +56,10 @@ public class GameController : MonoBehaviour
         friendliesParent = GameObject.Find("Friendlies");           // success
         enemiesParent = GameObject.Find("Enemies");
 
+        // get default character to attack at start:
         if (enemiesParent.transform.childCount > 0) {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
+            // aCharacterIsSelected = true; THIS just messes up everything
         }
 
         if (playerActionScript != null) {
@@ -101,9 +106,15 @@ public class GameController : MonoBehaviour
         NextTurn();
     }
 
+    void update() {
+        // if (selectedCharacter != null) {
+        //     actionMenu.SetActive(true);
+        // }
+    }
+
     public void CreatePriorityList() {
         if (charactersList.Count > 0) {
-            Debug.Log($"Inside charactersList: {charactersList.Count}");                // successfully returns 3
+            Debug.Log($"Inside charactersList: {charactersList.Count}");   // successfully returns 3
 
             foreach(GameObject character in charactersList) {
 
@@ -157,7 +168,10 @@ public class GameController : MonoBehaviour
                 HeroScript.drawCircle = true;
                 EnemyScript.drawCircle = false;
 
-                this.actionMenu.SetActive(true);
+                if (selectedCharacter != null) {
+                    this.actionMenu.SetActive(true);
+                }
+                
             }
             
             // if player is not current unit:
