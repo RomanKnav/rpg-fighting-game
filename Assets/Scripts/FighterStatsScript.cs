@@ -76,6 +76,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public bool selected;
     public GameObject ownerObject;
     public FighterAction playerActionScript;
+    public float damageTaken = 0f;
 
     void Awake()
     {
@@ -162,19 +163,17 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     // HERE'S WHAT UPDATES THE HEALTHBAR. Used in FighterAction.cs:
     public void ReceiveDamage(float damage)
     {
+        damageTaken = damage;
         health = health - damage;
         Debug.Log(health);
 
         animator.Play("Damage");
-
-        // Set damage text
 
         if(health <= 0)
         {
             dead = true;
             gameObject.tag = "Dead";
             gameControllerScript.selectedCharacter = null;      // successfully makes it empty
-            // Destroy(healthFill);
 
             animator.enabled = false;
 
@@ -183,12 +182,18 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
             highlightCursor.gameObject.SetActive(false);
 
+            Debug.Log(gameControllerScript.charactersList.Count);
+            Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");
+            gameControllerScript.charactersList.Remove(gameObject);
+            Debug.Log(gameControllerScript.charactersList.Count);
+
         } else if (damage > 0)
         {
+            // what is healthScale?
             xNewHealthScale = healthScale.x * (health / startHealth);
-
             // x size changes based on the health:
             healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
+            // changeHealth(damage);
         }
         if (damage > 0)
         {
@@ -260,6 +265,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             oppMenuHealthDisplay.GetComponent<Image>().sprite = oppHealthBarImage;
 
             // NEW: 
+            health = health - damageTaken;
             float myNewHealthScale = healthScale.x * (health / startHealth);
             // x size changes based on the health:
             // healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);  

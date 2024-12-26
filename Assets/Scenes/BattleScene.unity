@@ -3620,7 +3620,7 @@ PrefabInstance:
     - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: melee
-      value: 100
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}

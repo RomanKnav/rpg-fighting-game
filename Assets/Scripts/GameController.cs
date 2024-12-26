@@ -28,7 +28,8 @@ public class GameController : MonoBehaviour
     private GameObject friendliesParent;
     private GameObject enemiesParent;
 
-    private List<GameObject> charactersList;
+    // LIST OF GAMEOBJECTS:
+    public List<GameObject> charactersList;
     private List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
     private List<float> agilityPointsList = new List<float>();
 
@@ -70,7 +71,6 @@ public class GameController : MonoBehaviour
 
         // Script getting crap:
         HeroScript = GameObject.Find("WizardHero").GetComponent<FighterStatsScript>();
-        // EnemyScript = GameObject.Find("GiantEnemy").GetComponent<FighterStatsScript>();
         EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
     }
 
@@ -93,8 +93,6 @@ public class GameController : MonoBehaviour
         currentHeroStats.CalculateNextTurn(0);
         fighterStatsScript.Add(currentHeroStats);
 
-        // make this stupid shit global:
-        // GameObject enemy = GameObject.Find("GiantEnemy");
         GameObject enemy = selectedCharacter;
         FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
         
@@ -104,12 +102,6 @@ public class GameController : MonoBehaviour
         fighterStatsScript.Sort();
 
         NextTurn();
-    }
-
-    void update() {
-        // if (selectedCharacter != null) {
-        //     actionMenu.SetActive(true);
-        // }
     }
 
     public void CreatePriorityList() {
@@ -170,6 +162,10 @@ public class GameController : MonoBehaviour
 
                 if (selectedCharacter != null) {
                     this.actionMenu.SetActive(true);
+                } 
+                // we want to automatically select next enemy character:
+                else {
+                    
                 }
                 
             }
