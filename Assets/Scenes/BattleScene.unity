@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9317eecff1708428a9df48d5eace03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionMenu: {fileID: 0}
   battleText: {fileID: 813753879}
   aCharacterIsSelected: 0
   nextPlayerAction: 
@@ -2648,6 +2649,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5811496984132170391, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthFill One
+      objectReference: {fileID: 0}
     - target: {fileID: 6089169661634797517, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -3473,6 +3479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811496984132170391, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthFill Two
       objectReference: {fileID: 0}
     - target: {fileID: 6089169661634797517, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}

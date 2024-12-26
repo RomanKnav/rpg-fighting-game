@@ -242,23 +242,28 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     }
 
     // used when HOVERING over enemy:
+    // what's healthFill again? gameObject containing the image.
     public void SetEnemyHealth()
     {
-        // healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
-        Sprite oppHealthBar = transform.GetChild(6).GetComponent<Image>().sprite;
+        // everything in here is LOCAL:
+        Debug.Log(health);
+        // can confirm these are unique:
+        GameObject oppHealthBar = transform.GetChild(6).gameObject;
 
-        // something like this:
-        // oppTransform
-
-        // this'll only cause the enemies to share the SAME health bar:
-        // healthTransform = healthFill.GetComponent<RectTransform>();
-        // healthScale = healthFill.transform.localScale;
+        Sprite oppHealthBarImage = oppHealthBar.GetComponent<Image>().sprite;       
 
         GameObject oppMenuHealthDisplay = GameObject.Find("EnemyHealthFill");
 
-        if (oppHealthBar != null && oppMenuHealthDisplay != null) 
+        if (oppHealthBarImage != null && oppMenuHealthDisplay != null) 
         {
-            oppMenuHealthDisplay.GetComponent<Image>().sprite = oppHealthBar;
+            // CHANGES THE IMAGE, BUT NOT THE QUANTITY:
+            oppMenuHealthDisplay.GetComponent<Image>().sprite = oppHealthBarImage;
+
+            // NEW: 
+            float myNewHealthScale = healthScale.x * (health / startHealth);
+            // x size changes based on the health:
+            // healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);  
+            oppHealthBar.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
         }
 
         Debug.Log(health);

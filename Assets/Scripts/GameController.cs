@@ -190,7 +190,6 @@ public class GameController : MonoBehaviour
         } 
         else
         {
-            // currentFighterStatsScript.highlightCursor.gameObject.SetActive(false);
             NextTurn();
         }
     }
