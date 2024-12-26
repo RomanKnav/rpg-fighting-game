@@ -81,6 +81,7 @@ public class AttackScript : MonoBehaviour
                 // owner.GetComponent<Animator>().Play(animationName);    
                 ownerAnimator.Play(animationName);  
 
+                // THIS is what seems to update the health when enemies attacked:
                 targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
                 attackerStats.updateMagicFill(magicCost);
 

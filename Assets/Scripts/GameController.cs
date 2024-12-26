@@ -173,8 +173,10 @@ public class GameController : MonoBehaviour
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
                 currentUnit.GetComponent<FighterAction>().SelectAttack(attackType);
             }
-        } else
+        } 
+        else
         {
+            // currentFighterStatsScript.highlightCursor.gameObject.SetActive(false);
             NextTurn();
         }
     }

@@ -22,7 +22,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     private GameObject magicFill;
 
     [Header("Stats")]
-    public float health;            // what's this?     a manually entered NUMBER
+    public float health;                // what's this? a manually entered NUMBER
     public float magic;
 
     public float melee;
@@ -31,7 +31,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public float speed;
     public float experience;
 
-    private float startHealth;
+    private float startHealth;          // and this? the initial value of "health"
     private float startMagic;
 
     [HideInInspector]
@@ -42,13 +42,13 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     private bool dead = false;
 
     // Resize health and magic bar
-    private Transform healthTransform;
+    public Transform healthTransform;          // this is the Transform component of the HealthFill object.
     private Transform magicTransform;
 
-    private Vector2 healthScale;
+    public Vector2 healthScale;                // what's this? a 2-value tuple.    used to change the size of healthbar
     private Vector2 magicScale;
 
-    private float xNewHealthScale;
+    public float xNewHealthScale;
     private float xNewMagicScale;
 
     private GameObject gameControllerObj;       // need to get "aCharacterIsSelected" property from this
@@ -66,7 +66,11 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public Sprite deadSprite;
     public Sprite currentSprite; 
     public bool turnIsOver;
-    public Transform circleOutline;
+    public Transform circleOutlineGreen;
+    public Transform circleOutlineYellow;
+    public Transform circleOutlineRed;
+    public Transform currentCircleOutline;
+
     public bool drawCircle;
     public Transform highlightCursor;
     public bool selected;
@@ -81,13 +85,11 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
         playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
 
-        healthTransform = healthFill.GetComponent<RectTransform>();
-        healthScale = healthFill.transform.localScale;
+        SetHealth();
 
         magicTransform = magicFill.GetComponent<RectTransform>();
         magicScale = magicFill.transform.localScale;
 
-        startHealth = health;
         startMagic = magic;
 
         gameControllerObj = GameObject.Find("GameControllerObject");
@@ -102,8 +104,9 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
         animator = gameObject.GetComponent<Animator>();
 
-        // I've got MULTIPLE of these, so I shouldn't use tags:
-        circleOutline = transform.GetChild(2);
+        circleOutlineGreen = transform.GetChild(2);
+        circleOutlineYellow = transform.GetChild(3);
+        circleOutlineRed = transform.GetChild(4);
 
         highlightCursor = transform.GetChild(5);
     }
@@ -116,11 +119,27 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     // actionReady set in GameController:
     void Update() {
+        DrawCircle();
+    }
+
+    void DrawCircle() {
+
+        // this shit is fucked:
+        if (health >= 80) {
+            currentCircleOutline = circleOutlineGreen;
+        } 
+        else if (health >= 45 && health <= 79) {
+            currentCircleOutline = circleOutlineYellow;
+        }
+        else {
+            currentCircleOutline = circleOutlineRed;
+        }
+
         if (drawCircle) {
-            this.circleOutline.gameObject.SetActive(true);
+            this.currentCircleOutline.gameObject.SetActive(true);
         } 
         else {
-            this.circleOutline.gameObject.SetActive(false);
+            this.currentCircleOutline.gameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
@@ -130,10 +149,22 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         }
     }
 
+    // used only once in awake():
+    void SetHealth()
+    {
+        healthTransform = healthFill.GetComponent<RectTransform>();
+        healthScale = healthFill.transform.localScale;
+
+         startHealth = health;
+    }
+
     // this is for the VICTIM:
+    // HERE'S WHAT UPDATES THE HEALTHBAR. Used in FighterAction.cs:
     public void ReceiveDamage(float damage)
     {
         health = health - damage;
+        Debug.Log(health);
+
         animator.Play("Damage");
 
         // Set damage text
@@ -142,16 +173,21 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         {
             dead = true;
             gameObject.tag = "Dead";
-            Destroy(healthFill);
+            // Destroy(healthFill);
 
             animator.enabled = false;
+
+            gameControllerScript.aCharacterIsSelected = false;
+
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
+            highlightCursor.gameObject.SetActive(false);
+
         } else if (damage > 0)
         {
             xNewHealthScale = healthScale.x * (health / startHealth);
 
             // x size changes based on the health:
-                healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
+            healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
         }
         if (damage > 0)
         {
@@ -193,32 +229,38 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         return nex;
     }
 
-    // need to run at runtime. I'll need to use this in GameController too:
+    // this and SetEnemyHealth() seem like they'd be better off in GameController? Nah, we're good. !isFriendly comes into play
     public void SetEnemyThumbnail()
     {
-        // the object to put the sprite on, not sprite itself:
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
 
-        // if player is current victim/attacker:
         if (oppFaceObject != null)
         {
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;
         }
     }
 
+    // used when HOVERING over enemy:
     public void SetEnemyHealth()
     {
-        // GameObject oppHealthBar = transform.GetChild(6).GetComponent<Image>().sprite;
-        // GameObject oppHealthBar = transform.GetChild(6).gameObject;
+        // healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
         Sprite oppHealthBar = transform.GetChild(6).GetComponent<Image>().sprite;
+
+        // something like this:
+        // oppTransform
+
+        // this'll only cause the enemies to share the SAME health bar:
+        // healthTransform = healthFill.GetComponent<RectTransform>();
+        // healthScale = healthFill.transform.localScale;
 
         GameObject oppMenuHealthDisplay = GameObject.Find("EnemyHealthFill");
 
         if (oppHealthBar != null && oppMenuHealthDisplay != null) 
         {
             oppMenuHealthDisplay.GetComponent<Image>().sprite = oppHealthBar;
-            // oppMenuHealthDisplay = oppHealthBar;
         }
+
+        Debug.Log(health);
     }
 
     public void CursorHandler()
@@ -226,19 +268,12 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         return;
     }
 
-    // show thumbnail when hovering over enemy:
     void OnMouseOver()
     {
-        Debug.Log("Hovering over enemy!");
+        Debug.Log(health);
+
         // if another character isn't already selected:
-
-        // healthFill = transform.GetChild(6).gameObject;
-        // healthTransform = healthFill.GetComponent<RectTransform>();
-        // healthScale = healthFill.transform.localScale;
-
-        // Debug.Log($"new health: {xNewHealthScale}");
-
-        if (gameControllerScript.aCharacterIsSelected == false)
+        if (gameControllerScript.aCharacterIsSelected == false && !dead)
         {
             selected = false;
             this.highlightCursor.gameObject.SetActive(true);
@@ -261,7 +296,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseDown()
     {
-        if (gameControllerScript.aCharacterIsSelected == false)
+        if (gameControllerScript.aCharacterIsSelected == false && !dead)
         {
             selected = true;
             gameControllerScript.aCharacterIsSelected = true;
