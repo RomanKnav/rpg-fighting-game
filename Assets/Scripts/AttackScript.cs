@@ -53,8 +53,7 @@ public class AttackScript : MonoBehaviour
     // "victim" is not being set (might have to make global "victim" var):
     public void Attack(GameObject victima) {
         // victima = victim;
-
-        // fucking VICTIM is not being set for new foe:
+        
         if (victima != null) {
             victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
             targetStats = victima.GetComponent<FighterStatsScript>();

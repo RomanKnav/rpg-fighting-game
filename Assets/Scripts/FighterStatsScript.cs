@@ -39,7 +39,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     // what's this? some timing BS:
     public int nextActTurn;
 
-    private bool dead = false;
+    public bool dead = false;
 
     // Resize health and magic bar
     public Transform healthTransform;          // this is the Transform component of the HealthFill object.
@@ -173,9 +173,11 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         {
             dead = true;
             gameObject.tag = "Dead";
-            gameControllerScript.selectedCharacter = null;      // successfully makes it empty
+            gameControllerScript.selectedCharacter = null; // successfully makes it empty
 
             animator.enabled = false;
+
+            selected = false;
 
             gameControllerScript.aCharacterIsSelected = false;
 
@@ -285,7 +287,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseOver()
     {
-        // Debug.Log(health);
+        Debug.Log($"HOVERING OVER ENEMY: {this.name}");
 
         // if another character isn't already selected:
         if (gameControllerScript.aCharacterIsSelected == false && !dead)

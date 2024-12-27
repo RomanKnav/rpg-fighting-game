@@ -85,6 +85,7 @@ public class GameController : MonoBehaviour
     {
         CreatePriorityList();
 
+        // gets INITIAL enemy:
         if (EnemyScript != null) {
             EnemyScript.SetEnemyThumbnail();
             EnemyScript.highlightCursor.gameObject.SetActive(true);
@@ -155,7 +156,9 @@ public class GameController : MonoBehaviour
             if (priorityList.Count > 0) {
                 foreach (GameObject character in priorityList) 
                 {
-                    if (!character.GetComponent<FighterStatsScript>().isFriendly) {
+                    FighterStatsScript characterScript = character.GetComponent<FighterStatsScript>();
+
+                    if (!characterScript.isFriendly && !characterScript.dead) {
 
                         // set enemy variable in FighterAction.cs (determine who to attack):
                         playerActionScript.enemy = selectedCharacter;
