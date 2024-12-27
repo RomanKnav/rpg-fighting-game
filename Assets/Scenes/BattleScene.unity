@@ -523,6 +523,7 @@ MonoBehaviour:
   playerActionScript: {fileID: 0}
   playerAttackScript: {fileID: 0}
   selectedCharacter: {fileID: 0}
+  cursorAlreadyActive: 0
 --- !u!4 &421185457
 Transform:
   m_ObjectHideFlags: 0

@@ -152,17 +152,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         }
     }
 
-    void activateCursor() {
-        bool cursorActive = gameControllerScript.cursorAlreadyActive;
-        if (!cursorActive) {
-            this.highlightCursor.gameObject.SetActive(true);
-            cursorActive = true;
-        } else {
-            cursorActive = false;
-            this.highlightCursor.gameObject.SetActive(false);
-        }
-    }
-
     // used only once in awake():
     void SetHealth()
     {
@@ -334,8 +323,16 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         if (!selected)
         {
             this.highlightCursor.gameObject.SetActive(false);
-            gameControllerScript.cursorAlreadyActive = false;
-            // activateCursor();
+            // gameControllerScript.cursorAlreadyActive = false;
+
+            // DOES NOT FUCKING WORK:  
+            // if (!gameControllerScript.cursorAlreadyActive) {
+            //     gameControllerScript.cursorAlreadyActive = false;
+            // }
+
+            if (!gameControllerScript.aCharacterIsSelected) {
+                gameControllerScript.cursorAlreadyActive = false;
+            }
         }
     }
 

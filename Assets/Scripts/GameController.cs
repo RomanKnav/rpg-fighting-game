@@ -88,7 +88,11 @@ public class GameController : MonoBehaviour
         // gets INITIAL enemy:
         if (EnemyScript != null) {
             EnemyScript.SetEnemyThumbnail();
-            EnemyScript.highlightCursor.gameObject.SetActive(true);
+
+            // aCharacterIsSelected = true;
+
+            // EnemyScript.highlightCursor.gameObject.SetActive(true);
+            
         }
 
         GameObject hero = GameObject.Find("WizardHero");
