@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
     // this'll need to be exported elsewhere:
     // so far, only used to set default character:
     public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
-
+    public bool cursorAlreadyActive = true;
 
     private void Awake()
     {

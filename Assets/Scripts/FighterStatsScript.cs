@@ -147,7 +147,19 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
+            // activateCursor();
             gameControllerScript.aCharacterIsSelected = false;
+        }
+    }
+
+    void activateCursor() {
+        bool cursorActive = gameControllerScript.cursorAlreadyActive;
+        if (!cursorActive) {
+            this.highlightCursor.gameObject.SetActive(true);
+            cursorActive = true;
+        } else {
+            cursorActive = false;
+            this.highlightCursor.gameObject.SetActive(false);
         }
     }
 
@@ -183,7 +195,11 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             gameControllerScript.aCharacterIsSelected = false;
 
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
+
+            // this actually do anything?
             highlightCursor.gameObject.SetActive(false);
+
+            // activateCursor();
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log(gameControllerScript.charactersList.Count);
@@ -290,20 +306,25 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         hoveringOver = true; 
         Debug.Log($"HOVERING OVER ENEMY: {this.name}");
 
-        if (hoveringOver == true && !dead) {
-            this.highlightCursor.gameObject.SetActive(true);
-        }
+        // new macro if statement:
+        if (!gameControllerScript.cursorAlreadyActive) {
+            if (hoveringOver == true && !dead) {
+                this.highlightCursor.gameObject.SetActive(true);
+                gameControllerScript.cursorAlreadyActive = true;
+            }
 
-        // if another character isn't already selected:
-        if (gameControllerScript.aCharacterIsSelected == false && !dead)
-        {
-            selected = false;
-            this.highlightCursor.gameObject.SetActive(true);
-
-            if (!isFriendly) 
+            // if another character isn't already selected:
+            if (gameControllerScript.aCharacterIsSelected == false && !dead)
             {
-                SetEnemyThumbnail();
-                SetEnemyHealth();
+                selected = false;
+                this.highlightCursor.gameObject.SetActive(true);
+                gameControllerScript.cursorAlreadyActive = true;
+
+                if (!isFriendly) 
+                {
+                    SetEnemyThumbnail();
+                    SetEnemyHealth();
+                }
             }
         }
     }
@@ -313,6 +334,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         if (!selected)
         {
             this.highlightCursor.gameObject.SetActive(false);
+            gameControllerScript.cursorAlreadyActive = false;
+            // activateCursor();
         }
     }
 
