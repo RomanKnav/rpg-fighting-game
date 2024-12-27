@@ -9,7 +9,8 @@ public class FighterAction : MonoBehaviour
 {
     private GameObject hero;
 
-    public GameObject enemy;           // this should probably be set externally
+    // Where is this set? in FighterStatsScript and GameController (???)
+    public GameObject enemy;           // this should probably be set externally. 
 
     [SerializeField]
     private GameObject meleePrefab;
@@ -50,20 +51,15 @@ public class FighterAction : MonoBehaviour
 
         if (name == "WizardHero")       // yes, object names can simply be retrieved like this
         {
-            // this to NOT be immediately determined:
             victim = enemy;
         }
         if (btn.CompareTo("melee") == 0)
         {
-            // Debug.Log($"Attacking enemy: {enemy.name}");
             meleePrefab.GetComponent<AttackScript>().Attack(victim);
 
         } else if (btn.CompareTo("range") == 0)
         {
             rangePrefab.GetComponent<AttackScript>().Attack(victim);
         }
-
-        // if (gameControllerScript.selectedCharacter != null) {
-        // }
     }
 }

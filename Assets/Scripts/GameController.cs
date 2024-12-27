@@ -30,18 +30,22 @@ public class GameController : MonoBehaviour
 
     // LIST OF GAMEOBJECTS:
     public List<GameObject> charactersList;
-    private List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
+    public List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
     private List<float> agilityPointsList = new List<float>();
 
     private FighterStatsScript EnemyScript;
     private FighterStatsScript HeroScript;
 
-    // prevent multiple characters from being selected
-    // I might need to import this in FighterStatsScript:
     public bool aCharacterIsSelected;   
     public string nextPlayerAction;
 
+    public GameObject playerObject;
+
+    // FYI: this is already attained in FighterAction.cs:
+    public GameObject playerMeleePrefab;            // need this to access "VictimAnimator" crap.
+
     public FighterAction playerActionScript;
+    public AttackScript playerAttackScript;         // this is on the PREFAB
 
     // this'll need to be exported elsewhere:
     // so far, only used to set default character:
@@ -49,6 +53,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        playerObject = GameObject.Find("WizardHero");
         playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
 
         actionMenu = GameObject.Find("ActionMenu");
@@ -60,7 +65,6 @@ public class GameController : MonoBehaviour
         // get default character to attack at start:
         if (enemiesParent.transform.childCount > 0) {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
-            // aCharacterIsSelected = true; THIS just messes up everything
         }
 
         if (playerActionScript != null) {
@@ -69,7 +73,6 @@ public class GameController : MonoBehaviour
 
         charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
 
-        // Script getting crap:
         HeroScript = GameObject.Find("WizardHero").GetComponent<FighterStatsScript>();
         EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
     }
@@ -137,6 +140,30 @@ public class GameController : MonoBehaviour
             foreach (GameObject character in priorityList)
             {
                 Debug.Log(character);
+            }
+        }
+    }
+
+    // should NOT run at initial run (hence first if statement):
+    // so this does it's job, but attacking does NOTHING.
+    // must derive the animator of next selected enemy to set as "VictimAnimator" in Hero's AttackScript:
+    public void AutoSelectNextEnemy() {
+        if (!aCharacterIsSelected && selectedCharacter == null) {
+            if (priorityList.Count > 0) {
+                foreach (GameObject character in priorityList) 
+                {
+                    if (!character.GetComponent<FighterStatsScript>().isFriendly) {
+                        playerActionScript.enemy = selectedCharacter;
+                        selectedCharacter = character;
+                        aCharacterIsSelected = true;  
+
+
+                        
+                        // should only happen ONCE per loop:
+                        break;
+                    }
+                }
+                Debug.Log("AUTOMATICALLY SELECTED NEW ENEMY");
             }
         }
     }

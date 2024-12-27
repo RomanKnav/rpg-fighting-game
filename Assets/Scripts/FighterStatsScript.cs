@@ -182,10 +182,14 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
             highlightCursor.gameObject.SetActive(false);
 
+            // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log(gameControllerScript.charactersList.Count);
             Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");
             gameControllerScript.charactersList.Remove(gameObject);
             Debug.Log(gameControllerScript.charactersList.Count);
+
+            gameControllerScript.priorityList.Remove(gameObject);
+            gameControllerScript.AutoSelectNextEnemy();
 
         } else if (damage > 0)
         {
@@ -248,6 +252,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     // used when HOVERING over enemy:
     // what's healthFill again? gameObject containing the image.
+    // REMEMBER: the size of the health is set in ReceiveDamage() in FighterStatsScript.
     public void SetEnemyHealth()
     {
         // everything in here is LOCAL:
@@ -267,12 +272,10 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             // NEW: 
             health = health - damageTaken;
             float myNewHealthScale = healthScale.x * (health / startHealth);
-            // x size changes based on the health:
-            // healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);  
-            oppHealthBar.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
-        }
 
-        Debug.Log(health);
+            // x size changes based on the health:
+            oppHealthBar.transform.localScale = new Vector2(myNewHealthScale, healthScale.y);
+        }
     }
 
     public void CursorHandler()
@@ -282,7 +285,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseOver()
     {
-        Debug.Log(health);
+        // Debug.Log(health);
 
         // if another character isn't already selected:
         if (gameControllerScript.aCharacterIsSelected == false && !dead)
@@ -315,6 +318,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             gameControllerScript.selectedCharacter = ownerObject;
             gameControllerScript.actionMenu.SetActive(true);
 
+            // makes it so that next enemy to attack is the one selected:
             playerActionScript.enemy = ownerObject;
 
             // healthFill = transform.GetChild(6).gameObject;

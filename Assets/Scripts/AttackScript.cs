@@ -7,6 +7,7 @@ using UnityEngine;
 public class AttackScript : MonoBehaviour
 {
     // what is owner? The gameObject using the prefab. 
+    // where set? MANUALLY in the editor.
     public GameObject owner;
 
     public FighterStatsScript ownerStats;
@@ -37,7 +38,8 @@ public class AttackScript : MonoBehaviour
     private float damage = 0.0f;
 
     // MY CRAP:
-    public Animator ownerAnimator;
+    public Animator victim;
+    public Animator ownerAnimator;      
     public Animator victimAnimator;
 
     public void Awake() {
@@ -46,15 +48,16 @@ public class AttackScript : MonoBehaviour
     
     // TODO: get global var of victim:
     // where this used? FighterAction.cs
-    public void Attack(GameObject victim)
-    {
-        victimAnimator = victim.GetComponent<Animator>();
+    // "victim" is not being set (might have to make global "victim" var):
+    public void Attack(GameObject victima) {
+        // victima = victim;
+        victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
 
         // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
 
         // stats of the one BEING attacked:
-        targetStats = victim.GetComponent<FighterStatsScript>();
+        targetStats = victima.GetComponent<FighterStatsScript>();
 
         if (!targetStats.GetDead())
         {
@@ -94,7 +97,7 @@ public class AttackScript : MonoBehaviour
             // ownerAnimator.enabled = false;
             // return;
             // runs when trying to attack DEAD enemy:
-            Debug.Log($"{victim.name} is dead!!!");
+            Debug.Log($"{victima.name} is dead!!!");
         }
     }
 
