@@ -77,6 +77,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public GameObject ownerObject;
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
+    public bool hoveringOver = false;      // use to override aCharacterSelected
 
     void Awake()
     {
@@ -199,7 +200,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
             xNewHealthScale = healthScale.x * (health / startHealth);
             // x size changes based on the health:
             healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
-            // changeHealth(damage);
         }
         if (damage > 0)
         {
@@ -287,7 +287,12 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseOver()
     {
+        hoveringOver = true; 
         Debug.Log($"HOVERING OVER ENEMY: {this.name}");
+
+        if (hoveringOver == true && !dead) {
+            this.highlightCursor.gameObject.SetActive(true);
+        }
 
         // if another character isn't already selected:
         if (gameControllerScript.aCharacterIsSelected == false && !dead)
@@ -320,7 +325,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public void SelectNewCharacter() 
     {
         // why not just run this shit when new character's selected automatically?
-        if (gameControllerScript.aCharacterIsSelected == false && !dead)
+        if ((gameControllerScript.aCharacterIsSelected == false && !dead) || (hoveringOver == true && !dead))
         {
             selected = true;
             gameControllerScript.aCharacterIsSelected = true;

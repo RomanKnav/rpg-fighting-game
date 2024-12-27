@@ -50,15 +50,13 @@ public class AttackScript : MonoBehaviour
     
     // TODO: get global var of victim:
     // where this used? FighterAction.cs
-    // "victim" is not being set (might have to make global "victim" var):
     public void Attack(GameObject victima) {
         // victima = victim;
-        
+
         if (victima != null) {
             victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
             targetStats = victima.GetComponent<FighterStatsScript>();
         } else {
-            // Debug.LogError("victim game object not found!");
 
             GameObject selectedCharacter = gameController.GetComponent<GameController>().selectedCharacter;
 
@@ -68,8 +66,6 @@ public class AttackScript : MonoBehaviour
 
         // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
-
-        // stats of the one BEING attacked:
 
         if (!targetStats.GetDead())
         {
@@ -106,9 +102,6 @@ public class AttackScript : MonoBehaviour
                 Invoke("SkipTurnContinueGame", 2);
             }  
         } else {
-            // ownerAnimator.enabled = false;
-            // return;
-            // runs when trying to attack DEAD enemy:
             Debug.Log($"{victima.name} is dead!!!");
         }
     }
