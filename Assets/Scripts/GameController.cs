@@ -16,8 +16,9 @@ public class GameController : MonoBehaviour
     // how to access singletons everywhere again?
     // public static GameController Instance { get; private set; } 
 
-    // what exactly is this? SCRIPT!!!  
-    private List<FighterStatsScript> fighterStatsScript = new List<FighterStatsScript>();
+    // what exactly is this? A FUCKING LIST OF SCRIPTS!!!
+    // what's it for? used in NextTurn()
+    private List<FighterStatsScript> fighterStatsScriptList = new List<FighterStatsScript>();
 
     public GameObject actionMenu;
 
@@ -88,29 +89,27 @@ public class GameController : MonoBehaviour
         // gets INITIAL enemy:
         if (EnemyScript != null) {
             EnemyScript.SetEnemyThumbnail();
-
-            // aCharacterIsSelected = true;
-
-            // EnemyScript.highlightCursor.gameObject.SetActive(true);
-            
         }
 
         GameObject hero = GameObject.Find("WizardHero");
 
-        // is not being set:
         FighterStatsScript currentHeroStats = hero.GetComponent<FighterStatsScript>();
 
         // what is CalculateNextTurn()? takes integer argument.
         currentHeroStats.CalculateNextTurn(0);
-        fighterStatsScript.Add(currentHeroStats);
+
+        // hero's is first script added to fighterStatsScriptList:
+        fighterStatsScriptList.Add(currentHeroStats);       
 
         GameObject enemy = selectedCharacter;
+
+        // add first enemy's statsScript to list:
         FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
         
         currentEnemyStats.CalculateNextTurn(0);
-        fighterStatsScript.Add(currentEnemyStats);
+        fighterStatsScriptList.Add(currentEnemyStats);
 
-        fighterStatsScript.Sort();
+        fighterStatsScriptList.Sort();
 
         NextTurn();
     }
@@ -178,11 +177,6 @@ public class GameController : MonoBehaviour
 
                         HeroScript.SelectNewCharacter();
 
-                        // TODO: set victimAnimator in AttackScript:
-                        // AttackScript's Attack() used only in FIghterAction.cs
-                        // FighterAction sets local "victim" to "enemy", 
-                        // which is set in FighterStatsScript and GameController.
-
                         // should only happen ONCE per loop:
                         break;
                     }
@@ -194,15 +188,23 @@ public class GameController : MonoBehaviour
 
     public void NextTurn()
     {
+        // remember: battleText is the damage delt:
         battleText.gameObject.SetActive(false);
-        FighterStatsScript currentFighterStatsScript = fighterStatsScript[0];
-        fighterStatsScript.Remove(currentFighterStatsScript);
+
+
+        FighterStatsScript currentFighterStatsScript = fighterStatsScriptList[0];
+
+        // why're we removing it??
+        fighterStatsScriptList.Remove(currentFighterStatsScript);
+
         if (!currentFighterStatsScript.GetDead())
         {
             GameObject currentUnit = currentFighterStatsScript.gameObject;
+
+            // what's nextActTurn? an integer
             currentFighterStatsScript.CalculateNextTurn(currentFighterStatsScript.nextActTurn);
-            fighterStatsScript.Add(currentFighterStatsScript);
-            fighterStatsScript.Sort();
+            fighterStatsScriptList.Add(currentFighterStatsScript);
+            fighterStatsScriptList.Sort();
             if (currentUnit.name == "WizardHero")
             {
                 currentFighterStatsScript.turnIsOver = false;

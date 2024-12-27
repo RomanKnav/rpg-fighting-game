@@ -45,6 +45,7 @@ public class FighterAction : MonoBehaviour
     }
 
     // 1 of 3 strings can be passed: "melee", "range", "run":
+    // this needs to be used by second enemy!:
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;
