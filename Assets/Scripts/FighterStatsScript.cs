@@ -77,7 +77,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public GameObject ownerObject;
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
-    public bool hoveringOver = false;      // use to override aCharacterSelected
+    public bool hoveringOver = false;      // use to override aCharacterIsSelected
 
     void Awake()
     {
@@ -323,13 +323,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         if (!selected)
         {
             this.highlightCursor.gameObject.SetActive(false);
-            // gameControllerScript.cursorAlreadyActive = false;
 
             // DOES NOT FUCKING WORK:  
-            // if (!gameControllerScript.cursorAlreadyActive) {
-            //     gameControllerScript.cursorAlreadyActive = false;
-            // }
-
             if (!gameControllerScript.aCharacterIsSelected) {
                 gameControllerScript.cursorAlreadyActive = false;
             }
@@ -338,7 +333,9 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseDown()
     {
-        SelectNewCharacter();
+        if (!gameControllerScript.aCharacterIsSelected) {
+            SelectNewCharacter();
+        }
     }
 
     // should run both automatically and OnMouseDown:
