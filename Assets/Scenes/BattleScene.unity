@@ -518,7 +518,10 @@ MonoBehaviour:
   priorityList: []
   aCharacterIsSelected: 0
   nextPlayerAction: 
+  playerObject: {fileID: 0}
+  playerMeleePrefab: {fileID: 0}
   playerActionScript: {fileID: 0}
+  playerAttackScript: {fileID: 0}
   selectedCharacter: {fileID: 0}
 --- !u!4 &421185457
 Transform:
@@ -1529,7 +1532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -337.50003}
+  m_AnchoredPosition: {x: 0, y: -337.50006}
   m_SizeDelta: {x: 0, y: -675}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &947418330
@@ -3622,7 +3625,12 @@ PrefabInstance:
     - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: melee
-      value: 100
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: health
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}

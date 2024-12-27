@@ -51,10 +51,13 @@ public class GameController : MonoBehaviour
     // so far, only used to set default character:
     public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
 
+
     private void Awake()
     {
         playerObject = GameObject.Find("WizardHero");
         playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
+
+        playerAttackScript = playerObject.transform.GetChild(0).gameObject.GetComponent<AttackScript>();
 
         actionMenu = GameObject.Find("ActionMenu");
 
@@ -153,12 +156,26 @@ public class GameController : MonoBehaviour
                 foreach (GameObject character in priorityList) 
                 {
                     if (!character.GetComponent<FighterStatsScript>().isFriendly) {
+
+                        // set enemy variable in FighterAction.cs (determine who to attack):
                         playerActionScript.enemy = selectedCharacter;
+
+                        // global var in this file:
                         selectedCharacter = character;
+
+                        // in this file:
                         aCharacterIsSelected = true;  
 
+                        // draw cursor:
+                        selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
 
-                        
+                        HeroScript.SelectNewCharacter();
+
+                        // TODO: set victimAnimator in AttackScript:
+                        // AttackScript's Attack() used only in FIghterAction.cs
+                        // FighterAction sets local "victim" to "enemy", 
+                        // which is set in FighterStatsScript and GameController.
+
                         // should only happen ONCE per loop:
                         break;
                     }

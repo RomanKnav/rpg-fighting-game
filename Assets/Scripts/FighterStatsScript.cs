@@ -311,6 +311,13 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseDown()
     {
+        SelectNewCharacter();
+    }
+
+    // should run both automatically and OnMouseDown:
+    public void SelectNewCharacter() 
+    {
+        // why not just run this shit when new character's selected automatically?
         if (gameControllerScript.aCharacterIsSelected == false && !dead)
         {
             selected = true;

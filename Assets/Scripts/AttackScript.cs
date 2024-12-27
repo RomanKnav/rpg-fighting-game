@@ -41,9 +41,11 @@ public class AttackScript : MonoBehaviour
     public Animator victim;
     public Animator ownerAnimator;      
     public Animator victimAnimator;
+    public GameObject gameController;
 
     public void Awake() {
         ownerAnimator = owner.GetComponent<Animator>();
+        gameController = GameObject.Find("GameControllerObject");
     }
     
     // TODO: get global var of victim:
@@ -51,13 +53,24 @@ public class AttackScript : MonoBehaviour
     // "victim" is not being set (might have to make global "victim" var):
     public void Attack(GameObject victima) {
         // victima = victim;
-        victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
+
+        // fucking VICTIM is not being set for new foe:
+        if (victima != null) {
+            victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
+            targetStats = victima.GetComponent<FighterStatsScript>();
+        } else {
+            // Debug.LogError("victim game object not found!");
+
+            GameObject selectedCharacter = gameController.GetComponent<GameController>().selectedCharacter;
+
+             victimAnimator = selectedCharacter.GetComponent<Animator>();
+             targetStats = selectedCharacter.GetComponent<FighterStatsScript>();
+        }
 
         // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
 
         // stats of the one BEING attacked:
-        targetStats = victima.GetComponent<FighterStatsScript>();
 
         if (!targetStats.GetDead())
         {
