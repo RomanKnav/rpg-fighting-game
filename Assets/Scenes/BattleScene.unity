@@ -2539,6 +2539,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -4235905826448174622, guid: 472f69452bc952147bce1fb0d6de5565,
         type: 3}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: agility
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3344,6 +3349,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -4235905826448174622, guid: 472f69452bc952147bce1fb0d6de5565,
         type: 3}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: agility
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3626,7 +3636,7 @@ PrefabInstance:
     - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: melee
-      value: 150
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}

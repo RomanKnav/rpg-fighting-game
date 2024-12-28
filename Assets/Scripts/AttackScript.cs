@@ -56,12 +56,12 @@ public class AttackScript : MonoBehaviour
         if (victima != null) {
             victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
             targetStats = victima.GetComponent<FighterStatsScript>();
-        } else {
+        } 
+        else {
+            GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
 
-            GameObject selectedCharacter = gameController.GetComponent<GameController>().selectedCharacter;
-
-             victimAnimator = selectedCharacter.GetComponent<Animator>();
-             targetStats = selectedCharacter.GetComponent<FighterStatsScript>();
+             victimAnimator = characterToAttack.GetComponent<Animator>();
+             targetStats = characterToAttack.GetComponent<FighterStatsScript>();
         }
 
         // stats of the one doing the attacking:

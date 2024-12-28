@@ -71,6 +71,7 @@ public class GameController : MonoBehaviour
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
         }
 
+        // what this do? if playerActionScript found, set the enemy in that script:
         if (playerActionScript != null) {
             playerActionScript.enemy = selectedCharacter;   // THIS IS NULL BY DEFAULT
         }
@@ -186,11 +187,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // still have no fucking idea how this works:
     public void NextTurn()
     {
-        // remember: battleText is the damage delt:
+        // global variable battleText is the damage delt:
         battleText.gameObject.SetActive(false);
-
 
         FighterStatsScript currentFighterStatsScript = fighterStatsScriptList[0];
 
@@ -202,9 +203,10 @@ public class GameController : MonoBehaviour
             GameObject currentUnit = currentFighterStatsScript.gameObject;
 
             // what's nextActTurn? an integer
-            currentFighterStatsScript.CalculateNextTurn(currentFighterStatsScript.nextActTurn);
+            // currentFighterStatsScript.CalculateNextTurn(currentFighterStatsScript.nextActTurn);
             fighterStatsScriptList.Add(currentFighterStatsScript);
             fighterStatsScriptList.Sort();
+
             if (currentUnit.name == "WizardHero")
             {
                 currentFighterStatsScript.turnIsOver = false;
@@ -218,9 +220,8 @@ public class GameController : MonoBehaviour
                 } 
                 // we want to automatically select next enemy character:
                 else {
-                    
+                   return; 
                 }
-                
             }
             
             // if player is not current unit:

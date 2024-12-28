@@ -35,13 +35,6 @@ public class FighterAction : MonoBehaviour
         gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
 
         hero = GameObject.Find("WizardHero");
-
-        // remember, selectedCharacter is the first child in "Enemies" parent:
-        if (gameControllerScript.selectedCharacter != null) {
-            Debug.Log("Default character READY TO KILL");
-        } else {
-            Debug.Log("Default character not found!");
-        }
     }
 
     // 1 of 3 strings can be passed: "melee", "range", "run":

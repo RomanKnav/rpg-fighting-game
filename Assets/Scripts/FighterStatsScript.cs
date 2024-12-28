@@ -79,6 +79,10 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public float damageTaken = 0f;
     public bool hoveringOver = false;      // use to override aCharacterIsSelected
 
+    // PRIORITY LIST CRAP:
+    public GameObject currentPriorityCharacter;
+    public bool isCurrentPriorityCharacter;
+
     void Awake()
     {
         ownerObject = this.gameObject;
@@ -292,6 +296,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseOver()
     {
+        // why isn't this being set to true???
         hoveringOver = true; 
         Debug.Log($"HOVERING OVER ENEMY: {this.name}");
 
@@ -320,6 +325,8 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseExit()
     {
+        hoveringOver = false;
+        gameControllerScript.aCharacterIsSelected = false;
         if (!selected)
         {
             this.highlightCursor.gameObject.SetActive(false);
