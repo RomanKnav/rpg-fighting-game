@@ -106,7 +106,8 @@ public class GameController : MonoBehaviour
         
         fighterStatsScriptList.Add(currentEnemyStats);
 
-        fighterStatsScriptList.Sort();
+        // TODO: add rest of character's scripts to fighterStatsScriptList:
+        // fighterStatsScriptList.Sort();
 
         NextTurn();
     }
@@ -195,12 +196,13 @@ public class GameController : MonoBehaviour
         fighterStatsScriptList.Remove(currentFighterStatsScript);
 
         if (!currentFighterStatsScript.GetDead())
+        // if current fighter is NOT dead:
         {
             GameObject currentUnit = currentFighterStatsScript.gameObject;
 
             // what's nextActTurn? an integer
             fighterStatsScriptList.Add(currentFighterStatsScript);
-            fighterStatsScriptList.Sort();
+            // fighterStatsScriptList.Sort();
 
             if (currentUnit.name == "WizardHero")
             {
