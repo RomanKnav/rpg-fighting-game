@@ -39,6 +39,9 @@ public class FighterAction : MonoBehaviour
 
     // 1 of 3 strings can be passed: "melee", "range", "run":
     // this needs to be used by second enemy!:
+
+    // where is this used? in GameController's NextTurn() by enemy
+    // and by AttachCallback(), which handles the buttons (in MakeButton.cs):
     public void SelectAttack(string btn)
     {
         GameObject victim = hero;

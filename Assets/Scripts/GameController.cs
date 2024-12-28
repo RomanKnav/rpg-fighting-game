@@ -140,6 +140,7 @@ public class GameController : MonoBehaviour
                 } 
             }
 
+            Debug.Log($"Inside PriorityList: {priorityList.Count}");
             foreach (GameObject character in priorityList)
             {
                 Debug.Log(character);

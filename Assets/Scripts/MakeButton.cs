@@ -24,6 +24,7 @@ public class MakeButton : MonoBehaviour
         actionMenu = GameObject.Find("ActionMenu");
     }
 
+    // what's this?
     private void AttachCallback(string btn)
     {
         if (btn.CompareTo("MeleeBtn") == 0)

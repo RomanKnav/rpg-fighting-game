@@ -251,7 +251,7 @@ public class FighterStatsScript : MonoBehaviour
     public void SetEnemyHealth()
     {
         // everything in here is LOCAL:
-        Debug.Log(health);
+
         // can confirm these are unique:
         GameObject oppHealthBar = transform.GetChild(6).gameObject;
 
