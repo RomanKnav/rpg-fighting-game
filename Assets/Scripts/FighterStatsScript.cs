@@ -8,7 +8,8 @@ using System;
 
 // placed where? Individual characters
 // placed on INDIVIDUAL instances!
-public class FighterStatsScript : MonoBehaviour, IComparable
+
+public class FighterStatsScript : MonoBehaviour
 {
     [SerializeField]
     private Animator animator;          // how's this assigned? manually
@@ -37,11 +38,10 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     [HideInInspector]
 
     // what's this? some timing BS:
-    public int nextActTurn;
+    public int nextActTurn;                     // where's this assigned?
 
     public bool dead = false;
 
-    // Resize health and magic bar
     public Transform healthTransform;          // this is the Transform component of the HealthFill object.
     private Transform magicTransform;
 
@@ -58,9 +58,9 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     // MY CRAP:
     [Header("MY CRAP")]
-    public Sprite thumbnail;           // each character has their own thumbnail assigned manually
-    public bool actionReady = false;   // depends if its character's turn or not.
-    public bool victim = false;        // true when character is victim
+    public Sprite thumbnail;           
+    public bool actionReady = false;  
+    public bool victim = false;     
     public float agility;               
     public bool isFriendly;
     public Sprite deadSprite;
@@ -77,7 +77,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     public GameObject ownerObject;
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
-    public bool hoveringOver = false;      // use to override aCharacterIsSelected
+    public bool hoveringOver = false;      // used to override aCharacterIsSelected
 
     // PRIORITY LIST CRAP:
     public GameObject currentPriorityCharacter;
@@ -123,7 +123,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         }
     }
 
-    // actionReady set in GameController:
     void Update() {
         DrawCircle();
     }
@@ -151,7 +150,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
-            // activateCursor();
             gameControllerScript.aCharacterIsSelected = false;
         }
     }
@@ -189,10 +187,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
 
-            // this actually do anything?
             highlightCursor.gameObject.SetActive(false);
-
-            // activateCursor();
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log(gameControllerScript.charactersList.Count);
@@ -237,13 +232,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     void ContinueGame()
     {
         GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
-    }
-
-    public int CompareTo(object otherStats)
-    {
-        // WTF IS THIS???
-        int nex = nextActTurn.CompareTo(((FighterStatsScript)otherStats).nextActTurn);
-        return nex;
     }
 
     // this and SetEnemyHealth() seem like they'd be better off in GameController? Nah, we're good. !isFriendly comes into play
@@ -292,11 +280,9 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
     void OnMouseOver()
     {
-        // why isn't this being set to true???
         hoveringOver = true; 
         Debug.Log($"HOVERING OVER ENEMY: {this.name}");
 
-        // new macro if statement:
         if (!gameControllerScript.cursorAlreadyActive) {
             if (hoveringOver == true && !dead) {
                 this.highlightCursor.gameObject.SetActive(true);
@@ -326,8 +312,7 @@ public class FighterStatsScript : MonoBehaviour, IComparable
         if (!selected)
         {
             this.highlightCursor.gameObject.SetActive(false);
-
-            // DOES NOT FUCKING WORK:  
+ 
             if (!gameControllerScript.aCharacterIsSelected) {
                 gameControllerScript.cursorAlreadyActive = false;
             }
@@ -344,7 +329,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     // should run both automatically and OnMouseDown:
     public void SelectNewCharacter() 
     {
-        // why not just run this shit when new character's selected automatically?
         if ((gameControllerScript.aCharacterIsSelected == false && !dead) || (hoveringOver == true && !dead))
         {
             selected = true;
@@ -354,8 +338,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
 
             // makes it so that next enemy to attack is the one selected:
             playerActionScript.enemy = ownerObject;
-
-            // healthFill = transform.GetChild(6).gameObject;
 
             Debug.Log($"new character selected: {gameControllerScript.selectedCharacter}");
         } 

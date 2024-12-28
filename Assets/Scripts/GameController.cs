@@ -107,8 +107,6 @@ public class GameController : MonoBehaviour
         fighterStatsScriptList.Add(currentEnemyStats);
 
         // TODO: add rest of character's scripts to fighterStatsScriptList:
-        // fighterStatsScriptList.Sort();
-
         NextTurn();
     }
 
@@ -202,7 +200,6 @@ public class GameController : MonoBehaviour
 
             // what's nextActTurn? an integer
             fighterStatsScriptList.Add(currentFighterStatsScript);
-            // fighterStatsScriptList.Sort();
 
             if (currentUnit.name == "WizardHero")
             {
@@ -221,9 +218,10 @@ public class GameController : MonoBehaviour
                 }
             }
             
-            // if player is not current unit:
+            // if player isn't current unit, undraw circle, disable actionMenu, and have enemy attack:
             else
             {
+                // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;
                 HeroScript.drawCircle = false;
                 EnemyScript.drawCircle = true;
