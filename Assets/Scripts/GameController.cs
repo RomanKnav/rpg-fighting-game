@@ -96,9 +96,6 @@ public class GameController : MonoBehaviour
 
         FighterStatsScript currentHeroStats = hero.GetComponent<FighterStatsScript>();
 
-        // what is CalculateNextTurn()? takes integer argument.
-        currentHeroStats.CalculateNextTurn(0);
-
         // hero's is first script added to fighterStatsScriptList:
         fighterStatsScriptList.Add(currentHeroStats);       
 
@@ -107,7 +104,6 @@ public class GameController : MonoBehaviour
         // add first enemy's statsScript to list:
         FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
         
-        currentEnemyStats.CalculateNextTurn(0);
         fighterStatsScriptList.Add(currentEnemyStats);
 
         fighterStatsScriptList.Sort();
@@ -203,7 +199,6 @@ public class GameController : MonoBehaviour
             GameObject currentUnit = currentFighterStatsScript.gameObject;
 
             // what's nextActTurn? an integer
-            // currentFighterStatsScript.CalculateNextTurn(currentFighterStatsScript.nextActTurn);
             fighterStatsScriptList.Add(currentFighterStatsScript);
             fighterStatsScriptList.Sort();
 

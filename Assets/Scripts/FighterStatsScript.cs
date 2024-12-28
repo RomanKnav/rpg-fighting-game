@@ -238,10 +238,6 @@ public class FighterStatsScript : MonoBehaviour, IComparable
     {
         GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
     }
-    public void CalculateNextTurn(int currentTurn)
-    {
-        nextActTurn = currentTurn + Mathf.CeilToInt(100f / speed);
-    }
 
     public int CompareTo(object otherStats)
     {
