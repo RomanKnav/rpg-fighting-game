@@ -16,10 +16,6 @@ public class GameController : MonoBehaviour
     // how to access singletons everywhere again?
     // public static GameController Instance { get; private set; } 
 
-    // what exactly is this? A FUCKING LIST OF SCRIPTS!!!
-    // what's it for? used in NextTurn()
-    private List<FighterStatsScript> fighterStatsScriptList = new List<FighterStatsScript>();
-
     public GameObject actionMenu;
 
     public Text battleText;
@@ -87,10 +83,6 @@ public class GameController : MonoBehaviour
     }
 
     // runs only ONCE:
-    // maybe right off the start, add all the characters to fighterStatsScriptList?
-    // this only adds TWO characters to fighterStatsScriptList:
-
-    // TODO: add all characterScripts in here (or I can completely take out fighterStatsScriptList and replace it with PriorityList):
     void Start()
     {
         CreatePriorityList();
@@ -100,21 +92,6 @@ public class GameController : MonoBehaviour
             EnemyScript.SetEnemyThumbnail();
         }
 
-        GameObject hero = GameObject.Find("WizardHero");
-
-        FighterStatsScript currentHeroStats = hero.GetComponent<FighterStatsScript>();
-
-        // hero's is first script added to fighterStatsScriptList:
-        fighterStatsScriptList.Add(currentHeroStats);       
-
-        GameObject enemy = selectedCharacter;
-
-        // add first enemy's statsScript to list:
-        FighterStatsScript currentEnemyStats = enemy.GetComponent<FighterStatsScript>();
-        
-        fighterStatsScriptList.Add(currentEnemyStats);
-
-        // TODO: add rest of character's scripts to fighterStatsScriptList:
         NextTurn();
     }
 
@@ -162,8 +139,6 @@ public class GameController : MonoBehaviour
     }
 
     // should NOT run at initial run (hence first if statement):
-    // so this does it's job, but attacking does NOTHING.
-    // must derive the animator of next selected enemy to set as "VictimAnimator" in Hero's AttackScript:
     public void AutoSelectNextEnemy() {
         if (!aCharacterIsSelected && selectedCharacter == null) {
             if (priorityList.Count > 0) {
@@ -196,18 +171,16 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // SAFE TO REPLACE fighterStatsScriptList with PriorityScriptsList
+    // Successfully replaced other crap with PriorityScriptsList:
     public void NextTurn()
     {
         // global variable battleText is the damage delt:
         battleText.gameObject.SetActive(false);
 
-        // FighterStatsScript currentFighterStatsScript = fighterStatsScriptList[0];
         FighterStatsScript currentFighterStatsScript = priorityScriptsList[0];
 
         // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:
 
-        // fighterStatsScriptList.Remove(currentFighterStatsScript);
         priorityScriptsList.Remove(currentFighterStatsScript);
 
         if (!currentFighterStatsScript.GetDead())
@@ -219,7 +192,6 @@ public class GameController : MonoBehaviour
             // if not dead, just add it to the end (was at the start before):
             // readd the SCRIPT, not the game object:
 
-            // fighterStatsScriptList.Add(currentFighterStatsScript);
             priorityScriptsList.Add(currentFighterStatsScript);
 
             if (currentGameObj.name == "WizardHero")
