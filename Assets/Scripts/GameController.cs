@@ -83,6 +83,8 @@ public class GameController : MonoBehaviour
     }
 
     // runs only ONCE:
+    // maybe right off the start, add all the characters to fighterStatsScriptList?
+    // this only adds TWO characters to fighterStatsScriptList:
     void Start()
     {
         CreatePriorityList();
@@ -199,6 +201,7 @@ public class GameController : MonoBehaviour
         {
             GameObject currentGameObj = currentFighterStatsScript.gameObject;
 
+            // this would just add it to the end (was at the start before):
             fighterStatsScriptList.Add(currentFighterStatsScript);
 
             if (currentGameObj.name == "WizardHero")

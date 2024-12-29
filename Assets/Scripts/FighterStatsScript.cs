@@ -37,9 +37,6 @@ public class FighterStatsScript : MonoBehaviour
 
     [HideInInspector]
 
-    // what's this? some timing BS:
-    public int nextActTurn;                     // where's this assigned?
-
     public bool dead = false;
 
     public Transform healthTransform;          // this is the Transform component of the HealthFill object.
