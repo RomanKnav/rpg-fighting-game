@@ -73,7 +73,7 @@ public class FighterStatsScript : MonoBehaviour
     public bool hoveringOver = false;       // used to override aCharacterIsSelected
     public bool drawTheCircle;              // should be true when current character's turn
     public bool turnIsOver;
-    public bool currentTurn;            // could use this to determine when to draw circle
+    public bool turnInProgress;            // could use this to determine when to draw circle
 
     void Awake()
     {
@@ -109,18 +109,16 @@ public class FighterStatsScript : MonoBehaviour
         highlightCursor = transform.GetChild(5);
     }
 
-    void Start() {
-        if (currentSprite != null) {
-            Debug.Log("current sprite found!");
-        }
-    }
-
     void Update() {
-        DrawCircle();
+        if (turnInProgress == true) {
+            DrawCircle();
+        } else if (currentCircleOutline != null) {
+            this.currentCircleOutline.gameObject.SetActive(false);
+        }
+        
     }
 
     void DrawCircle() {
-
         // this shit is fucked:
         if (health >= 70) {
             currentCircleOutline = circleOutlineGreen;

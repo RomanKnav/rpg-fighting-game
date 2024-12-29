@@ -66,37 +66,14 @@ public class AttackScript : MonoBehaviour
 
         // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
+        attackerStats.turnInProgress = true;
 
         if (!targetStats.GetDead())
         {
             // does melee use magic? NOPE
             if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
             {
-                float multiplier = Random.Range(minAttackMultiplier, maxAttackMultiplier);
-
-                // we do melee attack by DEFAULT. This is simply setting the damage amount:
-                damage = multiplier * attackerStats.melee;      // this is a FLOAT
-
-                // otherwise, do the RANGED attack:
-                if (magicAttack)
-                {
-                    damage = multiplier * attackerStats.magicRange;
-                }
-
-                float defenseMultiplier = Random.Range(minDefenseMultiplier, maxDefenseMultiplier);
-                damage = Mathf.Max(0, damage - (defenseMultiplier * targetStats.defense));
-
-                // animation crap. Where are animations assigned? On the characters themselves (they have an "Animator" component, 
-                // which have a "controller", which contains MULTIPLE animations):
-
-                // owner.GetComponent<Animator>().Play(animationName);    
-                ownerAnimator.Play(animationName);  
-
-                // THIS is what seems to update the health when enemies attacked:
-                targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
-                attackerStats.updateMagicFill(magicCost);
-
-                attackerStats.turnIsOver = true;    
+                StartCoroutine(SynchronousAttack());
             } else
             {
                 Invoke("SkipTurnContinueGame", 2);
@@ -104,6 +81,40 @@ public class AttackScript : MonoBehaviour
         } else {
             Debug.Log($"{victima.name} is dead!!!");
         }
+    }
+
+    // whole point of this is so that the animation can run first before certain variables can be set, namely: turnInProgress
+    public IEnumerator SynchronousAttack() 
+    {
+        float multiplier = Random.Range(minAttackMultiplier, maxAttackMultiplier);
+
+        // we do melee attack by DEFAULT. This is simply setting the damage amount:
+        damage = multiplier * attackerStats.melee;      // this is a FLOAT
+
+        // otherwise, do the RANGED attack:
+        if (magicAttack)
+        {
+            damage = multiplier * attackerStats.magicRange;
+        }
+
+        float defenseMultiplier = Random.Range(minDefenseMultiplier, maxDefenseMultiplier);
+        damage = Mathf.Max(0, damage - (defenseMultiplier * targetStats.defense));
+
+        // animation crap. Where are animations assigned? On the characters themselves (they have an "Animator" component, 
+        // which have a "controller", which contains MULTIPLE animations):
+
+        // owner.GetComponent<Animator>().Play(animationName);    
+        ownerAnimator.Play(animationName);          // ANIMATION ARE ASYNCHRONOUS --rest of code doesn't wait for them to finish 
+
+        // this ensures crap below is not set until animation is done:
+        yield return new WaitForSeconds(ownerAnimator.GetCurrentAnimatorStateInfo(0).length);
+
+        // THIS is what seems to update the health when enemies attacked:
+        targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
+        attackerStats.updateMagicFill(magicCost);
+
+        attackerStats.turnIsOver = true;   
+        attackerStats.turnInProgress = false; 
     }
 
     void SkipTurnContinueGame()

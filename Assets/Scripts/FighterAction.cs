@@ -57,13 +57,20 @@ public class FighterAction : MonoBehaviour
             > 0, current is greater than other object
         */
 
+        FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
+
         if (btn.CompareTo("melee") == 0)
         {
             meleePrefab.GetComponent<AttackScript>().Attack(victim);
+            // gameObject.GetComponent<FighterStatsScript>().turnInProgress = true;         DOES NOT WORK
+            
 
         } else if (btn.CompareTo("range") == 0)
         {
             rangePrefab.GetComponent<AttackScript>().Attack(victim);
+            // gameObject.GetComponent<FighterStatsScript>().turnInProgress = true;
         }
+
+        // gameObject.GetComponent<FighterStatsScript>().turnInProgress = false;
     }
 }
