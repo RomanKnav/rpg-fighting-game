@@ -137,6 +137,7 @@ public class FighterStatsScript : MonoBehaviour
             this.currentCircleOutline.gameObject.SetActive(false);
         }
 
+        // Issue could be wherever selected = true;
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
@@ -219,6 +220,7 @@ public class FighterStatsScript : MonoBehaviour
         return dead;
     }
 
+    // WTF IS THIS????? sus
     void ContinueGame()
     {
         GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
@@ -261,11 +263,6 @@ public class FighterStatsScript : MonoBehaviour
             // x size changes based on the health:
             oppHealthBar.transform.localScale = new Vector2(myNewHealthScale, healthScale.y);
         }
-    }
-
-    public void CursorHandler()
-    {
-        return;
     }
 
     void OnMouseOver()
