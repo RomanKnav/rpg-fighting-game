@@ -73,6 +73,7 @@ public class FighterStatsScript : MonoBehaviour
     public bool hoveringOver = false;       // used to override aCharacterIsSelected
     public bool drawTheCircle;              // should be true when current character's turn
     public bool turnIsOver;
+    public bool currentTurn;            // could use this to determine when to draw circle
 
     void Awake()
     {

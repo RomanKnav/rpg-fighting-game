@@ -231,6 +231,9 @@ public class GameController : MonoBehaviour
                 // what is this? select random attack for enemy
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
                 currentGameObj.GetComponent<FighterAction>().SelectAttack(attackType);
+
+                // looks like a nice place to disable the circle:
+                // currentGameObj
             }
         } 
         // otherwise, current character is dead, move on to next:
