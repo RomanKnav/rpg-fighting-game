@@ -30,7 +30,6 @@ public class FighterStatsScript : MonoBehaviour
     public float magicRange;
     public float defense;
     public float speed;
-    public float experience;
 
     private float startHealth;          // and this? the initial value of "health"
     private float startMagic;
@@ -56,7 +55,6 @@ public class FighterStatsScript : MonoBehaviour
     // MY CRAP:
     [Header("MY CRAP")]
     public Sprite thumbnail;           
-    public bool actionReady = false;  
     public bool victim = false;     
     public float agility;               
     public bool isFriendly;
@@ -70,15 +68,11 @@ public class FighterStatsScript : MonoBehaviour
 
     public bool drawCircle;
     public Transform highlightCursor;
-    public bool selected;
     public GameObject ownerObject;
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
+    public bool selected;
     public bool hoveringOver = false;      // used to override aCharacterIsSelected
-
-    // PRIORITY LIST CRAP:
-    public GameObject currentPriorityCharacter;
-    public bool isCurrentPriorityCharacter;
 
     void Awake()
     {
