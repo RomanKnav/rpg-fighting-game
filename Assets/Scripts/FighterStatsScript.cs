@@ -121,10 +121,10 @@ public class FighterStatsScript : MonoBehaviour
     void DrawCircle() {
 
         // this shit is fucked:
-        if (health >= 80) {
+        if (health >= 70) {
             currentCircleOutline = circleOutlineGreen;
         } 
-        else if (health >= 45 && health <= 79) {
+        else if (health >= 40 && health <= 69) {
             currentCircleOutline = circleOutlineYellow;
         }
         else {
@@ -141,7 +141,7 @@ public class FighterStatsScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
-            gameControllerScript.aCharacterIsSelected = false;
+            gameControllerScript.aCharacterIsSelected = false;    
         }
     }
 
@@ -300,13 +300,13 @@ public class FighterStatsScript : MonoBehaviour
     void OnMouseExit()
     {
         hoveringOver = false;
-        gameControllerScript.aCharacterIsSelected = false;
         if (!selected)
         {
             this.highlightCursor.gameObject.SetActive(false);
  
             if (!gameControllerScript.aCharacterIsSelected) {
-                gameControllerScript.cursorAlreadyActive = false;
+                // THIS is causing problems. NOPE, its whatever setting aCharacterIsSelected to false
+                gameControllerScript.cursorAlreadyActive = false;         
             }
         }
     }
