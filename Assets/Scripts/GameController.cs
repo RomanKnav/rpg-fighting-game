@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
 
     private List<float> agilityPointsList = new List<float>();
 
-    private FighterStatsScript EnemyScript;
+    public FighterStatsScript EnemyScript;
     private FighterStatsScript HeroScript;
 
     public bool aCharacterIsSelected;   
@@ -79,6 +79,8 @@ public class GameController : MonoBehaviour
         charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
 
         HeroScript = GameObject.Find("WizardHero").GetComponent<FighterStatsScript>();
+
+        // UPDATE THIS VAR DYNAMICALLY:
         EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
     }
 
@@ -160,6 +162,8 @@ public class GameController : MonoBehaviour
                         // draw cursor:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
 
+                        // EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
+
                         HeroScript.SelectNewCharacter();
 
                         // should only happen ONCE per loop:
@@ -199,8 +203,10 @@ public class GameController : MonoBehaviour
                 currentFighterStatsScript.turnIsOver = false;
 
                 // enable/disable respective circles:
-                HeroScript.drawCircle = true;
-                EnemyScript.drawCircle = false;
+                HeroScript.drawTheCircle = true;
+
+                // NOT GOOD: EnemyScript should be updated during EACH character's turn:
+                EnemyScript.drawTheCircle = false;
 
                 if (selectedCharacter != null) {
                     this.actionMenu.SetActive(true);
@@ -214,10 +220,11 @@ public class GameController : MonoBehaviour
             // if player isn't current unit, undraw circle, disable actionMenu, and have enemy attack:
             else
             {
+                EnemyScript = currentGameObj.GetComponent<FighterStatsScript>();
                 // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;
-                HeroScript.drawCircle = false;
-                EnemyScript.drawCircle = true;
+                HeroScript.drawTheCircle = false;
+                EnemyScript.drawTheCircle = true;
 
                 this.actionMenu.SetActive(false);
 

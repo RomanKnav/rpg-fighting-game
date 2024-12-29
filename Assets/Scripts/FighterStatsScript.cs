@@ -60,19 +60,19 @@ public class FighterStatsScript : MonoBehaviour
     public bool isFriendly;
     public Sprite deadSprite;
     public Sprite currentSprite; 
-    public bool turnIsOver;
     public Transform circleOutlineGreen;
     public Transform circleOutlineYellow;
     public Transform circleOutlineRed;
     public Transform currentCircleOutline;
 
-    public bool drawCircle;
     public Transform highlightCursor;
     public GameObject ownerObject;
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
     public bool selected;
-    public bool hoveringOver = false;      // used to override aCharacterIsSelected
+    public bool hoveringOver = false;       // used to override aCharacterIsSelected
+    public bool drawTheCircle;              // should be true when current character's turn
+    public bool turnIsOver;
 
     void Awake()
     {
@@ -131,7 +131,7 @@ public class FighterStatsScript : MonoBehaviour
             currentCircleOutline = circleOutlineRed;
         }
 
-        if (drawCircle) {
+        if (drawTheCircle) {
             this.currentCircleOutline.gameObject.SetActive(true);
         } 
         else {
