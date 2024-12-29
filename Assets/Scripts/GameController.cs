@@ -191,18 +191,17 @@ public class GameController : MonoBehaviour
 
         FighterStatsScript currentFighterStatsScript = fighterStatsScriptList[0];
 
-        // why're we removing it??
+        // why're we removing it?? removed only temporarily as their turn's being processed:
         fighterStatsScriptList.Remove(currentFighterStatsScript);
 
         if (!currentFighterStatsScript.GetDead())
         // if current fighter is NOT dead:
         {
-            GameObject currentUnit = currentFighterStatsScript.gameObject;
+            GameObject currentGameObj = currentFighterStatsScript.gameObject;
 
-            // what's nextActTurn? an integer
             fighterStatsScriptList.Add(currentFighterStatsScript);
 
-            if (currentUnit.name == "WizardHero")
+            if (currentGameObj.name == "WizardHero")
             {
                 currentFighterStatsScript.turnIsOver = false;
 
@@ -231,12 +230,12 @@ public class GameController : MonoBehaviour
 
                 // what is this? select random attack for enemy
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
-                currentUnit.GetComponent<FighterAction>().SelectAttack(attackType);
+                currentGameObj.GetComponent<FighterAction>().SelectAttack(attackType);
             }
         } 
         else
         {
-            NextTurn();
+            NextTurn();     // RECURSION!!!!
         }
     }
 }
