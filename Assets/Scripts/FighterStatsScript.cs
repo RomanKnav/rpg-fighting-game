@@ -302,6 +302,7 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
+    // with 4 characters, all of this is FUCKED:
     void OnMouseExit()
     {
         hoveringOver = false;

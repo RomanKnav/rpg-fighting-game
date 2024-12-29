@@ -31,7 +31,11 @@ public class GameController : MonoBehaviour
 
     // LIST OF GAMEOBJECTS:
     public List<GameObject> charactersList;
+
+    // MAKE THIS LIST OF CHARACTER SCRIPTS:
     public List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
+    public List<FighterStatsScript> priorityScriptsList = new List<FighterStatsScript>();    
+
     private List<float> agilityPointsList = new List<float>();
 
     private FighterStatsScript EnemyScript;
@@ -85,6 +89,8 @@ public class GameController : MonoBehaviour
     // runs only ONCE:
     // maybe right off the start, add all the characters to fighterStatsScriptList?
     // this only adds TWO characters to fighterStatsScriptList:
+
+    // TODO: add all characterScripts in here (or I can completely take out fighterStatsScriptList and replace it with PriorityList):
     void Start()
     {
         CreatePriorityList();
@@ -112,6 +118,7 @@ public class GameController : MonoBehaviour
         NextTurn();
     }
 
+    // if four characters are in battle scene, this adds SIX gameObjects. Why?
     public void CreatePriorityList() {
         if (charactersList.Count > 0) {
             Debug.Log($"Inside charactersList: {charactersList.Count}");   // successfully returns 3
@@ -124,7 +131,7 @@ public class GameController : MonoBehaviour
                 agilityPointsList.Add(currentAgility);
             }
 
-            // SORT the list:
+            // SORT the list from greatest to least:
             agilityPointsList.Sort((a, b) => b.CompareTo(a));
 
             // add to priority list in descending order according to agility of each character (SUCCESS):
@@ -133,13 +140,17 @@ public class GameController : MonoBehaviour
             foreach(float highAgility in agilityPointsList) {
                 
                 foreach(GameObject character in charactersList) {
-                    
-                    var currentAgility = character.GetComponent<FighterStatsScript>().agility;
 
-                    if (currentAgility == highAgility) {
+                    FighterStatsScript characterScript = character.GetComponent<FighterStatsScript>();
+                    
+                    var currentAgility = characterScript.agility;
+
+                    // && character not in priorityList
+                    if (currentAgility == highAgility && !priorityList.Contains(character)) {
                         priorityList.Add(character);
+                        priorityScriptsList.Add(characterScript);
                     }
-                } 
+                }
             }
 
             Debug.Log($"Inside PriorityList: {priorityList.Count}");
@@ -185,24 +196,31 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // still have no fucking idea how this works:
+    // SAFE TO REPLACE fighterStatsScriptList with PriorityScriptsList
     public void NextTurn()
     {
         // global variable battleText is the damage delt:
         battleText.gameObject.SetActive(false);
 
-        FighterStatsScript currentFighterStatsScript = fighterStatsScriptList[0];
+        // FighterStatsScript currentFighterStatsScript = fighterStatsScriptList[0];
+        FighterStatsScript currentFighterStatsScript = priorityScriptsList[0];
 
-        // why're we removing it?? removed only temporarily as their turn's being processed:
-        fighterStatsScriptList.Remove(currentFighterStatsScript);
+        // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:
+
+        // fighterStatsScriptList.Remove(currentFighterStatsScript);
+        priorityScriptsList.Remove(currentFighterStatsScript);
 
         if (!currentFighterStatsScript.GetDead())
         // if current fighter is NOT dead:
         {
+            // from my understanding: we remove current script, get it's gameObj, then readd it immediatley???
             GameObject currentGameObj = currentFighterStatsScript.gameObject;
 
-            // this would just add it to the end (was at the start before):
-            fighterStatsScriptList.Add(currentFighterStatsScript);
+            // if not dead, just add it to the end (was at the start before):
+            // readd the SCRIPT, not the game object:
+
+            // fighterStatsScriptList.Add(currentFighterStatsScript);
+            priorityScriptsList.Add(currentFighterStatsScript);
 
             if (currentGameObj.name == "WizardHero")
             {
@@ -236,9 +254,10 @@ public class GameController : MonoBehaviour
                 currentGameObj.GetComponent<FighterAction>().SelectAttack(attackType);
             }
         } 
+        // otherwise, current character is dead, move on to next:
         else
         {
-            NextTurn();     // RECURSION!!!!
+            NextTurn();     // RECURSION!!!! To recurse through all the characters in the list
         }
     }
 }
