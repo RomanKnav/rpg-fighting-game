@@ -200,6 +200,7 @@ public class GameController : MonoBehaviour
 
             if (currentGameObj.name == "WizardHero")
             {
+                currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
 
                 // enable/disable respective circles:

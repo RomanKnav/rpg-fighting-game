@@ -44,6 +44,8 @@ public class FighterAction : MonoBehaviour
     // and by AttachCallback(), which handles the buttons (in MakeButton.cs):
     public void SelectAttack(string btn)
     {
+        FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
+
         GameObject victim = hero;
 
         if (name == "WizardHero")       // yes, object names can simply be retrieved like this
@@ -57,13 +59,13 @@ public class FighterAction : MonoBehaviour
             > 0, current is greater than other object
         */
 
-        FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
+        
 
         if (btn.CompareTo("melee") == 0)
         {
             meleePrefab.GetComponent<AttackScript>().Attack(victim);
             // gameObject.GetComponent<FighterStatsScript>().turnInProgress = true;         DOES NOT WORK
-            
+
 
         } else if (btn.CompareTo("range") == 0)
         {
