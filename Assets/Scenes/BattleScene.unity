@@ -518,7 +518,6 @@ MonoBehaviour:
   priorityList: []
   priorityScriptsList: []
   EnemyScript: {fileID: 0}
-  aCharacterIsSelected: 0
   nextPlayerAction: 
   playerObject: {fileID: 0}
   playerMeleePrefab: {fileID: 0}
@@ -526,6 +525,7 @@ MonoBehaviour:
   playerAttackScript: {fileID: 0}
   selectedCharacter: {fileID: 0}
   cursorAlreadyActive: 0
+  characterManuallySelected: 0
 --- !u!4 &421185457
 Transform:
   m_ObjectHideFlags: 0
@@ -1796,7 +1796,7 @@ PrefabInstance:
     - target: {fileID: 2386232424101880848, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3916839175798799318, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}

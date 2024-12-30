@@ -58,9 +58,6 @@ public class FighterAction : MonoBehaviour
               0, current appears in the same position in the sort order as other object
             > 0, current is greater than other object
         */
-
-        
-
         if (btn.CompareTo("melee") == 0)
         {
             meleePrefab.GetComponent<AttackScript>().Attack(victim);

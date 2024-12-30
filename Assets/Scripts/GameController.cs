@@ -181,7 +181,6 @@ public class GameController : MonoBehaviour
         FighterStatsScript currentFighterStatsScript = priorityScriptsList[0];
 
         // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:
-
         priorityScriptsList.Remove(currentFighterStatsScript);
 
         if (!currentFighterStatsScript.GetDead())

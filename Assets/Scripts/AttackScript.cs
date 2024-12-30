@@ -38,7 +38,6 @@ public class AttackScript : MonoBehaviour
     private float damage = 0.0f;
 
     // MY CRAP:
-    public Animator victim;
     public Animator ownerAnimator;      
     public Animator victimAnimator;
     public GameObject gameController;
@@ -53,33 +52,35 @@ public class AttackScript : MonoBehaviour
     public void Attack(GameObject victima) {
         // victima = victim;
 
-        if (victima != null) {
-            victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
-            targetStats = victima.GetComponent<FighterStatsScript>();
-        } 
-        else {
-            GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
+        if (victima.name != owner.name) {
+            if (victima != null) {
+                victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
+                targetStats = victima.GetComponent<FighterStatsScript>();
+            } 
+            else {
+                GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
 
-             victimAnimator = characterToAttack.GetComponent<Animator>();
-             targetStats = characterToAttack.GetComponent<FighterStatsScript>();
-        }
+                victimAnimator = characterToAttack.GetComponent<Animator>();
+                targetStats = characterToAttack.GetComponent<FighterStatsScript>();
+            }
 
-        // stats of the one doing the attacking:
-        attackerStats = owner.GetComponent<FighterStatsScript>();
-        attackerStats.turnInProgress = true;
+            // stats of the one doing the attacking:
+            attackerStats = owner.GetComponent<FighterStatsScript>();
+            attackerStats.turnInProgress = true;
 
-        if (!targetStats.GetDead())
-        {
-            // does melee use magic? NOPE
-            if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
+            if (!targetStats.GetDead())
             {
-                StartCoroutine(SynchronousAttack());
-            } else
-            {
-                Invoke("SkipTurnContinueGame", 2);
-            }  
-        } else {
-            Debug.Log($"{victima.name} is dead!!!");
+                // does melee use magic? NOPE
+                if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
+                {
+                    StartCoroutine(SynchronousAttack());
+                } else
+                {
+                    Invoke("SkipTurnContinueGame", 2);
+                }  
+            } else {
+                Debug.Log($"{victima.name} is dead!!!");
+            }
         }
     }
 
