@@ -52,6 +52,7 @@ public class AttackScript : MonoBehaviour
     public void Attack(GameObject victima) {
         // victima = victim;
 
+        // keep character from attaking itself:
         if (victima.name != owner.name) {
             if (victima != null) {
                 victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"

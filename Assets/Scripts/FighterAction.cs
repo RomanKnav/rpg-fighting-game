@@ -19,9 +19,6 @@ public class FighterAction : MonoBehaviour
     private GameObject rangePrefab;
 
     [SerializeField]
-    private Sprite faceIcon;
-
-    private GameObject currentAttack;
 
     // a SCRIPT:
     private GameController gameControllerScript;
