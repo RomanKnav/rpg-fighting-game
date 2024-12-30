@@ -51,6 +51,8 @@ public class GameController : MonoBehaviour
     public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
     public bool cursorAlreadyActive = true;
 
+    public bool characterManuallySelected = false;
+
     private void Awake()
     {
         playerObject = GameObject.Find("WizardHero");

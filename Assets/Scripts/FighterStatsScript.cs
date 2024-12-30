@@ -69,6 +69,8 @@ public class FighterStatsScript : MonoBehaviour
     public GameObject ownerObject;
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
+
+    // is this var only ever used internally? YES
     public bool selected;
     public bool hoveringOver = false;      
     public bool drawTheCircle;              // should be true when current character's turn
@@ -115,8 +117,9 @@ public class FighterStatsScript : MonoBehaviour
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
 
-            // NEW ADDITION: 
+            // NEW ADDITION:
             gameControllerScript.cursorAlreadyActive = false; 
+            gameControllerScript.characterManuallySelected = false;
         }
 
         if (turnInProgress == true) {
@@ -297,32 +300,35 @@ public class FighterStatsScript : MonoBehaviour
     }
 
     // with 4 characters, all of this is FUCKED:
+    // THE BUGGER IS HERE:
     void OnMouseExit()
     {
         hoveringOver = false;
-        if (!selected)
+
+        // if (selected) {
+        //     gameControllerScript.cursorAlreadyActive = false; 
+        // }
+
+        // this only works when no character's manually selected:
+        // if the current character is NOT selected (all of them initially):
+        if (!selected && !gameControllerScript.characterManuallySelected)
         {
             this.highlightCursor.gameObject.SetActive(false);
 
             // NEW ADDITION: 
-            // gameControllerScript.cursorAlreadyActive = false; 
- 
-            if (gameControllerScript.selectedCharacter != null) {
-                gameControllerScript.cursorAlreadyActive = false;         
-            }
+            gameControllerScript.cursorAlreadyActive = false;   
         }
     }
 
     void OnMouseDown()
     {
-        if (gameControllerScript.selectedCharacter != null) {
-            SelectNewCharacter();
-        }
+        SelectNewCharacter();
     }
 
     // should run both automatically and OnMouseDown:
     public void SelectNewCharacter() 
     {
+        gameControllerScript.characterManuallySelected = true;
         if ((gameControllerScript.selectedCharacter != null && !dead) || (hoveringOver == true && !dead))
         {
             selected = true;
