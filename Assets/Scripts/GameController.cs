@@ -36,8 +36,6 @@ public class GameController : MonoBehaviour
 
     public FighterStatsScript EnemyScript;
     private FighterStatsScript HeroScript;
-
-    public bool aCharacterIsSelected;   
     public string nextPlayerAction;
 
     public GameObject playerObject;
@@ -48,10 +46,11 @@ public class GameController : MonoBehaviour
     public FighterAction playerActionScript;
     public AttackScript playerAttackScript;         // this is on the PREFAB
 
-    // this'll need to be exported elsewhere:
-    // so far, only used to set default character:
+    // CHARACTER SELECTION CRAP:
+    // all 3 of these used EXTENSIVELY:
     public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
     public bool cursorAlreadyActive = true;
+    public bool aCharacterIsSelected;           // what's the point of this again? 
 
     private void Awake()
     {

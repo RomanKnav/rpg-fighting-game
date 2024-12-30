@@ -110,12 +110,22 @@ public class FighterStatsScript : MonoBehaviour
     }
 
     void Update() {
+        // moving this from DrawCircle() to here fixed Escape issue:
+        if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
+            selected = false;
+            this.highlightCursor.gameObject.SetActive(false);
+            gameControllerScript.aCharacterIsSelected = false;   
+
+            // NEW ADDITION: 
+            gameControllerScript.cursorAlreadyActive = false; 
+        }
+
         if (turnInProgress == true) {
             DrawCircle();
         } else if (currentCircleOutline != null) {
             this.currentCircleOutline.gameObject.SetActive(false);
         }
-        
+        // DrawCircle();
     }
 
     void DrawCircle() {
@@ -135,13 +145,6 @@ public class FighterStatsScript : MonoBehaviour
         } 
         else {
             this.currentCircleOutline.gameObject.SetActive(false);
-        }
-
-        // Issue could be wherever selected = true;
-        if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
-            selected = false;
-            this.highlightCursor.gameObject.SetActive(false);
-            gameControllerScript.aCharacterIsSelected = false;    
         }
     }
 
@@ -179,6 +182,9 @@ public class FighterStatsScript : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
 
             highlightCursor.gameObject.SetActive(false);
+
+            // NEW ADDITION: 
+            gameControllerScript.cursorAlreadyActive = false; 
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log(gameControllerScript.charactersList.Count);
@@ -279,6 +285,7 @@ public class FighterStatsScript : MonoBehaviour
             // if another character isn't already selected:
             if (gameControllerScript.aCharacterIsSelected == false && !dead)
             {
+                // forgot what I was doing here???
                 selected = false;
                 this.highlightCursor.gameObject.SetActive(true);
                 gameControllerScript.cursorAlreadyActive = true;
@@ -299,6 +306,9 @@ public class FighterStatsScript : MonoBehaviour
         if (!selected)
         {
             this.highlightCursor.gameObject.SetActive(false);
+
+            // NEW ADDITION: 
+            // gameControllerScript.cursorAlreadyActive = false; 
  
             if (!gameControllerScript.aCharacterIsSelected) {
                 // THIS is causing problems. NOPE, its whatever setting aCharacterIsSelected to false
