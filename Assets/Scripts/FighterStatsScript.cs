@@ -47,7 +47,7 @@ public class FighterStatsScript : MonoBehaviour
     public float xNewHealthScale;
     private float xNewMagicScale;
 
-    private GameObject gameControllerObj;       // need to get "aCharacterIsSelected" property from this
+    private GameObject gameControllerObj;    
 
     // this is supposed to be a script:
     private GameController gameControllerScript;
@@ -70,7 +70,7 @@ public class FighterStatsScript : MonoBehaviour
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
     public bool selected;
-    public bool hoveringOver = false;       // used to override aCharacterIsSelected
+    public bool hoveringOver = false;      
     public bool drawTheCircle;              // should be true when current character's turn
     public bool turnIsOver;
     public bool turnInProgress;            // could use this to determine when to draw circle
@@ -114,7 +114,6 @@ public class FighterStatsScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
-            gameControllerScript.aCharacterIsSelected = false;   
 
             // NEW ADDITION: 
             gameControllerScript.cursorAlreadyActive = false; 
@@ -176,8 +175,6 @@ public class FighterStatsScript : MonoBehaviour
             animator.enabled = false;
 
             selected = false;
-
-            gameControllerScript.aCharacterIsSelected = false;
 
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
 
@@ -283,7 +280,7 @@ public class FighterStatsScript : MonoBehaviour
             }
 
             // if another character isn't already selected:
-            if (gameControllerScript.aCharacterIsSelected == false && !dead)
+            if (gameControllerScript.selectedCharacter != null && !dead)
             {
                 // forgot what I was doing here???
                 selected = false;
@@ -310,8 +307,7 @@ public class FighterStatsScript : MonoBehaviour
             // NEW ADDITION: 
             // gameControllerScript.cursorAlreadyActive = false; 
  
-            if (!gameControllerScript.aCharacterIsSelected) {
-                // THIS is causing problems. NOPE, its whatever setting aCharacterIsSelected to false
+            if (gameControllerScript.selectedCharacter != null) {
                 gameControllerScript.cursorAlreadyActive = false;         
             }
         }
@@ -319,7 +315,7 @@ public class FighterStatsScript : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!gameControllerScript.aCharacterIsSelected) {
+        if (gameControllerScript.selectedCharacter != null) {
             SelectNewCharacter();
         }
     }
@@ -327,10 +323,9 @@ public class FighterStatsScript : MonoBehaviour
     // should run both automatically and OnMouseDown:
     public void SelectNewCharacter() 
     {
-        if ((gameControllerScript.aCharacterIsSelected == false && !dead) || (hoveringOver == true && !dead))
+        if ((gameControllerScript.selectedCharacter != null && !dead) || (hoveringOver == true && !dead))
         {
             selected = true;
-            gameControllerScript.aCharacterIsSelected = true;
             gameControllerScript.selectedCharacter = ownerObject;
             gameControllerScript.actionMenu.SetActive(true);
 

@@ -50,7 +50,6 @@ public class GameController : MonoBehaviour
     // all 3 of these used EXTENSIVELY:
     public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
     public bool cursorAlreadyActive = true;
-    public bool aCharacterIsSelected;           // what's the point of this again? 
 
     private void Awake()
     {
@@ -141,7 +140,7 @@ public class GameController : MonoBehaviour
 
     // should NOT run at initial run (hence first if statement):
     public void AutoSelectNextEnemy() {
-        if (!aCharacterIsSelected && selectedCharacter == null) {
+        if (selectedCharacter == null) {
             if (priorityList.Count > 0) {
                 foreach (GameObject character in priorityList) 
                 {
@@ -154,9 +153,6 @@ public class GameController : MonoBehaviour
 
                         // global var in this file:
                         selectedCharacter = character;
-
-                        // in this file:
-                        aCharacterIsSelected = true;  
 
                         // draw cursor:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
