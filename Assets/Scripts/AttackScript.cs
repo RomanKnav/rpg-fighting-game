@@ -114,13 +114,6 @@ public class AttackScript : MonoBehaviour
 
         // MOVE LOGIC: (current position, new position, speed)
         // transform.position = Vector3.MoveTowards(transform.position, currentPoint.transform.position, moveSpeed * Time.deltaTime);
-
-        if (victimPosition != null) {
-            Debug.Log("MOVING TOWARDS ENEMY");
-
-            // this can ONLY be used in Update() to work:
-            owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
-        }
         
         // this ensures crap below is not set until animation is done:
         yield return new WaitForSeconds(ownerAnimator.GetCurrentAnimatorStateInfo(0).length);
@@ -132,6 +125,17 @@ public class AttackScript : MonoBehaviour
         attackerStats.turnIsOver = true;   
         attackerStats.turnInProgress = false; 
     }
+
+   void Update() {
+        if (victimPosition != null) {
+            if (attackerStats != null && attackerStats.turnInProgress == true) {
+                Debug.Log("MOVING TOWARDS ENEMY");
+
+                // this can ONLY be used in Update() to work:
+                owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
+            }
+        }
+   }
 
     void SkipTurnContinueGame()
     {
