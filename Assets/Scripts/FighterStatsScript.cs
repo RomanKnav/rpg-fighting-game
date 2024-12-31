@@ -64,7 +64,6 @@ public class FighterStatsScript : MonoBehaviour
     public Transform circleOutlineYellow;
     public Transform circleOutlineRed;
     public Transform currentCircleOutline;
-
     public Transform highlightCursor;
     public GameObject ownerObject;
     public FighterAction playerActionScript;
@@ -75,7 +74,9 @@ public class FighterStatsScript : MonoBehaviour
     public bool hoveringOver = false;      
     public bool drawTheCircle;              // should be true when current character's turn
     public bool turnIsOver;
-    public bool turnInProgress;            // could use this to determine when to draw circle
+
+    // move towards enemy when this is true. As soon as false, 
+    public bool turnInProgress;            // could use this to determine when to draw circle   --SUCCESS
 
     void Awake()
     {

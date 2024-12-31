@@ -41,6 +41,8 @@ public class AttackScript : MonoBehaviour
     public Animator ownerAnimator;      
     public Animator victimAnimator;
     public GameObject gameController;
+    public Vector3 victimPosition;              // to move towards when attacking
+    [SerializeField] float moveSpeed = 10f;      // keep universal for now
 
     public void Awake() {
         ownerAnimator = owner.GetComponent<Animator>();
@@ -51,12 +53,14 @@ public class AttackScript : MonoBehaviour
     // where this used? FighterAction.cs
     public void Attack(GameObject victima) {
         // victima = victim;
-
         // keep character from attaking itself:
         if (victima.name != owner.name) {
             if (victima != null) {
-                victimAnimator = victima.GetComponent<Animator>();       // "object reference not set to instance of object"
+                victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
+                victimAnimator = victima.GetComponent<Animator>();          // "object reference not set to instance of object"
                 targetStats = victima.GetComponent<FighterStatsScript>();
+
+                Debug.Log($"VICTIM POSITION: {victimPosition}");
             } 
             else {
                 GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
@@ -108,6 +112,16 @@ public class AttackScript : MonoBehaviour
         // owner.GetComponent<Animator>().Play(animationName);    
         ownerAnimator.Play(animationName);          // ANIMATION ARE ASYNCHRONOUS --rest of code doesn't wait for them to finish 
 
+        // MOVE LOGIC: (current position, new position, speed)
+        // transform.position = Vector3.MoveTowards(transform.position, currentPoint.transform.position, moveSpeed * Time.deltaTime);
+
+        if (victimPosition != null) {
+            Debug.Log("MOVING TOWARDS ENEMY");
+
+            // this can ONLY be used in Update() to work:
+            owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
+        }
+        
         // this ensures crap below is not set until animation is done:
         yield return new WaitForSeconds(ownerAnimator.GetCurrentAnimatorStateInfo(0).length);
 
