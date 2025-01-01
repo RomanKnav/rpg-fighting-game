@@ -100,8 +100,6 @@ public class GameController : MonoBehaviour
     // if four characters are in battle scene, this adds SIX gameObjects. Why?
     public void CreatePriorityList() {
         if (charactersList.Count > 0) {
-            Debug.Log($"Inside charactersList: {charactersList.Count}");   // successfully returns 3
-
             foreach(GameObject character in charactersList) {
 
                 var characterScript = character.GetComponent<FighterStatsScript>();
@@ -112,9 +110,6 @@ public class GameController : MonoBehaviour
 
             // SORT the list from greatest to least:
             agilityPointsList.Sort((a, b) => b.CompareTo(a));
-
-            // add to priority list in descending order according to agility of each character (SUCCESS):
-            Debug.Log($"Inside agilityPointsList: {agilityPointsList.Count}");  
 
             foreach(float highAgility in agilityPointsList) {
                 
@@ -132,7 +127,6 @@ public class GameController : MonoBehaviour
                 }
             }
 
-            Debug.Log($"Inside PriorityList: {priorityList.Count}");
             foreach (GameObject character in priorityList)
             {
                 Debug.Log(character);

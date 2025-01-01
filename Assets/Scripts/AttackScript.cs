@@ -59,8 +59,6 @@ public class AttackScript : MonoBehaviour
                 victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
                 victimAnimator = victima.GetComponent<Animator>();          // "object reference not set to instance of object"
                 targetStats = victima.GetComponent<FighterStatsScript>();
-
-                Debug.Log($"VICTIM POSITION: {victimPosition}");
             } 
             else {
                 GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
@@ -127,7 +125,7 @@ public class AttackScript : MonoBehaviour
     }
 
    void Update() {
-        if (victimPosition != null) {
+        if (victimPosition != null && attackerStats != null) {
             if (attackerStats != null && attackerStats.turnInProgress == true) {
                 Debug.Log("MOVING TOWARDS ENEMY");
 
@@ -136,6 +134,11 @@ public class AttackScript : MonoBehaviour
             }
             else if (attackerStats.turnInProgress == false) {
                 // need reference to character's original position:
+                if (owner.transform.position != attackerStats.originalPosition) {
+                    owner.transform.position = Vector3.MoveTowards(owner.transform.position, attackerStats.originalPosition, moveSpeed * Time.deltaTime);
+                } else {
+                    return;
+                }
             }
 
 

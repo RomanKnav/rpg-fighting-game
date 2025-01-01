@@ -65,7 +65,7 @@ public class FighterStatsScript : MonoBehaviour
     public Transform circleOutlineRed;
     public Transform currentCircleOutline;
     public Transform highlightCursor;
-    public GameObject ownerObject;
+    public GameObject ownerObject;              // can I get the sprite's coords frpom this? Yes, we use the TRANSFORM.
     public FighterAction playerActionScript;
     public float damageTaken = 0f;
 
@@ -75,17 +75,21 @@ public class FighterStatsScript : MonoBehaviour
     public bool drawTheCircle;              // should be true when current character's turn
     public bool turnIsOver;
 
-    // position where player stands before 
-    public Vector3 originalPosition;
-
     // move towards enemy when this is true. As soon as false, 
     public bool turnInProgress;            // could use this to determine when to draw circle   --SUCCESS
 
     public bool atEnemyPosition;           // used for moveTowards crap in AttackScript.
 
+    // position where player stands before moving to enemy. Should be IMMUTABLE:
+    public Vector3 originalPosition;        // SUCCESS
+
     void Awake()
     {
         ownerObject = this.gameObject;
+
+        if (ownerObject != null) {
+            originalPosition = ownerObject.transform.position;
+        }
 
         // healthFill = transform.GetChild(6).gameObject;
 
@@ -171,7 +175,6 @@ public class FighterStatsScript : MonoBehaviour
     {
         damageTaken = damage;
         health = health - damage;
-        Debug.Log(health);
 
         animator.Play("Damage");
 
@@ -281,6 +284,8 @@ public class FighterStatsScript : MonoBehaviour
     {
         hoveringOver = true; 
         Debug.Log($"HOVERING OVER ENEMY: {this.name}");
+
+        Debug.Log($"{this.name} is at coords: {this.originalPosition}");
 
         if (!gameControllerScript.cursorAlreadyActive) {
             if (hoveringOver == true && !dead) {
