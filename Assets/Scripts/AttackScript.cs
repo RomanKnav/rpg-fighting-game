@@ -41,7 +41,7 @@ public class AttackScript : MonoBehaviour
     public Animator ownerAnimator;      
     public Animator victimAnimator;
     public GameObject gameController;
-    public Vector3 victimPosition;              // to move towards when attacking
+    public Vector3 victimPosition;               // to move towards when attacking
     [SerializeField] float moveSpeed = 10f;      // keep universal for now
 
     public void Awake() {
@@ -134,6 +134,11 @@ public class AttackScript : MonoBehaviour
                 // this can ONLY be used in Update() to work:
                 owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
             }
+            else if (attackerStats.turnInProgress == false) {
+                // need reference to character's original position:
+            }
+
+
         }
    }
 
