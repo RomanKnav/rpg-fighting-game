@@ -33,9 +33,6 @@ public class GameController : MonoBehaviour
     public List<FighterStatsScript> priorityScriptsList = new List<FighterStatsScript>();    
 
     private List<float> agilityPointsList = new List<float>();
-
-    public FighterStatsScript EnemyScript;
-    private FighterStatsScript HeroScript;
     public string nextPlayerAction;
 
     public GameObject playerObject;
@@ -50,18 +47,25 @@ public class GameController : MonoBehaviour
     // all 3 of these used EXTENSIVELY:
     public GameObject selectedCharacter;        // actual object of the selected character (there should be a default)
     public bool cursorAlreadyActive = true;
-
     public bool characterManuallySelected = false;
+
+    public FighterStatsScript EnemyScript;
+    private FighterStatsScript playerFighterStatsScript;    // formerly HeroScript
 
     public GameObject currentHeroObj;
     public GameObject secondHeroObj;
 
     private void Awake()
     {
-        playerObject = GameObject.Find("WizardHero");
-        playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
+        charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
+        CreatePriorityList();
+        FindHeroes();               // defines currentHeroObj and secondHeroObj
 
-        playerAttackScript = playerObject.transform.GetChild(0).gameObject.GetComponent<AttackScript>();
+        playerActionScript = currentHeroObj.gameObject.GetComponent<FighterAction>();
+
+        // what this do? get the WMeleePrefab, where attackScript is located:
+        playerAttackScript = currentHeroObj.transform.GetChild(0).gameObject.GetComponent<AttackScript>();
+        playerFighterStatsScript = currentHeroObj.GetComponent<FighterStatsScript>();
 
         actionMenu = GameObject.Find("ActionMenu");
 
@@ -78,10 +82,6 @@ public class GameController : MonoBehaviour
             playerActionScript.enemy = selectedCharacter;   // THIS IS NULL BY DEFAULT
         }
 
-        charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
-
-        HeroScript = GameObject.Find("WizardHero").GetComponent<FighterStatsScript>();
-
         // UPDATE THIS VAR DYNAMICALLY:
         EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
     }
@@ -89,9 +89,6 @@ public class GameController : MonoBehaviour
     // runs only ONCE:
     void Start()
     {
-        CreatePriorityList();
-        FindHeroes();
-
         // gets INITIAL enemy:
         if (EnemyScript != null) {
             EnemyScript.SetEnemyThumbnail();
@@ -100,6 +97,7 @@ public class GameController : MonoBehaviour
         NextTurn();
     }
 
+    // REMEMBER: priorityList already sorted by agility points:
     public void FindHeroes() {
         bool firstFound = false;
 
@@ -174,7 +172,7 @@ public class GameController : MonoBehaviour
 
                         // EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
 
-                        HeroScript.SelectNewCharacter();
+                        playerFighterStatsScript.SelectNewCharacter();
 
                         // should only happen ONCE per loop:
                         break;
@@ -186,12 +184,16 @@ public class GameController : MonoBehaviour
     }
 
     // Successfully replaced other crap with PriorityScriptsList:
+    // SERIOUS WORK NEEDED IN HERE TO ERADICATE WIZARDHERO:
     public void NextTurn()
     {
         // global variable battleText is the damage delt:
         battleText.gameObject.SetActive(false);
 
+        // goes through the WHOLE LIST:
         FighterStatsScript currentFighterStatsScript = priorityScriptsList[0];
+
+        // FighterStatsScript currentFighterStatsScript = playerFighterStatsScript;
 
         // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:
         priorityScriptsList.Remove(currentFighterStatsScript);
@@ -208,12 +210,13 @@ public class GameController : MonoBehaviour
             priorityScriptsList.Add(currentFighterStatsScript);
 
             if (currentCharacterObj.name == "WizardHero")
+            // if (playerFighterStatsScript.isFriendly == true)
             {
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
 
                 // enable/disable respective circles:
-                HeroScript.drawTheCircle = true;
+                playerFighterStatsScript.drawTheCircle = true;
 
                 // NOT GOOD: EnemyScript should be updated during EACH character's turn:
                 EnemyScript.drawTheCircle = false;
@@ -233,7 +236,7 @@ public class GameController : MonoBehaviour
                 EnemyScript = currentCharacterObj.GetComponent<FighterStatsScript>();
                 // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;
-                HeroScript.drawTheCircle = false;
+                playerFighterStatsScript.drawTheCircle = false;
                 EnemyScript.drawTheCircle = true;
 
                 this.actionMenu.SetActive(false);

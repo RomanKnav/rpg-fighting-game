@@ -41,8 +41,8 @@ public class AttackScript : MonoBehaviour
     public Animator ownerAnimator;      
     public Animator victimAnimator;
     public GameObject gameController;
-    public Vector3 victimPosition;               // to move towards when attacking
-    [SerializeField] float moveSpeed = 10f;      // keep universal for now
+    public Vector3 victimPosition;                // to move towards when attacking
+    [SerializeField] float moveSpeed = 100f;      // for whatever reason speed doesn't change when this is changed
 
     public void Awake() {
         ownerAnimator = owner.GetComponent<Animator>();
@@ -109,11 +109,7 @@ public class AttackScript : MonoBehaviour
         // animation crap. Where are animations assigned? On the characters themselves (they have an "Animator" component, 
         // which have a "controller", which contains MULTIPLE animations):
 
-        // owner.GetComponent<Animator>().Play(animationName);    
         ownerAnimator.Play(animationName);          // ANIMATION ARE ASYNCHRONOUS --rest of code doesn't wait for them to finish 
-
-        // MOVE LOGIC: (current position, new position, speed)
-        // transform.position = Vector3.MoveTowards(transform.position, currentPoint.transform.position, moveSpeed * Time.deltaTime);
         
         // this ensures crap below is not set until animation is done:
         yield return new WaitForSeconds(ownerAnimator.GetCurrentAnimatorStateInfo(0).length);
@@ -140,6 +136,7 @@ public class AttackScript : MonoBehaviour
 
                 // this can ONLY be used in Update() to work:
                 if (!attackerStats.isSniper && attackerStats.attacking == true) {
+                    // MOVE LOGIC: (current position, new position, speed)
                     owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
                 }  
             }
