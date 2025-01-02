@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,7 +42,7 @@ public class AttackScript : MonoBehaviour
     public Animator victimAnimator;
     public GameObject gameController;
     public Vector3 victimPosition;                // to move towards when attacking
-    [SerializeField] float moveSpeed = 100f;      // for whatever reason speed doesn't change when this is changed
+    [SerializeField] float moveSpeed = 0.5f;      // for whatever reason speed doesn't change when this is changed
 
     public void Awake() {
         ownerAnimator = owner.GetComponent<Animator>();
@@ -130,6 +130,21 @@ public class AttackScript : MonoBehaviour
     // moves attacker to opponent, then back to original position:
    void MoveToVictim() {
         if (victimPosition != null && attackerStats != null) {
+
+            if (attackerStats.isSniper == false) {
+                if (owner.transform.position != attackerStats.originalPosition && owner.transform.position != victimPosition 
+                    && !attackerStats.attacking) 
+                {
+                    // Debug.Log("FUUUCK WE'RE RETREATING!!!!");
+
+                    // WE'RE RETREATING, SWITCH SPRITE:
+                    owner.GetComponent<SpriteRenderer>().flipX = false;
+                }
+                else if (owner.transform.position == attackerStats.originalPosition || attackerStats.attacking == true) {
+                    owner.GetComponent<SpriteRenderer>().flipX = true;      // the DEFAULT when idle
+                }
+            }
+
             // maybe make "attacking" var
             if (attackerStats != null && attackerStats.turnInProgress == true) {
 
