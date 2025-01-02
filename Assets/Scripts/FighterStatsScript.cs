@@ -305,9 +305,15 @@ public class FighterStatsScript : MonoBehaviour
                 {
                     SetEnemyThumbnail();
                     SetEnemyHealth();
+                    SetEnemyName();
                 }
             }
         }
+    }
+
+    void SetEnemyName() {
+       GameObject oppNameObject = GameObject.Find("EnemyFrameLabel"); 
+       oppNameObject.GetComponent<Text>().text = this.name;
     }
 
     // with 4 characters, all of this is FUCKED:
