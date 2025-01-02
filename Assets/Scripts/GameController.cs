@@ -208,9 +208,10 @@ public class GameController : MonoBehaviour
             // readd the SCRIPT, not the game object:
 
             priorityScriptsList.Add(currentFighterStatsScript);
+            
+            Debug.Log($"CURRENT CHARACTER'S TURN: {currentCharacterObj.name}");
 
-            if (currentCharacterObj.name == "WizardHero")
-            // if (playerFighterStatsScript.isFriendly == true)
+            if (currentFighterStatsScript.isFriendly == true)
             {
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
