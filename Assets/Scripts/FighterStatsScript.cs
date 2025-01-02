@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -75,10 +75,12 @@ public class FighterStatsScript : MonoBehaviour
     public bool drawTheCircle;              // should be true when current character's turn
     public bool turnIsOver;
 
-    // move towards enemy when this is true. As soon as false, 
+    // move towards enemy when this is true. As soon as false, BAD.
     public bool turnInProgress;            // could use this to determine when to draw circle   --SUCCESS
 
-    public bool atEnemyPosition;           // used for moveTowards crap in AttackScript.
+    public bool isSniper;           // so that exclusively range enemies dont move towards opponent
+
+    public bool attacking = false;      // turns false as soon as character starts returning
 
     // position where player stands before moving to enemy. Should be IMMUTABLE:
     public Vector3 originalPosition;        // SUCCESS

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,8 +52,13 @@ public class AttackScript : MonoBehaviour
     // TODO: get global var of victim:
     // where this used? FighterAction.cs
     public void Attack(GameObject victima) {
+        // stats of the one doing the attacking:
+        attackerStats = owner.GetComponent<FighterStatsScript>();
+        attackerStats.turnInProgress = true;
+
         // victima = victim;
         // keep character from attaking itself:
+        //  && (attackerStats.isFriendly == false && victima.GetComponent<FighterStatsScript>().isFriendly == false)
         if (victima.name != owner.name) {
             if (victima != null) {
                 victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
@@ -67,15 +72,12 @@ public class AttackScript : MonoBehaviour
                 targetStats = characterToAttack.GetComponent<FighterStatsScript>();
             }
 
-            // stats of the one doing the attacking:
-            attackerStats = owner.GetComponent<FighterStatsScript>();
-            attackerStats.turnInProgress = true;
-
             if (!targetStats.GetDead())
             {
                 // does melee use magic? NOPE
                 if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
                 {
+                    attackerStats.attacking = true;
                     StartCoroutine(SynchronousAttack());
                 } else
                 {
@@ -122,15 +124,24 @@ public class AttackScript : MonoBehaviour
 
         attackerStats.turnIsOver = true;   
         attackerStats.turnInProgress = false; 
+        attackerStats.attacking = false;
     }
 
    void Update() {
+        MoveToVictim();
+   }
+
+    // moves attacker to opponent, then back to original position:
+   void MoveToVictim() {
         if (victimPosition != null && attackerStats != null) {
+            // maybe make "attacking" var
             if (attackerStats != null && attackerStats.turnInProgress == true) {
                 Debug.Log("MOVING TOWARDS ENEMY");
 
                 // this can ONLY be used in Update() to work:
-                owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
+                if (!attackerStats.isSniper && attackerStats.attacking == true) {
+                    owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
+                }  
             }
             else if (attackerStats.turnInProgress == false) {
                 // need reference to character's original position:
@@ -140,8 +151,6 @@ public class AttackScript : MonoBehaviour
                     return;
                 }
             }
-
-
         }
    }
 
