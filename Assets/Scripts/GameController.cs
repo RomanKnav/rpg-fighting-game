@@ -183,7 +183,6 @@ public class GameController : MonoBehaviour
     }
 
     // Successfully replaced other crap with PriorityScriptsList:
-    // SERIOUS WORK NEEDED IN HERE TO ERADICATE WIZARDHERO:
     public void NextTurn()
     {
         // global variable battleText is the damage delt:

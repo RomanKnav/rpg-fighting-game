@@ -10,17 +10,21 @@ public class MakeButton : MonoBehaviour
 {
     [SerializeField]
     private bool physical;
-
     private GameObject hero;
-
     private GameObject actionMenu;
-    
+    private GameController gameControllerScript;
+
+    void Awake() {
+        gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
+    }
+
     void Start()
     {
         string temp = gameObject.name;
         gameObject.GetComponent<Button>().onClick.AddListener(() => AttachCallback(temp));
 
-        hero = GameObject.Find("WizardHero");
+        hero = gameControllerScript.currentHeroObj;
+
         actionMenu = GameObject.Find("ActionMenu");
     }
 
