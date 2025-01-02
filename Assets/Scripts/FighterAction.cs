@@ -30,15 +30,13 @@ public class FighterAction : MonoBehaviour
     {
         // gameController = gameController.Instance;
         gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
-
-        // hero = GameObject.Find("WizardHero");
-        // must pull currentHeroObj from GameController
-
-        hero = gameControllerScript.currentHeroObj;
     }
 
-    // 1 of 3 strings can be passed: "melee", "range", "run":
-    // this needs to be used by second enemy!:
+    void Start() {
+        // won't work if added to Awake():
+        hero = gameControllerScript.currentHeroObj;
+        Debug.Log($"HERE'S YOUR HERO: {hero}");
+    }
 
     // where is this used? in GameController's NextTurn() by enemy
     // and by AttachCallback(), which handles the buttons (in MakeButton.cs):
@@ -49,7 +47,7 @@ public class FighterAction : MonoBehaviour
         GameObject victim = hero;
 
         // checks name of gameObject:
-        if (name == "WizardHero")       // yes, object names can simply be retrieved like this
+        if (characterScript.isFriendly == true)
         {
             victim = enemy;
         }

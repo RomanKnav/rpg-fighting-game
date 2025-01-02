@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -132,7 +132,6 @@ public class AttackScript : MonoBehaviour
         if (victimPosition != null && attackerStats != null) {
             // maybe make "attacking" var
             if (attackerStats != null && attackerStats.turnInProgress == true) {
-                Debug.Log("MOVING TOWARDS ENEMY");
 
                 // this can ONLY be used in Update() to work:
                 if (!attackerStats.isSniper && attackerStats.attacking == true) {
