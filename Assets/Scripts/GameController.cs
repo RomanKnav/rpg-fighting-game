@@ -178,7 +178,6 @@ public class GameController : MonoBehaviour
                         break;
                     }
                 }
-                Debug.Log("AUTOMATICALLY SELECTED NEW ENEMY");
             }
         }
     }

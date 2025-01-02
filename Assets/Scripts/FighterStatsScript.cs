@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -198,7 +198,6 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.cursorAlreadyActive = false; 
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
-            Debug.Log(gameControllerScript.charactersList.Count);
             Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");
             gameControllerScript.charactersList.Remove(gameObject);
             Debug.Log(gameControllerScript.charactersList.Count);
@@ -285,7 +284,6 @@ public class FighterStatsScript : MonoBehaviour
     void OnMouseOver()
     {
         hoveringOver = true; 
-        Debug.Log($"HOVERING OVER ENEMY: {this.name}");
 
         Debug.Log($"{this.name} is at coords: {this.originalPosition}");
 
@@ -350,8 +348,6 @@ public class FighterStatsScript : MonoBehaviour
 
             // makes it so that next enemy to attack is the one selected:
             playerActionScript.enemy = ownerObject;
-
-            Debug.Log($"new character selected: {gameControllerScript.selectedCharacter}");
         } 
     }
 }

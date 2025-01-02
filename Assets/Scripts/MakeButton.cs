@@ -48,11 +48,6 @@ public class MakeButton : MonoBehaviour
         actionMenu.SetActive(false);
     }   
 
-    void OnMouseOver()
-    {
-        Debug.Log("Hovering over button!"); 
-    }
-
     void OnMouseExit()
     {
         return;

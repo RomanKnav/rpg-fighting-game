@@ -31,7 +31,10 @@ public class FighterAction : MonoBehaviour
         // gameController = gameController.Instance;
         gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
 
-        hero = GameObject.Find("WizardHero");
+        // hero = GameObject.Find("WizardHero");
+        // must pull currentHeroObj from GameController
+
+        hero = gameControllerScript.currentHeroObj;
     }
 
     // 1 of 3 strings can be passed: "melee", "range", "run":
@@ -59,15 +62,10 @@ public class FighterAction : MonoBehaviour
         if (btn.CompareTo("melee") == 0)
         {
             meleePrefab.GetComponent<AttackScript>().Attack(victim);
-            // gameObject.GetComponent<FighterStatsScript>().turnInProgress = true;         DOES NOT WORK
-
 
         } else if (btn.CompareTo("range") == 0)
         {
             rangePrefab.GetComponent<AttackScript>().Attack(victim);
-            // gameObject.GetComponent<FighterStatsScript>().turnInProgress = true;
         }
-
-        // gameObject.GetComponent<FighterStatsScript>().turnInProgress = false;
     }
 }
