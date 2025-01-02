@@ -53,6 +53,9 @@ public class GameController : MonoBehaviour
 
     public bool characterManuallySelected = false;
 
+    public GameObject currentHeroObj;
+    public GameObject secondHeroObj;
+
     private void Awake()
     {
         playerObject = GameObject.Find("WizardHero");
@@ -62,13 +65,12 @@ public class GameController : MonoBehaviour
 
         actionMenu = GameObject.Find("ActionMenu");
 
-        // seems unecessary to include this on EVERY character:
         friendliesParent = GameObject.Find("Friendlies");           // success
         enemiesParent = GameObject.Find("Enemies");
 
         // get default character to attack at start:
         if (enemiesParent.transform.childCount > 0) {
-            selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;
+            selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;     // selects first character listed in the parent
         }
 
         // what this do? if playerActionScript found, set the enemy in that script:
@@ -88,6 +90,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         CreatePriorityList();
+        FindHeroes();
 
         // gets INITIAL enemy:
         if (EnemyScript != null) {
@@ -95,6 +98,26 @@ public class GameController : MonoBehaviour
         }
 
         NextTurn();
+    }
+
+    public void FindHeroes() {
+        bool firstFound = false;
+
+        foreach (GameObject character in priorityList)
+        {
+            if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
+                if (!firstFound) {
+                    currentHeroObj = character;
+                    firstFound = true;
+                } else {
+                    secondHeroObj = character;
+                    break;
+                }
+            }
+        }
+
+        Debug.Log($"FIRST FRIENDLY: {currentHeroObj}");
+        Debug.Log($"SECOND FRIENDLY: {secondHeroObj}");
     }
 
     // if four characters are in battle scene, this adds SIX gameObjects. Why?
@@ -111,6 +134,7 @@ public class GameController : MonoBehaviour
             // SORT the list from greatest to least:
             agilityPointsList.Sort((a, b) => b.CompareTo(a));
 
+            // loop through the floats in the list and set the priority list according to their agilityPoints:
             foreach(float highAgility in agilityPointsList) {
                 
                 foreach(GameObject character in charactersList) {
@@ -125,11 +149,6 @@ public class GameController : MonoBehaviour
                         priorityScriptsList.Add(characterScript);
                     }
                 }
-            }
-
-            foreach (GameObject character in priorityList)
-            {
-                Debug.Log(character);
             }
         }
     }
@@ -181,14 +200,14 @@ public class GameController : MonoBehaviour
         // if current fighter is NOT dead:
         {
             // from my understanding: we remove current script, get it's gameObj, then readd it immediatley???
-            GameObject currentGameObj = currentFighterStatsScript.gameObject;
+            GameObject currentCharacterObj = currentFighterStatsScript.gameObject;
 
             // if not dead, just add it to the end (was at the start before):
             // readd the SCRIPT, not the game object:
 
             priorityScriptsList.Add(currentFighterStatsScript);
 
-            if (currentGameObj.name == "WizardHero")
+            if (currentCharacterObj.name == "WizardHero")
             {
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
@@ -211,7 +230,7 @@ public class GameController : MonoBehaviour
             // if player isn't current unit, undraw circle, disable actionMenu, and have enemy attack:
             else
             {
-                EnemyScript = currentGameObj.GetComponent<FighterStatsScript>();
+                EnemyScript = currentCharacterObj.GetComponent<FighterStatsScript>();
                 // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;
                 HeroScript.drawTheCircle = false;
@@ -221,10 +240,10 @@ public class GameController : MonoBehaviour
 
                 // what is this? select random attack for enemy
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
-                currentGameObj.GetComponent<FighterAction>().SelectAttack(attackType);
+                currentCharacterObj.GetComponent<FighterAction>().SelectAttack(attackType);
 
                 // looks like a nice place to disable the circle:
-                // currentGameObj
+                // currentCharacterObj
             }
         } 
         // otherwise, current character is dead, move on to next:

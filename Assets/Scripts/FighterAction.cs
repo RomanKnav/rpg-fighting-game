@@ -45,6 +45,7 @@ public class FighterAction : MonoBehaviour
 
         GameObject victim = hero;
 
+        // checks name of gameObject:
         if (name == "WizardHero")       // yes, object names can simply be retrieved like this
         {
             victim = enemy;

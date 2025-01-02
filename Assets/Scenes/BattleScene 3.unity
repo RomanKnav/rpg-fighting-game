@@ -527,6 +527,8 @@ MonoBehaviour:
   selectedCharacter: {fileID: 0}
   cursorAlreadyActive: 0
   characterManuallySelected: 0
+  currentHeroObj: {fileID: 0}
+  secondHeroObj: {fileID: 0}
 --- !u!4 &421185457
 Transform:
   m_ObjectHideFlags: 0
@@ -1311,6 +1313,11 @@ PrefabInstance:
       propertyPath: turnInProgress
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: agility
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1681,7 +1688,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -337.49997}
+  m_AnchoredPosition: {x: 0, y: -337.5}
   m_SizeDelta: {x: 0, y: -675}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &947418330
