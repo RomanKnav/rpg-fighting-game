@@ -80,14 +80,10 @@ public class FighterStatsScript : MonoBehaviour
     public bool isSniper;           // so that exclusively range enemies dont move towards opponent
 
     public bool attacking = false;      // turns false as soon as character starts returning. Turns true when? as soon as we move towards enemy
-
-    // position where player stands before moving to enemy. Should be IMMUTABLE:
-    public Vector3 originalPosition;        // SUCCESS
-
     public bool retreating = false;
 
-    // should turn true as soon as victim attacked. Remains true as character retreats. False when "turnInProgress" is false. 
-    public bool attackedVictim = false;     
+    // position where player stands before moving to enemy. Should be IMMUTABLE:
+    public Vector3 originalPosition;        // SUCCESS  
 
     void Awake()
     {

@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour
 
     // MY CRAP:
     [Header("MY CRAP:")]
+    [SerializeField] AudioSource musicSource1;
+    public AudioSource musicSource;
+
     private GameObject friendliesParent;
     private GameObject enemiesParent;
 
@@ -51,17 +54,23 @@ public class GameController : MonoBehaviour
 
     public FighterStatsScript EnemyScript;
     private FighterStatsScript playerFighterStatsScript;    // formerly HeroScript
+    public FighterStatsScript currentStatsScript;
 
     public GameObject currentHeroObj;                       // what's this? set by FindHeroes(). The first friendly found in PriorityList
     public GameObject secondHeroObj;
 
-    [SerializeField] AudioSource musicSource1;
-    public AudioSource musicSource;
+    // so that player can't attack while attacks are happening:
+    public bool freeState = true;                                // true ONLY when player is able to select crap/enemies. False when attacking. 
+
+    public bool movementHappening = false;                      // determines when there is MOVEMENT (from player and enemy)
+
+
 
     private void Awake()
     {
         charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
         CreatePriorityList();
+        currentStatsScript = priorityScriptsList[0];
         FindHeroes();               // defines currentHeroObj and secondHeroObj
 
         playerActionScript = currentHeroObj.gameObject.GetComponent<FighterAction>();
@@ -101,6 +110,14 @@ public class GameController : MonoBehaviour
         }
 
         NextTurn();
+    }
+
+    void Update() {
+        if (movementHappening == true || currentStatsScript.isFriendly == false) {
+            freeState = false;
+        } else {
+            freeState = true;
+        }
     }
 
     // REMEMBER: priorityList already sorted by agility points:
@@ -196,8 +213,8 @@ public class GameController : MonoBehaviour
 
         // goes through the WHOLE LIST:
         FighterStatsScript currentFighterStatsScript = priorityScriptsList[0];
+        currentStatsScript = priorityScriptsList[0];
 
-        // FighterStatsScript currentFighterStatsScript = playerFighterStatsScript;
 
         // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:
         priorityScriptsList.Remove(currentFighterStatsScript);
@@ -217,6 +234,7 @@ public class GameController : MonoBehaviour
 
             if (currentFighterStatsScript.isFriendly == true)
             {
+                // freeState = true;
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
 
@@ -238,6 +256,7 @@ public class GameController : MonoBehaviour
             // if player isn't current unit, undraw circle, disable actionMenu, and have enemy attack:
             else
             {
+                // freeState = false;
                 EnemyScript = currentCharacterObj.GetComponent<FighterStatsScript>();
                 // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;

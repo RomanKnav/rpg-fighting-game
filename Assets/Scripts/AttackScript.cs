@@ -125,6 +125,14 @@ public class AttackScript : MonoBehaviour
 
    void Update() {
         MoveToVictim();
+
+        // if (attackerStats != null) {
+        //     if (attackerStats.attacking == false && attackerStats.retreating == false && attackerStats.isFriendly == true) {
+        //         gameController.GetComponent<GameController>().freeState = true;
+        //     } else {
+        //         gameController.GetComponent<GameController>().freeState = false;
+        //     }
+        // }
    }
 
     // moves attacker to opponent, then back to original position:
@@ -138,14 +146,22 @@ public class AttackScript : MonoBehaviour
 
                     // WE'RE RETREATING, SWITCH SPRITE:
                     owner.GetComponent<SpriteRenderer>().flipX = false;
+                    attackerStats.retreating = true;
                 }
                 else if (owner.transform.position == attackerStats.originalPosition || attackerStats.attacking == true) {
                     owner.GetComponent<SpriteRenderer>().flipX = true;      // the DEFAULT when idle
+                    attackerStats.retreating = false;
+
+                    if (attackerStats.isFriendly == true) {
+                        gameController.GetComponent<GameController>().movementHappening = false;
+                    }
                 }
             }
 
             // maybe make "attacking" var
             if (attackerStats != null && attackerStats.turnInProgress == true) {
+
+                gameController.GetComponent<GameController>().movementHappening = true;
 
                 // this can ONLY be used in Update() to work:
                 if (!attackerStats.isSniper && attackerStats.attacking == true) {
@@ -156,6 +172,7 @@ public class AttackScript : MonoBehaviour
             else if (attackerStats.turnInProgress == false) {
                 // need reference to character's original position:
                 if (owner.transform.position != attackerStats.originalPosition) {
+                    gameController.GetComponent<GameController>().movementHappening = true;
                     owner.transform.position = Vector3.MoveTowards(owner.transform.position, attackerStats.originalPosition, moveSpeed * Time.deltaTime);
                 } else {
                     return;
