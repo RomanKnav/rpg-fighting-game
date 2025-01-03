@@ -160,6 +160,7 @@ public class AttackScript : MonoBehaviour
                 // this can ONLY be used in Update() to work:
                 if (!attackerStats.isSniper && attackerStats.attacking == true) {
                     // MOVE LOGIC: (current position, new position, speed)
+                    gameController.GetComponent<GameController>().movementHappening = true;
                     owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
                 }  
             }

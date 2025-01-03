@@ -254,6 +254,7 @@ public class FighterStatsScript : MonoBehaviour
     }
 
     // the only thing this does is change the stupid healthbar COLOR:
+    // runs at ONMOUSEOVER():
     public void SetEnemyHealth()
     {
         // everything in here is LOCAL:
@@ -283,7 +284,8 @@ public class FighterStatsScript : MonoBehaviour
     {
         hoveringOver = true; 
 
-        Debug.Log($"{this.name} is at coords: {this.originalPosition}");
+        // Debug.Log($"{this.name} is at coords: {this.originalPosition}");
+        Debug.Log($"character's health {health}");
 
         if (gameControllerScript.freeState == true) {
             if (!gameControllerScript.cursorAlreadyActive) {
@@ -303,7 +305,7 @@ public class FighterStatsScript : MonoBehaviour
                     if (!isFriendly) 
                     {
                         SetEnemyThumbnail();
-                        // SetEnemyHealth();
+                        SetEnemyHealth();
                         SetEnemyName();
                     }
                 }
