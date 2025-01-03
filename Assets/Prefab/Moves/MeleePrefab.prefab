@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
+  ownerStats: {fileID: 0}
   animationName: Melee
   magicAttack: 0
   magicCost: 0
@@ -51,3 +52,8 @@ MonoBehaviour:
   maxAttackMultiplier: 1.1
   minDefenseMultiplier: 0.4
   maxDefenseMultiplier: 1
+  ownerAnimator: {fileID: 0}
+  victimAnimator: {fileID: 0}
+  gameController: {fileID: 0}
+  victimPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 10

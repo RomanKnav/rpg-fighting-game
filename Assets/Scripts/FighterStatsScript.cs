@@ -40,7 +40,7 @@ public class FighterStatsScript : MonoBehaviour
     public Transform healthTransform;          // this is the Transform component of the HealthFill object.
     private Transform magicTransform;
 
-    public Vector2 healthScale;                // what's this? a 2-value tuple.    used to change the size of healthbar
+    public Vector2 healthScale;                // what's this? a 2-value tuple. Used to change the size of healthbar
     private Vector2 magicScale;
 
     public float xNewHealthScale;
@@ -97,10 +97,6 @@ public class FighterStatsScript : MonoBehaviour
             originalPosition = ownerObject.transform.position;
         }
 
-        // healthFill = transform.GetChild(6).gameObject;
-
-        playerActionScript = GameObject.Find("WizardHero").GetComponent<FighterAction>();
-
         SetHealth();
 
         magicTransform = magicFill.GetComponent<RectTransform>();
@@ -125,6 +121,10 @@ public class FighterStatsScript : MonoBehaviour
         circleOutlineRed = transform.GetChild(4);
 
         highlightCursor = transform.GetChild(5);
+    }
+
+    void Start() {
+        playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
     }
 
     void Update() {

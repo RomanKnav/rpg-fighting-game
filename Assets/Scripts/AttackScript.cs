@@ -135,7 +135,6 @@ public class AttackScript : MonoBehaviour
                 if (owner.transform.position != attackerStats.originalPosition && owner.transform.position != victimPosition 
                     && !attackerStats.attacking) 
                 {
-                    // Debug.Log("FUUUCK WE'RE RETREATING!!!!");
 
                     // WE'RE RETREATING, SWITCH SPRITE:
                     owner.GetComponent<SpriteRenderer>().flipX = false;

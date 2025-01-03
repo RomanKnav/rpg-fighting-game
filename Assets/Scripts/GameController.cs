@@ -52,8 +52,11 @@ public class GameController : MonoBehaviour
     public FighterStatsScript EnemyScript;
     private FighterStatsScript playerFighterStatsScript;    // formerly HeroScript
 
-    public GameObject currentHeroObj;
+    public GameObject currentHeroObj;                       // what's this? set by FindHeroes(). The first friendly found in PriorityList
     public GameObject secondHeroObj;
+
+    [SerializeField] AudioSource musicSource1;
+    public AudioSource musicSource;
 
     private void Awake()
     {
@@ -89,6 +92,9 @@ public class GameController : MonoBehaviour
     // runs only ONCE:
     void Start()
     {
+        musicSource = musicSource1;
+        musicSource.Play();
+
         // gets INITIAL enemy:
         if (EnemyScript != null) {
             EnemyScript.SetEnemyThumbnail();
