@@ -125,7 +125,7 @@ public class FighterStatsScript : MonoBehaviour
 
     void Update() {
         // moving this from DrawCircle() to here fixed Escape issue:
-        if (Input.GetKeyDown(KeyCode.Escape) && selected == true) {
+        if (Input.GetKeyDown(KeyCode.Escape) && selected == true && gameControllerScript.freeState == true) {
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
 
@@ -287,25 +287,27 @@ public class FighterStatsScript : MonoBehaviour
 
         Debug.Log($"{this.name} is at coords: {this.originalPosition}");
 
-        if (!gameControllerScript.cursorAlreadyActive) {
-            if (hoveringOver == true && !dead) {
-                this.highlightCursor.gameObject.SetActive(true);
-                gameControllerScript.cursorAlreadyActive = true;
-            }
+        if (gameControllerScript.freeState == true) {
+            if (!gameControllerScript.cursorAlreadyActive) {
+                if (hoveringOver == true && !dead) {
+                    this.highlightCursor.gameObject.SetActive(true);
+                    gameControllerScript.cursorAlreadyActive = true;
+                }
 
-            // if another character isn't already selected:
-            if (gameControllerScript.selectedCharacter != null && !dead)
-            {
-                // forgot what I was doing here???
-                selected = false;
-                this.highlightCursor.gameObject.SetActive(true);
-                gameControllerScript.cursorAlreadyActive = true;
-
-                if (!isFriendly) 
+                // if another character isn't already selected:
+                if (gameControllerScript.selectedCharacter != null && !dead)
                 {
-                    SetEnemyThumbnail();
-                    SetEnemyHealth();
-                    SetEnemyName();
+                    // forgot what I was doing here???
+                    selected = false;
+                    this.highlightCursor.gameObject.SetActive(true);
+                    gameControllerScript.cursorAlreadyActive = true;
+
+                    if (!isFriendly) 
+                    {
+                        SetEnemyThumbnail();
+                        SetEnemyHealth();
+                        SetEnemyName();
+                    }
                 }
             }
         }
@@ -345,15 +347,17 @@ public class FighterStatsScript : MonoBehaviour
     // should run both automatically and OnMouseDown:
     public void SelectNewCharacter() 
     {
-        gameControllerScript.characterManuallySelected = true;
-        if ((gameControllerScript.selectedCharacter != null && !dead) || (hoveringOver == true && !dead))
-        {
-            selected = true;
-            gameControllerScript.selectedCharacter = ownerObject;
-            gameControllerScript.actionMenu.SetActive(true);
+        if (gameControllerScript.freeState == true) {
+            gameControllerScript.characterManuallySelected = true;
+            if ((gameControllerScript.selectedCharacter != null && !dead) || (hoveringOver == true && !dead))
+            {
+                selected = true;
+                gameControllerScript.selectedCharacter = ownerObject;
+                gameControllerScript.actionMenu.SetActive(true);
 
-            // makes it so that next enemy to attack is the one selected:
-            playerActionScript.enemy = ownerObject;
-        } 
+                // makes it so that next enemy to attack is the one selected:
+                playerActionScript.enemy = ownerObject;
+            } 
+        }
     }
 }

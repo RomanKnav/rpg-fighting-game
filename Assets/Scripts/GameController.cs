@@ -113,6 +113,10 @@ public class GameController : MonoBehaviour
     }
 
     void Update() {
+        SetFreeState();
+    }
+
+    void SetFreeState() {
         if (movementHappening == true || currentStatsScript.isFriendly == false) {
             freeState = false;
         } else {
@@ -234,7 +238,6 @@ public class GameController : MonoBehaviour
 
             if (currentFighterStatsScript.isFriendly == true)
             {
-                // freeState = true;
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
 
@@ -256,7 +259,6 @@ public class GameController : MonoBehaviour
             // if player isn't current unit, undraw circle, disable actionMenu, and have enemy attack:
             else
             {
-                // freeState = false;
                 EnemyScript = currentCharacterObj.GetComponent<FighterStatsScript>();
                 // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;
