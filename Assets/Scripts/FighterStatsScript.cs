@@ -23,7 +23,7 @@ public class FighterStatsScript : MonoBehaviour
     private GameObject magicFill;
 
     [Header("Stats")]
-    public float health;                // what's this? a manually entered NUMBER
+    public float health;                // what's this? a manually entered NUMBER. Does it update automatically?
     public float magic;
 
     public float melee;
@@ -139,7 +139,6 @@ public class FighterStatsScript : MonoBehaviour
         } else if (currentCircleOutline != null) {
             this.currentCircleOutline.gameObject.SetActive(false);
         }
-        // DrawCircle();
     }
 
     void DrawCircle() {
@@ -162,9 +161,12 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
-    // used only once in awake():
+    // used only once in awake(). Used for what? (actually necessary).
+    // difference b/ween this and SetEnemyHealth? 
     void SetHealth()
     {
+        // healthFill = gameObject.transform.GetChild(6).gameObject;
+
         healthTransform = healthFill.GetComponent<RectTransform>();
         healthScale = healthFill.transform.localScale;
 
@@ -200,7 +202,6 @@ public class FighterStatsScript : MonoBehaviour
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");
             gameControllerScript.charactersList.Remove(gameObject);
-            Debug.Log(gameControllerScript.charactersList.Count);
 
             gameControllerScript.priorityList.Remove(gameObject);
             gameControllerScript.AutoSelectNextEnemy();
@@ -236,13 +237,12 @@ public class FighterStatsScript : MonoBehaviour
         return dead;
     }
 
-    // WTF IS THIS????? sus
+    // WTF IS THIS????? sus. Goes to next turn when current turn over.
     void ContinueGame()
     {
         GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
     }
 
-    // this and SetEnemyHealth() seem like they'd be better off in GameController? Nah, we're good. !isFriendly comes into play
     public void SetEnemyThumbnail()
     {
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
@@ -253,9 +253,7 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
-    // used when HOVERING over enemy:
-    // what's healthFill again? gameObject containing the image.
-    // REMEMBER: the size of the health is set in ReceiveDamage() in FighterStatsScript.
+    // the only thing this does is change the stupid healthbar COLOR:
     public void SetEnemyHealth()
     {
         // everything in here is LOCAL:
@@ -305,7 +303,7 @@ public class FighterStatsScript : MonoBehaviour
                     if (!isFriendly) 
                     {
                         SetEnemyThumbnail();
-                        SetEnemyHealth();
+                        // SetEnemyHealth();
                         SetEnemyName();
                     }
                 }

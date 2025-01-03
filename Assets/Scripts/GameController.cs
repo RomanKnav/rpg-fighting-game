@@ -140,9 +140,6 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log($"FIRST FRIENDLY: {currentHeroObj}");
-        Debug.Log($"SECOND FRIENDLY: {secondHeroObj}");
     }
 
     // if four characters are in battle scene, this adds SIX gameObjects. Why?

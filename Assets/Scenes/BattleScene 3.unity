@@ -516,6 +516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionMenu: {fileID: 0}
   battleText: {fileID: 813753879}
+  musicSource1: {fileID: 1631785582}
+  musicSource: {fileID: 0}
   charactersList: []
   priorityList: []
   priorityScriptsList: []
@@ -528,10 +530,11 @@ MonoBehaviour:
   cursorAlreadyActive: 0
   characterManuallySelected: 0
   EnemyScript: {fileID: 0}
+  currentStatsScript: {fileID: 0}
   currentHeroObj: {fileID: 0}
   secondHeroObj: {fileID: 0}
-  musicSource1: {fileID: 1631785582}
-  musicSource: {fileID: 0}
+  freeState: 1
+  movementHappening: 0
 --- !u!4 &421185457
 Transform:
   m_ObjectHideFlags: 0
@@ -1691,7 +1694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -337.50003}
+  m_AnchoredPosition: {x: 0, y: -337.49997}
   m_SizeDelta: {x: 0, y: -675}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &947418330
@@ -4472,6 +4475,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811496984132170391, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8703023794967328394, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}

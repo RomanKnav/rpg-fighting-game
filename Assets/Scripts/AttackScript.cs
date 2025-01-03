@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,7 +84,7 @@ public class AttackScript : MonoBehaviour
                     Invoke("SkipTurnContinueGame", 2);
                 }  
             } else {
-                Debug.Log($"{victima.name} is dead!!!");
+                return;
             }
         }
     }
@@ -125,14 +125,6 @@ public class AttackScript : MonoBehaviour
 
    void Update() {
         MoveToVictim();
-
-        // if (attackerStats != null) {
-        //     if (attackerStats.attacking == false && attackerStats.retreating == false && attackerStats.isFriendly == true) {
-        //         gameController.GetComponent<GameController>().freeState = true;
-        //     } else {
-        //         gameController.GetComponent<GameController>().freeState = false;
-        //     }
-        // }
    }
 
     // moves attacker to opponent, then back to original position:
@@ -160,8 +152,10 @@ public class AttackScript : MonoBehaviour
 
             // maybe make "attacking" var
             if (attackerStats != null && attackerStats.turnInProgress == true) {
-
-                gameController.GetComponent<GameController>().movementHappening = true;
+                
+                if (!attackerStats.isFriendly) {
+                    gameController.GetComponent<GameController>().movementHappening = true;
+                }
 
                 // this can ONLY be used in Update() to work:
                 if (!attackerStats.isSniper && attackerStats.attacking == true) {
