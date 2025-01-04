@@ -185,11 +185,14 @@ public class GameController : MonoBehaviour
 
                     if (!characterScript.isFriendly && !characterScript.dead) {
 
+                        // global var in this file:
+                        selectedCharacter = character;
+
                         // set enemy variable in FighterAction.cs (determine who to attack):
                         playerActionScript.enemy = selectedCharacter;
 
-                        // global var in this file:
-                        selectedCharacter = character;
+                        // // global var in this file:
+                        // selectedCharacter = character;
 
                         // draw cursor:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);

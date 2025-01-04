@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
+  ownerStats: {fileID: 0}
   animationName: Range
   magicAttack: 1
   magicCost: 10
@@ -51,3 +52,8 @@ MonoBehaviour:
   maxAttackMultiplier: 1.2
   minDefenseMultiplier: 0.2
   maxDefenseMultiplier: 1
+  ownerAnimator: {fileID: 0}
+  victimAnimator: {fileID: 0}
+  gameController: {fileID: 0}
+  victimPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 50
