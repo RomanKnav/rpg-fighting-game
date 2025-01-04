@@ -42,7 +42,7 @@ public class AttackScript : MonoBehaviour
     public Animator victimAnimator;
     public GameObject gameController;
     public Vector3 victimPosition;                // to move towards when attacking
-    [SerializeField] float moveSpeed = 0.5f;      // for whatever reason speed doesn't change when this is changed
+    public float moveSpeed;      // for whatever reason speed doesn't change when this is changed
 
     public void Awake() {
         ownerAnimator = owner.GetComponent<Animator>();

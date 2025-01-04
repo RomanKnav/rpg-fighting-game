@@ -56,4 +56,4 @@ MonoBehaviour:
   victimAnimator: {fileID: 0}
   gameController: {fileID: 0}
   victimPosition: {x: 0, y: 0, z: 0}
-  moveSpeed: 10
+  moveSpeed: 50

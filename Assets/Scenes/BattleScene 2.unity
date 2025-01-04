@@ -514,6 +514,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionMenu: {fileID: 0}
   battleText: {fileID: 813753879}
+  musicSource1: {fileID: 1082067229}
+  musicSource: {fileID: 0}
   charactersList: []
   priorityList: []
   priorityScriptsList: []
@@ -526,10 +528,11 @@ MonoBehaviour:
   cursorAlreadyActive: 0
   characterManuallySelected: 0
   EnemyScript: {fileID: 0}
+  currentStatsScript: {fileID: 0}
   currentHeroObj: {fileID: 0}
   secondHeroObj: {fileID: 0}
-  musicSource1: {fileID: 1082067229}
-  musicSource: {fileID: 0}
+  freeState: 1
+  movementHappening: 0
 --- !u!4 &421185457
 Transform:
   m_ObjectHideFlags: 0
@@ -4054,7 +4057,7 @@ PrefabInstance:
     - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: melee
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
@@ -4136,7 +4139,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: WizardHero
       objectReference: {fileID: 0}
+    - target: {fileID: 2486540419577879349, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5394084809043202085, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811496984132170391, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_IsActive
       value: 0

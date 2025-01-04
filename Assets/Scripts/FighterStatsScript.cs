@@ -125,7 +125,9 @@ public class FighterStatsScript : MonoBehaviour
 
     void Update() {
         // moving this from DrawCircle() to here fixed Escape issue:
-        if (Input.GetKeyDown(KeyCode.Escape) && selected == true && gameControllerScript.freeState == true) {
+        // if (Input.GetKeyDown(KeyCode.Escape) && selected == true) 
+        if (Input.GetKeyDown(KeyCode.Escape) && selected == true && gameControllerScript.freeState == true) 
+        {
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
 
@@ -136,7 +138,8 @@ public class FighterStatsScript : MonoBehaviour
 
         if (turnInProgress == true) {
             DrawCircle();
-        } else if (currentCircleOutline != null) {
+        } 
+        else if (currentCircleOutline != null) {
             this.currentCircleOutline.gameObject.SetActive(false);
         }
     }
@@ -204,7 +207,7 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.charactersList.Remove(gameObject);
 
             gameControllerScript.priorityList.Remove(gameObject);
-            gameControllerScript.AutoSelectNextEnemy();
+            // gameControllerScript.AutoSelectNextEnemy();
 
         } else if (damage > 0)
         {
@@ -324,6 +327,7 @@ public class FighterStatsScript : MonoBehaviour
     {
         hoveringOver = false;
 
+        // wtf is this?
         // if (selected) {
         //     gameControllerScript.cursorAlreadyActive = false; 
         // }
@@ -339,16 +343,19 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
+    // only runs when object clicked on?
     void OnMouseDown()
     {
         SelectNewCharacter();
     }
 
     // should run both automatically and OnMouseDown:
-    public void SelectNewCharacter() 
-    {
-        if (gameControllerScript.freeState == true) {
-            gameControllerScript.characterManuallySelected = true;
+    // used by AutoSelectNextEnemy after an enemy is killed:
+    public void SelectNewCharacter() {
+
+        if (gameControllerScript.freeState == true) 
+        {
+            gameControllerScript.characterManuallySelected = true;      // why's this here?
             if ((gameControllerScript.selectedCharacter != null && !dead) || (hoveringOver == true && !dead))
             {
                 selected = true;

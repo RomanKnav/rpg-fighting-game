@@ -13,9 +13,6 @@ using System.Linq;
 // since I use this crap everywhere, let's make it a singleton:
 public class GameController : MonoBehaviour
 {
-    // how to access singletons everywhere again?
-    // public static GameController Instance { get; private set; } 
-
     public GameObject actionMenu;
 
     public Text battleText;
@@ -117,7 +114,7 @@ public class GameController : MonoBehaviour
     }
 
     void SetFreeState() {
-        if (movementHappening == true || currentStatsScript.isFriendly == false) {
+        if (movementHappening == true || currentStatsScript.isFriendly == false || !currentStatsScript.isFriendly) {
             freeState = false;
         } else {
             freeState = true;
@@ -176,6 +173,8 @@ public class GameController : MonoBehaviour
     }
 
     // should NOT run at initial run (hence first if statement):
+
+    // does this only work at init? NOPE. Works after an enemy is killed:
     public void AutoSelectNextEnemy() {
         if (selectedCharacter == null) {
             if (priorityList.Count > 0) {
@@ -185,6 +184,8 @@ public class GameController : MonoBehaviour
 
                     if (!characterScript.isFriendly && !characterScript.dead) {
 
+                        characterScript.selected = true;
+
                         // set enemy variable in FighterAction.cs (determine who to attack):
                         playerActionScript.enemy = selectedCharacter;
 
@@ -193,8 +194,6 @@ public class GameController : MonoBehaviour
 
                         // draw cursor:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
-
-                        // EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
 
                         playerFighterStatsScript.SelectNewCharacter();
 
@@ -267,9 +266,6 @@ public class GameController : MonoBehaviour
                 // what is this? select random attack for enemy
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
                 currentCharacterObj.GetComponent<FighterAction>().SelectAttack(attackType);
-
-                // looks like a nice place to disable the circle:
-                // currentCharacterObj
             }
         } 
         // otherwise, current character is dead, move on to next:
