@@ -190,6 +190,7 @@ public class GameController : MonoBehaviour
                         playerActionScript.enemy = selectedCharacter;
 
                         // draw cursor:
+                        // irrelevant to the issue:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
 
                         // EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();

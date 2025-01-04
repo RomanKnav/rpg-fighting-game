@@ -90,7 +90,10 @@ public class FighterStatsScript : MonoBehaviour
             originalPosition = ownerObject.transform.position;
         }
 
-        SetHealth();
+        // HEALTH SETTING CRAP:
+        healthTransform = healthFill.GetComponent<RectTransform>();
+        healthScale = healthFill.transform.localScale;
+        startHealth = health;
 
         magicTransform = magicFill.GetComponent<RectTransform>();
         magicScale = magicFill.transform.localScale;
@@ -158,22 +161,13 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
-    // used only once in awake(). Used for what? (actually necessary).
-    // difference b/ween this and SetEnemyHealth? 
-    void SetHealth()
-    {
-        healthTransform = healthFill.GetComponent<RectTransform>();
-        healthScale = healthFill.transform.localScale;
-
-         startHealth = health;
-    }
-
     void UpdateHealth()
     {
-        healthTransform = healthFill.GetComponent<RectTransform>();
-        healthScale = healthFill.transform.localScale;
+        Debug.Log("UPDATING FUCKING HEALTH");
+        // healthTransform = healthFill.GetComponent<RectTransform>();
+        // healthScale = healthFill.transform.localScale;
 
-         startHealth = health;
+        //  startHealth = health;
 
         xNewHealthScale = healthScale.x * (health / startHealth);
         // x size changes based on the health:
