@@ -34,7 +34,7 @@ public class AttackScript : MonoBehaviour
     private float maxDefenseMultiplier;
 
     private FighterStatsScript attackerStats;
-    private FighterStatsScript targetStats;
+    private FighterStatsScript victimStats;
     private float damage = 0.0f;
 
     // MY CRAP:
@@ -63,16 +63,16 @@ public class AttackScript : MonoBehaviour
             if (victima != null) {
                 victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
                 victimAnimator = victima.GetComponent<Animator>();          // "object reference not set to instance of object"
-                targetStats = victima.GetComponent<FighterStatsScript>();
+                victimStats = victima.GetComponent<FighterStatsScript>();
             } 
             else {
                 GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
 
                 victimAnimator = characterToAttack.GetComponent<Animator>();
-                targetStats = characterToAttack.GetComponent<FighterStatsScript>();
+                victimStats = characterToAttack.GetComponent<FighterStatsScript>();
             }
 
-            if (!targetStats.GetDead())
+            if (!victimStats.GetDead())
             {
                 // does melee use magic? NOPE
                 if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
@@ -104,7 +104,7 @@ public class AttackScript : MonoBehaviour
         }
 
         float defenseMultiplier = Random.Range(minDefenseMultiplier, maxDefenseMultiplier);
-        damage = Mathf.Max(0, damage - (defenseMultiplier * targetStats.defense));
+        damage = Mathf.Max(0, damage - (defenseMultiplier * victimStats.defense));
 
         // animation crap. Where are animations assigned? On the characters themselves (they have an "Animator" component, 
         // which have a "controller", which contains MULTIPLE animations):
@@ -115,7 +115,7 @@ public class AttackScript : MonoBehaviour
         yield return new WaitForSeconds(ownerAnimator.GetCurrentAnimatorStateInfo(0).length);
 
         // THIS is what seems to update the health when enemies attacked:
-        targetStats.ReceiveDamage(Mathf.CeilToInt(damage));
+        victimStats.ReceiveDamage(Mathf.CeilToInt(damage));
         attackerStats.updateMagicFill(magicCost);
 
         attackerStats.turnIsOver = true;   

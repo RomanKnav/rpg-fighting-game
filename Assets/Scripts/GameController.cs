@@ -60,11 +60,9 @@ public class GameController : MonoBehaviour
     public GameObject secondHeroObj;
 
     // so that player can't attack while attacks are happening:
-    public bool freeState = true;                                // true ONLY when player is able to select crap/enemies. False when attacking. 
+    public bool freeState = true;                           // true ONLY when player is able to select crap/enemies. False when attacking. 
 
-    public bool movementHappening = false;                      // determines when there is MOVEMENT (from player and enemy)
-
-
+    public bool movementHappening = false;                  // determines when there is MOVEMENT (from player and enemy)
 
     private void Awake()
     {
@@ -81,7 +79,7 @@ public class GameController : MonoBehaviour
 
         actionMenu = GameObject.Find("ActionMenu");
 
-        friendliesParent = GameObject.Find("Friendlies");           // success
+        friendliesParent = GameObject.Find("Friendlies");                           // success
         enemiesParent = GameObject.Find("Enemies");
 
         // get default character to attack at start:
@@ -190,9 +188,6 @@ public class GameController : MonoBehaviour
 
                         // set enemy variable in FighterAction.cs (determine who to attack):
                         playerActionScript.enemy = selectedCharacter;
-
-                        // // global var in this file:
-                        // selectedCharacter = character;
 
                         // draw cursor:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
