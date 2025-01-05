@@ -19,6 +19,8 @@ public class FighterStatsScript : MonoBehaviour
     [SerializeField]
     private GameObject magicFill;
 
+    private string name;                // for use in other scripts
+
     [Header("Stats")]
     public float health;                // what's this? a manually entered NUMBER. Does it update automatically?
     public float magic;
@@ -27,7 +29,7 @@ public class FighterStatsScript : MonoBehaviour
     public float magicRange;
     public float defense;
 
-    private float startHealth;          // and this? the initial value of "health"
+    private float startHealth;                  // and this? the initial value of "health"
     private float startMagic;
 
     [HideInInspector]
@@ -86,6 +88,8 @@ public class FighterStatsScript : MonoBehaviour
     {
         ownerObject = this.gameObject;
 
+        name = this.name;
+
         if (ownerObject != null) {
             originalPosition = ownerObject.transform.position;
         }
@@ -127,6 +131,8 @@ public class FighterStatsScript : MonoBehaviour
         // moving this from DrawCircle() to here fixed Escape issue:
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true && gameControllerScript.freeState == true) 
         {
+            gameControllerScript.aCharacterLockedIn = false;
+
             selected = false;
             this.highlightCursor.gameObject.SetActive(false);
 
@@ -196,6 +202,7 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.cursorAlreadyActive = false; 
 
             gameControllerScript.characterManuallySelected = false;
+            gameControllerScript.aCharacterLockedIn = false;
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             gameControllerScript.charactersList.Remove(gameObject);
@@ -309,13 +316,19 @@ public class FighterStatsScript : MonoBehaviour
     // only runs when object clicked on?
     void OnMouseDown()
     {
-        SelectNewCharacter();
+        if (!gameControllerScript.aCharacterLockedIn) 
+        {
+            SelectNewCharacter();
+        }
     }
 
     // should run both automatically and OnMouseDown:
     // used by AutoSelectNextEnemy after an enemy is killed:
     public void SelectNewCharacter() {
 
+        gameControllerScript.aCharacterLockedIn = true;
+
+        // if (gameControllerScript.freeState == true && ) 
         if (gameControllerScript.freeState == true) 
         {
             gameControllerScript.characterManuallySelected = true;      // why's this here?

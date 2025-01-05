@@ -33,12 +33,6 @@ public class GameController : MonoBehaviour
     public List<FighterStatsScript> priorityScriptsList = new List<FighterStatsScript>();    
 
     private List<float> agilityPointsList = new List<float>();
-    public string nextPlayerAction;
-
-    public GameObject playerObject;
-
-    // FYI: this is already attained in FighterAction.cs:
-    public GameObject playerMeleePrefab;            // need this to access "VictimAnimator" crap.
 
     public FighterAction playerActionScript;
     public AttackScript playerAttackScript;         // this is on the PREFAB
@@ -60,6 +54,8 @@ public class GameController : MonoBehaviour
     public bool freeState = true;                           // true ONLY when player is able to select crap/enemies. False when attacking. 
 
     public bool movementHappening = false;                  // determines when there is MOVEMENT (from player and enemy)
+
+    public bool aCharacterLockedIn = false;
 
     private void Awake()
     {
@@ -231,13 +227,16 @@ public class GameController : MonoBehaviour
             
             Debug.Log($"CURRENT CHARACTER'S TURN: {currentCharacterObj.name}");
 
+            // drawTheCircle NOT RUNNING FOR FRIENDLY:
             if (currentFighterStatsScript.isFriendly == true)
             {
+                Debug.Log($"PRIORITY LIST INDEX 0 {currentFighterStatsScript.name}");       // successfully gets friendly guy
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
 
                 // enable/disable respective circles:
-                playerFighterStatsScript.drawTheCircle = true;
+                // playerFighterStatsScript.drawTheCircle = true;
+                currentFighterStatsScript.drawTheCircle = true;
 
                 // NOT GOOD: EnemyScript should be updated during EACH character's turn:
                 EnemyScript.drawTheCircle = false;
@@ -257,7 +256,10 @@ public class GameController : MonoBehaviour
                 EnemyScript = currentCharacterObj.GetComponent<FighterStatsScript>();
                 // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;
-                playerFighterStatsScript.drawTheCircle = false;
+
+                // playerFighterStatsScript.drawTheCircle = false;
+                currentFighterStatsScript.drawTheCircle = false;
+
                 EnemyScript.drawTheCircle = true;
 
                 this.actionMenu.SetActive(false);

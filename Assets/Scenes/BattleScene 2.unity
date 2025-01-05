@@ -520,9 +520,6 @@ MonoBehaviour:
   charactersList: []
   priorityList: []
   priorityScriptsList: []
-  nextPlayerAction: 
-  playerObject: {fileID: 0}
-  playerMeleePrefab: {fileID: 0}
   playerActionScript: {fileID: 0}
   playerAttackScript: {fileID: 0}
   selectedCharacter: {fileID: 0}
@@ -728,6 +725,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Friendly Guy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880848, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2486540419577879349, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
