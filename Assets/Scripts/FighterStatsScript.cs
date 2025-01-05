@@ -143,6 +143,7 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
+    // used in Update():
     void DrawCircle() {
         // this shit is fucked:
         if (health >= 70) {
@@ -196,19 +197,14 @@ public class FighterStatsScript : MonoBehaviour
 
             gameControllerScript.characterManuallySelected = false;
 
-
-
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
-            Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");
             gameControllerScript.charactersList.Remove(gameObject);
 
             gameControllerScript.priorityList.Remove(gameObject);
 
-
-            // gameControllerScript.AutoSelectNextEnemy();
-
         // UPDATE HEALTH HERE:
-        } else if (damage > 0)
+        } 
+        else if (damage > 0)
         {
             // what is healthScale?
             xNewHealthScale = healthScale.x * (health / startHealth);
@@ -279,7 +275,7 @@ public class FighterStatsScript : MonoBehaviour
                     gameControllerScript.cursorAlreadyActive = true;
 
                     SetEnemyThumbnail();
-                    // // SetEnemyHealth();
+                    // SetEnemyHealth();
                     SetEnemyName();
 
                     UpdateHealth();
