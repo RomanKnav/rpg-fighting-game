@@ -72,15 +72,15 @@ public class FighterStatsScript : MonoBehaviour
     public bool turnIsOver;
 
     // move towards enemy when this is true. As soon as false, BAD.
-    public bool turnInProgress;            // could use this to determine when to draw circle   --SUCCESS
+    public bool turnInProgress;             // could use this to determine when to draw circle   --SUCCESS
 
-    public bool isSniper;           // so that exclusively range enemies dont move towards opponent
+    public bool isSniper;                   // so that exclusively range enemies dont move towards opponent
 
-    public bool attacking = false;      // turns false as soon as character starts returning. Turns true when? as soon as we move towards enemy
+    public bool attacking = false;          // turns false as soon as character starts returning. Turns true when? as soon as we move towards enemy
     public bool retreating = false;
 
     // position where player stands before moving to enemy. Should be IMMUTABLE:
-    public Vector3 originalPosition;        // SUCCESS  
+    public Vector3 originalPosition;       
 
     void Awake()
     {
@@ -125,7 +125,6 @@ public class FighterStatsScript : MonoBehaviour
 
     void Update() {
         // moving this from DrawCircle() to here fixed Escape issue:
-        // if (Input.GetKeyDown(KeyCode.Escape) && selected == true) 
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true && gameControllerScript.freeState == true) 
         {
             selected = false;
@@ -204,6 +203,8 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.charactersList.Remove(gameObject);
 
             gameControllerScript.priorityList.Remove(gameObject);
+
+            
             // gameControllerScript.AutoSelectNextEnemy();
 
         // UPDATE HEALTH HERE:

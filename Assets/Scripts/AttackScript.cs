@@ -58,7 +58,6 @@ public class AttackScript : MonoBehaviour
 
         // victima = victim;
         // keep character from attaking itself:
-        //  && (attackerStats.isFriendly == false && victima.GetComponent<FighterStatsScript>().isFriendly == false)
         if (victima.name != owner.name) {
             if (victima != null) {
                 victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
@@ -135,7 +134,6 @@ public class AttackScript : MonoBehaviour
                 if (owner.transform.position != attackerStats.originalPosition && owner.transform.position != victimPosition 
                     && !attackerStats.attacking) 
                 {
-
                     // WE'RE RETREATING, SWITCH SPRITE:
                     owner.GetComponent<SpriteRenderer>().flipX = false;
                     attackerStats.retreating = true;
