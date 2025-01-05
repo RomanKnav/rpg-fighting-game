@@ -236,6 +236,8 @@ public class GameController : MonoBehaviour
             // drawTheCircle NOT RUNNING FOR FRIENDLY:
             if (currentFighterStatsScript.isFriendly == true)
             {
+                // currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
+
                 currentHeroObj = currentFighterStatsScript.gameObject;
 
                 Debug.Log($"PRIORITY LIST INDEX 0 {currentFighterStatsScript.name}");       // successfully gets friendly guy

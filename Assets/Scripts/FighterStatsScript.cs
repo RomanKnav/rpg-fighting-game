@@ -123,21 +123,17 @@ public class FighterStatsScript : MonoBehaviour
         highlightCursor = transform.GetChild(5);
     }
 
+    // run once or for every character? EVERY CHARACTER, once
     void Start() {
-        playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
-
-
-        // ONLY BEING SET FOR FIRST HERO (must set elsewhere):
-        // if (isFriendly == true) {
-        //     playerActionScript = gameObject.GetComponent<FighterAction>();
-        // } 
-        // else {
-        //     // set this way if current character is enemy:
-        //     playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
-        // }
+        Debug.Log("FUCK!");
+        if (playerActionScript == null) {
+            playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
+        }
     }
 
     void Update() {
+        SetActionScript();
+
         // moving this from DrawCircle() to here fixed Escape issue:
         if (Input.GetKeyDown(KeyCode.Escape) && selected == true && gameControllerScript.freeState == true) 
         {
@@ -152,10 +148,22 @@ public class FighterStatsScript : MonoBehaviour
         }
 
         if (turnInProgress == true) {
-            DrawCircle();
+            DrawCircle();    
         } 
         else if (currentCircleOutline != null) {
             this.currentCircleOutline.gameObject.SetActive(false);
+        }
+    }
+
+    void SetActionScript() {
+        // ONLY BEING SET FOR FIRST HERO (must set elsewhere):
+        // it works, but seems like a shitty place to put this in:
+        if (isFriendly == true) {
+            playerActionScript = gameObject.GetComponent<FighterAction>();
+        } 
+        else {
+            // set this way if current character is enemy:
+            playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
         }
     }
 
