@@ -40,13 +40,11 @@ public class FighterAction : MonoBehaviour
     void Start() {
         // won't work if added to Awake():
 
-        // hero = gameControllerScript.currentHeroObj;
-
         if (characterStatsScript.isFriendly == true) {
             hero = gameObject;
         }
         else {
-            hero = gameControllerScript.currentHeroObj;
+            hero = gameControllerScript.currentHeroObj;             // individual hero per script
         }
 
         Debug.Log($"HERE'S YOUR HERO: {hero}");

@@ -64,7 +64,7 @@ public class FighterStatsScript : MonoBehaviour
     public Transform currentCircleOutline;
     public Transform highlightCursor;
     public GameObject ownerObject;              // can I get the sprite's coords frpom this? Yes, we use the TRANSFORM.
-    public FighterAction playerActionScript;
+    public FighterAction playerActionScript;    // how's this assigned?
     public float damageTaken = 0f;
 
     // is this var only ever used internally? YES
@@ -125,6 +125,16 @@ public class FighterStatsScript : MonoBehaviour
 
     void Start() {
         playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
+
+
+        // ONLY BEING SET FOR FIRST HERO (must set elsewhere):
+        // if (isFriendly == true) {
+        //     playerActionScript = gameObject.GetComponent<FighterAction>();
+        // } 
+        // else {
+        //     // set this way if current character is enemy:
+        //     playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
+        // }
     }
 
     void Update() {

@@ -209,7 +209,15 @@ public class GameController : MonoBehaviour
 
         // goes through the WHOLE LIST:
         FighterStatsScript currentFighterStatsScript = priorityScriptsList[0];
+
         currentStatsScript = priorityScriptsList[0];
+
+        if (currentFighterStatsScript.isFriendly) {
+            currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
+        } else {
+            currentHeroObj.GetComponent<FighterAction>();
+        }
+        
 
 
         // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:
