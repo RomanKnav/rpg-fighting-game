@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
     private FighterStatsScript playerFighterStatsScript;    // formerly HeroScript
     public FighterStatsScript currentStatsScript;
 
+    // purpose of these is to have a secondary option to fall back to when ally 1 dies:
     public GameObject currentHeroObj;                       // what's this? set by FindHeroes(). The first friendly found in PriorityList
     public GameObject secondHeroObj;
 
@@ -230,6 +231,7 @@ public class GameController : MonoBehaviour
             // drawTheCircle NOT RUNNING FOR FRIENDLY:
             if (currentFighterStatsScript.isFriendly == true)
             {
+
                 Debug.Log($"PRIORITY LIST INDEX 0 {currentFighterStatsScript.name}");       // successfully gets friendly guy
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
@@ -240,6 +242,8 @@ public class GameController : MonoBehaviour
 
                 // NOT GOOD: EnemyScript should be updated during EACH character's turn:
                 EnemyScript.drawTheCircle = false;
+
+                playerActionScript = currentCharacterObj.gameObject.GetComponent<FighterAction>();
 
                 if (selectedCharacter != null) {
                     this.actionMenu.SetActive(true);
