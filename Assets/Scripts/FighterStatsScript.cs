@@ -134,6 +134,8 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.characterManuallySelected = false;
         }
 
+        // else if (Input.GetKeyDown(KeyCode.Escape) && gameControllerScript.freeState == true)
+
         if (turnInProgress == true) {
             DrawCircle();
         } else if (currentCircleOutline != null) {
@@ -193,8 +195,6 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.cursorAlreadyActive = false; 
 
             gameControllerScript.characterManuallySelected = false;
-
-
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");

@@ -85,6 +85,8 @@ public class GameController : MonoBehaviour
         // get default character to attack at start:
         if (enemiesParent.transform.childCount > 0) {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;     // selects first character listed in the parent
+
+            selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
         }
 
         // what this do? if playerActionScript found, set the enemy in that script:
