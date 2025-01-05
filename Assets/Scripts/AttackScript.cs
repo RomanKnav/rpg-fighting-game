@@ -10,8 +10,6 @@ public class AttackScript : MonoBehaviour
     // where set? MANUALLY in the editor.
     public GameObject owner;
 
-    public FighterStatsScript ownerStats;
-
     [SerializeField]
     private string animationName;
 
@@ -54,7 +52,7 @@ public class AttackScript : MonoBehaviour
     public void Attack(GameObject victima) {
         // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
-        attackerStats.turnInProgress = true;
+        attackerStats.turnInProgress = true;            // this works
 
         // victima = victim;
         // keep character from attaking itself:

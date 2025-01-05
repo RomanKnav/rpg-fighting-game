@@ -531,6 +531,7 @@ MonoBehaviour:
   secondHeroObj: {fileID: 0}
   freeState: 1
   movementHappening: 0
+  aCharacterLockedIn: 0
 --- !u!4 &421185457
 Transform:
   m_ObjectHideFlags: 0
@@ -656,6 +657,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 16ff634d3cc9c7848a6058aa193086ad,
         type: 3}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: isFriendly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: agility
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x

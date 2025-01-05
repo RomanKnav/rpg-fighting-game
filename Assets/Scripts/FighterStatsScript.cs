@@ -293,10 +293,8 @@ public class FighterStatsScript : MonoBehaviour
 
     // why not working anymore?
     void SetEnemyName() {
-        Debug.Log($"character's NAME: {gameObject.name}");
        GameObject oppNameObject = GameObject.Find("EnemyFrameLabel"); 
        oppNameObject.GetComponent<Text>().text = gameObject.name;
-       // oppNameObject.GetComponent<Text>().text = "FUCK!";
     }
 
     // with 4 characters, all of this is FUCKED:

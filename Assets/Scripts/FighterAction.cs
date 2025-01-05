@@ -7,7 +7,7 @@ using UnityEngine.UI;
 // placed on both friendlies and foes:
 public class FighterAction : MonoBehaviour
 {
-    private GameObject hero;
+    public GameObject hero;
 
     // Where is this set? in FighterStatsScript and GameController (???)
     public GameObject enemy;           // this should probably be set externally. 
@@ -24,17 +24,31 @@ public class FighterAction : MonoBehaviour
     private GameController gameControllerScript;
 
     private GameController gameController;
+
+    // NEED REFERENCE TO fighterscript. 
+    public FighterStatsScript characterStatsScript;
     
     // serious rehauling needed:
     void Awake()
     {
         // gameController = gameController.Instance;
         gameControllerScript = GameObject.Find("GameControllerObject").GetComponent<GameController>();
+
+        characterStatsScript = this.gameObject.GetComponent<FighterStatsScript>();
     }
 
     void Start() {
         // won't work if added to Awake():
-        hero = gameControllerScript.currentHeroObj;
+
+        // hero = gameControllerScript.currentHeroObj;
+
+        if (characterStatsScript.isFriendly == true) {
+            hero = gameObject;
+        }
+        else {
+            hero = gameControllerScript.currentHeroObj;
+        }
+
         Debug.Log($"HERE'S YOUR HERO: {hero}");
     }
 
@@ -42,6 +56,8 @@ public class FighterAction : MonoBehaviour
     // and by AttachCallback(), which handles the buttons (in MakeButton.cs):
     public void SelectAttack(string btn)
     {
+        // hero = gameControllerScript.currentHeroObj;
+
         FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
 
         GameObject victim = hero;
