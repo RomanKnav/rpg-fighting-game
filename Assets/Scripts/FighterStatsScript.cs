@@ -164,12 +164,9 @@ public class FighterStatsScript : MonoBehaviour
     void UpdateHealth()
     {
         Debug.Log("UPDATING FUCKING HEALTH");
-        // healthTransform = healthFill.GetComponent<RectTransform>();
-        // healthScale = healthFill.transform.localScale;
-
-        //  startHealth = health;
 
         xNewHealthScale = healthScale.x * (health / startHealth);
+
         // x size changes based on the health:
         healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
     }
@@ -190,15 +187,14 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.selectedCharacter = null; // successfully makes it empty
 
             animator.enabled = false;
-
             selected = false;
-
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
-
             highlightCursor.gameObject.SetActive(false);
-
-            // NEW ADDITION: 
             gameControllerScript.cursorAlreadyActive = false; 
+
+            gameControllerScript.characterManuallySelected = false;
+
+
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");
@@ -255,33 +251,6 @@ public class FighterStatsScript : MonoBehaviour
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;
         }
     }
-
-    // the only thing this does is change the stupid healthbar COLOR:
-    // runs at ONMOUSEOVER():
-    // public void SetEnemyHealth()
-    // {
-    //     // everything in here is LOCAL:
-
-    //     // can confirm these are unique:
-    //     GameObject oppHealthBar = transform.GetChild(6).gameObject;
-
-    //     Sprite oppHealthBarImage = oppHealthBar.GetComponent<Image>().sprite;       
-
-    //     GameObject oppMenuHealthDisplay = GameObject.Find("EnemyHealthFill");
-
-    //     if (oppHealthBarImage != null && oppMenuHealthDisplay != null) 
-    //     {
-    //         // CHANGES THE IMAGE, BUT NOT THE QUANTITY:
-    //         oppMenuHealthDisplay.GetComponent<Image>().sprite = oppHealthBarImage;
-
-    //         // NEW: 
-    //         health = health - damageTaken;
-    //         float myNewHealthScale = healthScale.x * (health / startHealth);
-
-    //         // x size changes based on the health:
-    //         oppHealthBar.transform.localScale = new Vector2(myNewHealthScale, healthScale.y);
-    //     }
-    // }
 
     // ENEMY HEALTH SHOULD CHANGE ON HOVER:
     void OnMouseOver()
