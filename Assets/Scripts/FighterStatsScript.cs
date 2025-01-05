@@ -327,14 +327,15 @@ public class FighterStatsScript : MonoBehaviour
     // only runs when object clicked on?
     void OnMouseDown()
     {
+        // CAN CONFIRM THIS NOT BEING UPDATED:
+        Debug.Log($"HERE'S THE CURRENT FUCKING FIGHTERACTIONSCRIPT: {playerActionScript}");
         if (!gameControllerScript.aCharacterLockedIn) 
         {
             SelectNewCharacter();
         }
     }
 
-    // should run both automatically and OnMouseDown:
-    // used by AutoSelectNextEnemy after an enemy is killed:
+    // used ONLY when player manually selects new character:
     public void SelectNewCharacter() {
 
         gameControllerScript.aCharacterLockedIn = true;

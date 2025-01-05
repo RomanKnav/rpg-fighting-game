@@ -191,8 +191,6 @@ public class GameController : MonoBehaviour
                         // irrelevant to the issue:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
 
-                        playerFighterStatsScript.SelectNewCharacter();
-
                         // should only happen ONCE per loop:
                         break;
                     }
@@ -214,11 +212,10 @@ public class GameController : MonoBehaviour
 
         if (currentFighterStatsScript.isFriendly) {
             currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
+            playerActionScript.enemy = selectedCharacter;
         } else {
             currentHeroObj.GetComponent<FighterAction>();
         }
-        
-
 
         // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:
         priorityScriptsList.Remove(currentFighterStatsScript);
