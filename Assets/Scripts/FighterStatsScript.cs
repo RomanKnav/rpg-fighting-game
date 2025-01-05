@@ -204,7 +204,7 @@ public class FighterStatsScript : MonoBehaviour
 
             gameControllerScript.priorityList.Remove(gameObject);
 
-            
+
             // gameControllerScript.AutoSelectNextEnemy();
 
         // UPDATE HEALTH HERE:
@@ -278,14 +278,11 @@ public class FighterStatsScript : MonoBehaviour
                     this.highlightCursor.gameObject.SetActive(true);
                     gameControllerScript.cursorAlreadyActive = true;
 
-                    if (!isFriendly) 
-                    {
-                        SetEnemyThumbnail();
-                        // // SetEnemyHealth();
-                        SetEnemyName();
+                    SetEnemyThumbnail();
+                    // // SetEnemyHealth();
+                    SetEnemyName();
 
-                        UpdateHealth();
-                    }
+                    UpdateHealth();
                 }
             }
         }
