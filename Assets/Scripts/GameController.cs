@@ -231,6 +231,7 @@ public class GameController : MonoBehaviour
             // drawTheCircle NOT RUNNING FOR FRIENDLY:
             if (currentFighterStatsScript.isFriendly == true)
             {
+                currentHeroObj = currentFighterStatsScript.gameObject;
 
                 Debug.Log($"PRIORITY LIST INDEX 0 {currentFighterStatsScript.name}");       // successfully gets friendly guy
                 currentFighterStatsScript.turnInProgress = true;
@@ -243,7 +244,9 @@ public class GameController : MonoBehaviour
                 // NOT GOOD: EnemyScript should be updated during EACH character's turn:
                 EnemyScript.drawTheCircle = false;
 
-                playerActionScript = currentCharacterObj.gameObject.GetComponent<FighterAction>();
+                // SWITCHING TO NEW HERO:
+                playerAttackScript = currentHeroObj.transform.GetChild(0).gameObject.GetComponent<AttackScript>();
+                playerActionScript = currentHeroObj.GetComponent<FighterAction>();
 
                 if (selectedCharacter != null) {
                     this.actionMenu.SetActive(true);
