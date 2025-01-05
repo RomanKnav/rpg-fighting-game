@@ -57,11 +57,9 @@ public class GameController : MonoBehaviour
     public GameObject secondHeroObj;
 
     // so that player can't attack while attacks are happening:
-    public bool freeState = true;                                // true ONLY when player is able to select crap/enemies. False when attacking. 
+    public bool freeState = true;                           // true ONLY when player is able to select crap/enemies. False when attacking. 
 
-    public bool movementHappening = false;                      // determines when there is MOVEMENT (from player and enemy)
-
-
+    public bool movementHappening = false;                  // determines when there is MOVEMENT (from player and enemy)
 
     private void Awake()
     {
@@ -78,12 +76,14 @@ public class GameController : MonoBehaviour
 
         actionMenu = GameObject.Find("ActionMenu");
 
-        friendliesParent = GameObject.Find("Friendlies");           // success
+        friendliesParent = GameObject.Find("Friendlies");                           // success
         enemiesParent = GameObject.Find("Enemies");
 
         // get default character to attack at start:
         if (enemiesParent.transform.childCount > 0) {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;     // selects first character listed in the parent
+
+            selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
         }
 
         // what this do? if playerActionScript found, set the enemy in that script:
@@ -186,13 +186,14 @@ public class GameController : MonoBehaviour
 
                         characterScript.selected = true;
 
-                        // set enemy variable in FighterAction.cs (determine who to attack):
-                        playerActionScript.enemy = selectedCharacter;
-
                         // global var in this file:
                         selectedCharacter = character;
 
+                        // set enemy variable in FighterAction.cs (determine who to attack):
+                        playerActionScript.enemy = selectedCharacter;
+
                         // draw cursor:
+                        // irrelevant to the issue:
                         selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
 
                         playerFighterStatsScript.SelectNewCharacter();

@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-// when does this run? at beginning. Runs multiple times simult. if there's mult. characters
-
-// placed where? Individual characters
-// placed on INDIVIDUAL instances!
-
 public class FighterStatsScript : MonoBehaviour
 {
     [SerializeField]
@@ -17,7 +12,9 @@ public class FighterStatsScript : MonoBehaviour
     [SerializeField]
 
     // change this when new character selected:
-    private GameObject healthFill;      // and this? assigned manually, initially. found in the character's children.
+
+    // THIS IS 'ENEMYHEALTHFILL', manually assigned in Editor.
+    private GameObject healthFill;
 
     [SerializeField]
     private GameObject magicFill;
@@ -93,7 +90,10 @@ public class FighterStatsScript : MonoBehaviour
             originalPosition = ownerObject.transform.position;
         }
 
-        SetHealth();
+        // HEALTH SETTING CRAP:
+        healthTransform = healthFill.GetComponent<RectTransform>();
+        healthScale = healthFill.transform.localScale;
+        startHealth = health;
 
         magicTransform = magicFill.GetComponent<RectTransform>();
         magicScale = magicFill.transform.localScale;
@@ -136,6 +136,8 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.characterManuallySelected = false;
         }
 
+        // else if (Input.GetKeyDown(KeyCode.Escape) && gameControllerScript.freeState == true)
+
         if (turnInProgress == true) {
             DrawCircle();
         } 
@@ -164,16 +166,14 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
-    // used only once in awake(). Used for what? (actually necessary).
-    // difference b/ween this and SetEnemyHealth? 
-    void SetHealth()
+    void UpdateHealth()
     {
-        // healthFill = gameObject.transform.GetChild(6).gameObject;
+        Debug.Log("UPDATING FUCKING HEALTH");
 
-        healthTransform = healthFill.GetComponent<RectTransform>();
-        healthScale = healthFill.transform.localScale;
+        xNewHealthScale = healthScale.x * (health / startHealth);
 
-         startHealth = health;
+        // x size changes based on the health:
+        healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
     }
 
     // this is for the VICTIM:
@@ -192,15 +192,12 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.selectedCharacter = null; // successfully makes it empty
 
             animator.enabled = false;
-
             selected = false;
-
             gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
-
             highlightCursor.gameObject.SetActive(false);
-
-            // NEW ADDITION: 
             gameControllerScript.cursorAlreadyActive = false; 
+
+            gameControllerScript.characterManuallySelected = false;
 
             // REMOVE DEAD CHARACTER FROM CHARACTERLIST AND PRIORITYLIST:
             Debug.Log($"REMOVING CHARACTER FROM LIST: {this.name}");
@@ -209,10 +206,12 @@ public class FighterStatsScript : MonoBehaviour
             gameControllerScript.priorityList.Remove(gameObject);
             // gameControllerScript.AutoSelectNextEnemy();
 
+        // UPDATE HEALTH HERE:
         } else if (damage > 0)
         {
             // what is healthScale?
             xNewHealthScale = healthScale.x * (health / startHealth);
+
             // x size changes based on the health:
             healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
         }
@@ -256,37 +255,12 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
-    // the only thing this does is change the stupid healthbar COLOR:
-    public void SetEnemyHealth()
-    {
-        // everything in here is LOCAL:
-
-        // can confirm these are unique:
-        GameObject oppHealthBar = transform.GetChild(6).gameObject;
-
-        Sprite oppHealthBarImage = oppHealthBar.GetComponent<Image>().sprite;       
-
-        GameObject oppMenuHealthDisplay = GameObject.Find("EnemyHealthFill");
-
-        if (oppHealthBarImage != null && oppMenuHealthDisplay != null) 
-        {
-            // CHANGES THE IMAGE, BUT NOT THE QUANTITY:
-            oppMenuHealthDisplay.GetComponent<Image>().sprite = oppHealthBarImage;
-
-            // NEW: 
-            health = health - damageTaken;
-            float myNewHealthScale = healthScale.x * (health / startHealth);
-
-            // x size changes based on the health:
-            oppHealthBar.transform.localScale = new Vector2(myNewHealthScale, healthScale.y);
-        }
-    }
-
+    // ENEMY HEALTH SHOULD CHANGE ON HOVER:
     void OnMouseOver()
     {
         hoveringOver = true; 
 
-        Debug.Log($"{this.name} is at coords: {this.originalPosition}");
+        Debug.Log($"character's health {health}");
 
         if (gameControllerScript.freeState == true) {
             if (!gameControllerScript.cursorAlreadyActive) {
@@ -306,8 +280,10 @@ public class FighterStatsScript : MonoBehaviour
                     if (!isFriendly) 
                     {
                         SetEnemyThumbnail();
-                        // SetEnemyHealth();
+                        // // SetEnemyHealth();
                         SetEnemyName();
+
+                        UpdateHealth();
                     }
                 }
             }
@@ -324,11 +300,6 @@ public class FighterStatsScript : MonoBehaviour
     void OnMouseExit()
     {
         hoveringOver = false;
-
-        // wtf is this?
-        // if (selected) {
-        //     gameControllerScript.cursorAlreadyActive = false; 
-        // }
 
         // this only works when no character's manually selected:
         // if the current character is NOT selected (all of them initially):
