@@ -39,50 +39,52 @@ public class AttackScript : MonoBehaviour
     public Animator ownerAnimator;      
     public Animator victimAnimator;
     public GameObject gameController;
-    public Vector3 victimPosition;                // to move towards when attacking
-    public float moveSpeed;      // for whatever reason speed doesn't change when this is changed
+    public Vector3 victimPosition;          // to move towards when attacking
+    public float moveSpeed;                 // for whatever reason speed doesn't change when this is changed
 
     public void Awake() {
         ownerAnimator = owner.GetComponent<Animator>();
         gameController = GameObject.Find("GameControllerObject");
     }
     
-    // TODO: get global var of victim:
     // where this used? FighterAction.cs
     public void Attack(GameObject victima) {
         // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
         attackerStats.turnInProgress = true;            // this works
 
-        // victima = victim;
-        // keep character from attaking itself:
-        if (victima.name != owner.name) {
-            if (victima != null) {
-                victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
-                victimAnimator = victima.GetComponent<Animator>();          // "object reference not set to instance of object"
-                victimStats = victima.GetComponent<FighterStatsScript>();
-            } 
-            else {
-                GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
+        if (victima != null) {
+            // keep character from attaking itself:
+            if (victima.name != owner.name) {
+                if (victima != null) {
+                    victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
+                    victimAnimator = victima.GetComponent<Animator>();          // "object reference not set to instance of object"
+                    victimStats = victima.GetComponent<FighterStatsScript>();
+                } 
+                else {
+                    GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
 
-                victimAnimator = characterToAttack.GetComponent<Animator>();
-                victimStats = characterToAttack.GetComponent<FighterStatsScript>();
-            }
+                    victimAnimator = characterToAttack.GetComponent<Animator>();
+                    victimStats = characterToAttack.GetComponent<FighterStatsScript>();
+                }
 
-            if (!victimStats.GetDead())
-            {
-                // does melee use magic? NOPE
-                if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
+                if (!victimStats.GetDead())
                 {
-                    attackerStats.attacking = true;
-                    StartCoroutine(SynchronousAttack());
-                } else
-                {
-                    Invoke("SkipTurnContinueGame", 2);
-                }  
-            } else {
-                return;
+                    // does melee use magic? NOPE
+                    if (attackerStats.magic >= magicCost && !attackerStats.turnIsOver)
+                    {
+                        attackerStats.attacking = true;
+                        StartCoroutine(SynchronousAttack());
+                    } else
+                    {
+                        Invoke("SkipTurnContinueGame", 2);
+                    }  
+                } else {
+                    return;
+                }
             }
+        } else {
+           Debug.Log("FUCK FUCK FUCK WE COULDNT FIND VICTIM"); 
         }
     }
 

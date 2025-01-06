@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
     public bool cursorAlreadyActive = true;
     public bool characterManuallySelected = false;
 
-    public FighterStatsScript EnemyScript;
+    public FighterStatsScript EnemyScript;                  // how's this initially assigned? first child of "enemiesParent"
     private FighterStatsScript playerFighterStatsScript;    // formerly HeroScript
     public FighterStatsScript currentStatsScript;
 
@@ -170,6 +170,7 @@ public class GameController : MonoBehaviour
     // should NOT run at initial run (hence first if statement):
 
     // does this only work at init? NOPE. Works after an enemy is killed:
+    // maybe use this for second friendly?
     public void AutoSelectNextEnemy() {
         if (selectedCharacter == null) {
             if (priorityList.Count > 0) {
@@ -212,7 +213,13 @@ public class GameController : MonoBehaviour
 
         if (currentFighterStatsScript.isFriendly) {
             currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
-            playerActionScript.enemy = selectedCharacter;
+
+            if (selectedCharacter != null) {
+                playerActionScript.enemy = selectedCharacter;
+            } else {
+                Debug.Log("SELECTEDCHARACTER NOT FOUND: ");
+            }
+            
         } else {
             currentHeroObj.GetComponent<FighterAction>();
         }
@@ -236,16 +243,11 @@ public class GameController : MonoBehaviour
             // drawTheCircle NOT RUNNING FOR FRIENDLY:
             if (currentFighterStatsScript.isFriendly == true)
             {
-                // currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
-
                 currentHeroObj = currentFighterStatsScript.gameObject;
-
-                Debug.Log($"PRIORITY LIST INDEX 0 {currentFighterStatsScript.name}");       // successfully gets friendly guy
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
 
                 // enable/disable respective circles:
-                // playerFighterStatsScript.drawTheCircle = true;
                 currentFighterStatsScript.drawTheCircle = true;
 
                 // NOT GOOD: EnemyScript should be updated during EACH character's turn:

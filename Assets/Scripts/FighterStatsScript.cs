@@ -125,7 +125,6 @@ public class FighterStatsScript : MonoBehaviour
 
     // run once or for every character? EVERY CHARACTER, once
     void Start() {
-        Debug.Log("FUCK!");
         if (playerActionScript == null) {
             playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
         }
@@ -190,8 +189,6 @@ public class FighterStatsScript : MonoBehaviour
 
     void UpdateHealth()
     {
-        Debug.Log("UPDATING FUCKING HEALTH");
-
         xNewHealthScale = healthScale.x * (health / startHealth);
 
         // x size changes based on the health:
@@ -282,8 +279,6 @@ public class FighterStatsScript : MonoBehaviour
     {
         hoveringOver = true; 
 
-        Debug.Log($"character's health {health}");
-
         if (gameControllerScript.freeState == true) {
             if (!gameControllerScript.cursorAlreadyActive) {
                 if (hoveringOver == true && !dead) {
@@ -336,7 +331,6 @@ public class FighterStatsScript : MonoBehaviour
     void OnMouseDown()
     {
         // CAN CONFIRM THIS NOT BEING UPDATED:
-        Debug.Log($"HERE'S THE CURRENT FUCKING FIGHTERACTIONSCRIPT: {playerActionScript}");
         if (!gameControllerScript.aCharacterLockedIn) 
         {
             SelectNewCharacter();
@@ -359,7 +353,14 @@ public class FighterStatsScript : MonoBehaviour
                 gameControllerScript.actionMenu.SetActive(true);
 
                 // makes it so that next enemy to attack is the one selected:
-                playerActionScript.enemy = ownerObject;
+                
+                // ISSUE IS NOT IN HERE (does its job):
+                if (ownerObject == null) {
+                    Debug.Log("SELECTNEWCHARACTER could not find ownerObject");
+                } else {
+                    Debug.Log("ownerObject found by SELECTNEWCHARACTER");
+                    playerActionScript.enemy = ownerObject;
+                }
             } 
         }
     }

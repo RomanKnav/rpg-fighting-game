@@ -46,15 +46,20 @@ public class FighterAction : MonoBehaviour
         else {
             hero = gameControllerScript.currentHeroObj;             // individual hero per script
         }
-
-        Debug.Log($"HERE'S YOUR HERO: {hero}");
     }
 
     // where is this used? in GameController's NextTurn() by enemy
-    // and by AttachCallback(), which handles the buttons (in MakeButton.cs):
+    // and by AttachCallback() in MakeButton(), which handles the buttons (in MakeButton.cs):
     public void SelectAttack(string btn)
     {
         // hero = gameControllerScript.currentHeroObj;
+
+        if (enemy == null) {
+            Debug.Log("SELECTATTACK COULDN'T FIND ENEMY OBJECT");
+        } else {
+            // it CAN find it:
+            Debug.Log("ENEMY OBJECT FOUND BY SELECTATTACK");
+        }
 
         FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
 
