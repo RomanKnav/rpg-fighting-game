@@ -15,7 +15,7 @@ public class FighterAction : MonoBehaviour
     [SerializeField]
     private GameObject meleePrefab;
 
-    [SerializeField]
+    [SerializeField]    
     private GameObject rangePrefab;
 
     [SerializeField]
@@ -57,7 +57,7 @@ public class FighterAction : MonoBehaviour
         if (enemy == null) {
             Debug.Log("SELECTATTACK COULDN'T FIND ENEMY OBJECT");
         } else {
-            // it CAN find it:
+            // it CAN find it (SUCCESS):
             Debug.Log("ENEMY OBJECT FOUND BY SELECTATTACK");
         }
 

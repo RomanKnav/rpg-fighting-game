@@ -215,6 +215,7 @@ public class GameController : MonoBehaviour
             currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
 
             if (selectedCharacter != null) {
+                Debug.Log($"SELECTEDCHARACTER FOUND BY NEXTTURN: {selectedCharacter.name}");
                 playerActionScript.enemy = selectedCharacter;
             } else {
                 Debug.Log("SELECTEDCHARACTER NOT FOUND: ");
