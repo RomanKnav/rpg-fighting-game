@@ -187,40 +187,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // should NOT run at initial run (hence first if statement):
-
-    // does this only work at init? NOPE. Works after an enemy is killed:
-    // maybe use this for second friendly?
-    // USED NOWHERE!!!!:
-    public void AutoSelectNextEnemy() {
-        if (selectedCharacter == null) {
-            if (priorityList.Count > 0) {
-                foreach (GameObject character in priorityList) 
-                {
-                    FighterStatsScript characterScript = character.GetComponent<FighterStatsScript>();
-
-                    if (!characterScript.isFriendly && !characterScript.dead) {
-
-                        characterScript.selected = true;
-
-                        // global var in this file:
-                        selectedCharacter = character;
-
-                        // set enemy variable in FighterAction.cs (determine who to attack):
-                        playerActionScript.enemy = selectedCharacter;
-
-                        // draw cursor:
-                        // irrelevant to the issue:
-                        selectedCharacter.GetComponent<FighterStatsScript>().highlightCursor.gameObject.SetActive(true);
-
-                        // should only happen ONCE per loop:
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
     // Successfully replaced other crap with PriorityScriptsList:
     public void NextTurn()
     {

@@ -28,14 +28,7 @@ public class MakeButton : MonoBehaviour
         actionMenu = GameObject.Find("ActionMenu");
     }
 
-    // how can I run this in other scripts w/o having to use the gameObjects?
-    public  void ResetHero()
-    {
-        hero = gameControllerScript.currentHeroObj;
-    }
-
-    // what's this?
-    // where's this used?
+    // where's this used? in this start()
     private void AttachCallback(string btn)
     {
         if (btn.CompareTo("MeleeBtn") == 0)
