@@ -259,6 +259,7 @@ public class FighterStatsScript : MonoBehaviour
     }
 
     // WTF IS THIS????? sus. Goes to next turn when current turn over.
+    // used here and in AttackScript:
     void ContinueGame()
     {
         GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
@@ -358,7 +359,8 @@ public class FighterStatsScript : MonoBehaviour
                 if (ownerObject == null) {
                     Debug.Log("SELECTNEWCHARACTER could not find ownerObject");
                 } else {
-                    Debug.Log("ownerObject found by SELECTNEWCHARACTER");
+                    // this prints the VICTIM'S name:
+                    Debug.Log($"ownerObject found by {gameObject.name}'s SELECTNEWCHARACTER");
                     playerActionScript.enemy = ownerObject;
                 }
             } 

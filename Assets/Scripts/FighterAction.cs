@@ -52,8 +52,6 @@ public class FighterAction : MonoBehaviour
     // and by AttachCallback() in MakeButton(), which handles the buttons (in MakeButton.cs):
     public void SelectAttack(string btn)
     {
-        // hero = gameControllerScript.currentHeroObj;
-
         if (enemy == null) {
             Debug.Log("SELECTATTACK COULDN'T FIND ENEMY OBJECT");
         } else {

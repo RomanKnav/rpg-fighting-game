@@ -9,6 +9,7 @@ TagManager:
   - Dead
   - Character
   - Circle Outline
+  - Button
   layers:
   - Default
   - TransparentFX

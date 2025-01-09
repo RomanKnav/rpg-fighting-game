@@ -55,12 +55,21 @@ public class GameController : MonoBehaviour
     public bool freeState = true;                           // true ONLY when player is able to select crap/enemies. False when attacking. 
 
     public bool movementHappening = false;                  // determines when there is MOVEMENT (from player and enemy)
-
     public bool aCharacterLockedIn = false;
+
+    // new button crap:
+    public List<GameObject> buttonsList;        // list of gameObjects
+    public MakeButton makeButtonScript; 
 
     private void Awake()
     {
-        charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();
+        // makeButtonScript = GameObject.Find("");
+        buttonsList = (GameObject.FindGameObjectsWithTag("Button")).ToList();
+
+        // this originally an array:
+        // where for loop used for this? CreatePriorityList()
+        charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();;
+
         CreatePriorityList();
         currentStatsScript = priorityScriptsList[0];
         FindHeroes();               // defines currentHeroObj and secondHeroObj
@@ -115,8 +124,19 @@ public class GameController : MonoBehaviour
             freeState = true;
         }
     }
+    
+    // responsible for setting "hero" in buttons to next hero:
+    // best place to put this?
+    void resetButtons() {
+        if (buttonsList.Count > 0) {
+            foreach (GameObject button in buttonsList) {
+                button.GetComponent<MakeButton>().hero = currentHeroObj;
+            }
+        }
+    }
 
     // REMEMBER: priorityList already sorted by agility points:
+    // responsible for setting currentHeroObj and secondHeroObj:
     public void FindHeroes() {
         bool firstFound = false;
 
@@ -171,6 +191,7 @@ public class GameController : MonoBehaviour
 
     // does this only work at init? NOPE. Works after an enemy is killed:
     // maybe use this for second friendly?
+    // USED NOWHERE!!!!:
     public void AutoSelectNextEnemy() {
         if (selectedCharacter == null) {
             if (priorityList.Count > 0) {
@@ -245,11 +266,14 @@ public class GameController : MonoBehaviour
             if (currentFighterStatsScript.isFriendly == true)
             {
                 currentHeroObj = currentFighterStatsScript.gameObject;
+
                 currentFighterStatsScript.turnInProgress = true;
                 currentFighterStatsScript.turnIsOver = false;
 
                 // enable/disable respective circles:
                 currentFighterStatsScript.drawTheCircle = true;
+
+                resetButtons();
 
                 // NOT GOOD: EnemyScript should be updated during EACH character's turn:
                 EnemyScript.drawTheCircle = false;

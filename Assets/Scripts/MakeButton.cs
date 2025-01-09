@@ -10,7 +10,7 @@ public class MakeButton : MonoBehaviour
 {
     [SerializeField]
     private bool physical;
-    private GameObject hero;
+    public GameObject hero;
     private GameObject actionMenu;
     private GameController gameControllerScript;
 
@@ -28,7 +28,14 @@ public class MakeButton : MonoBehaviour
         actionMenu = GameObject.Find("ActionMenu");
     }
 
+    // how can I run this in other scripts w/o having to use the gameObjects?
+    public  void ResetHero()
+    {
+        hero = gameControllerScript.currentHeroObj;
+    }
+
     // what's this?
+    // where's this used?
     private void AttachCallback(string btn)
     {
         if (btn.CompareTo("MeleeBtn") == 0)
