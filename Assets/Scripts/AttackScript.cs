@@ -83,8 +83,6 @@ public class AttackScript : MonoBehaviour
                     return;
                 }
             }
-        } else {
-           Debug.Log("FUCK FUCK FUCK WE COULDNT FIND VICTIM"); 
         }
     }
 

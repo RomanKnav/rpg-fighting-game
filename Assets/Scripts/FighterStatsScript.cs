@@ -110,7 +110,7 @@ public class FighterStatsScript : MonoBehaviour
           gameControllerScript = gameControllerObj.GetComponent<GameController>();
         }
 
-        // MY SHIT:
+        // MY STUFF:
         // this sprite is CONSTANTLY changing due to animations:
         currentSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
 
@@ -156,7 +156,7 @@ public class FighterStatsScript : MonoBehaviour
 
     void SetActionScript() {
         // ONLY BEING SET FOR FIRST HERO (must set elsewhere):
-        // it works, but seems like a shitty place to put this in:
+        // it works, but seems like a bad place to put this in:
         if (isFriendly == true) {
             playerActionScript = gameObject.GetComponent<FighterAction>();
         } 
@@ -168,7 +168,7 @@ public class FighterStatsScript : MonoBehaviour
 
     // used in Update():
     void DrawCircle() {
-        // this shit is fucked:
+        // this sucks:
         if (health >= 70) {
             currentCircleOutline = circleOutlineGreen;
         } 
@@ -187,6 +187,7 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
+    // used in OnMouseOver():
     void UpdateHealth()
     {
         xNewHealthScale = healthScale.x * (health / startHealth);
@@ -296,7 +297,6 @@ public class FighterStatsScript : MonoBehaviour
                     gameControllerScript.cursorAlreadyActive = true;
 
                     SetEnemyThumbnail();
-                    // SetEnemyHealth();
                     SetEnemyName();
 
                     UpdateHealth();
@@ -311,7 +311,7 @@ public class FighterStatsScript : MonoBehaviour
        oppNameObject.GetComponent<Text>().text = gameObject.name;
     }
 
-    // with 4 characters, all of this is FUCKED:
+    // with 4 characters, all of this SUCKS:
     // THE BUGGER IS HERE:
     void OnMouseExit()
     {
@@ -361,6 +361,8 @@ public class FighterStatsScript : MonoBehaviour
                 } else {
                     // this prints the VICTIM'S name:
                     Debug.Log($"ownerObject found by {gameObject.name}'s SELECTNEWCHARACTER");
+
+                    // why's this not working to set friendly guy?:
                     playerActionScript.enemy = ownerObject;
                 }
             } 

@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour
 
         // what this do? if playerActionScript found, set the enemy in that script:
         if (playerActionScript != null) {
+            // NOT culprit:
             playerActionScript.enemy = selectedCharacter;   // THIS IS NULL BY DEFAULT
         }
 
@@ -136,7 +137,6 @@ public class GameController : MonoBehaviour
     }
 
     // REMEMBER: priorityList already sorted by agility points:
-    // responsible for setting currentHeroObj and secondHeroObj:
     public void FindHeroes() {
         bool firstFound = false;
 
@@ -168,7 +168,6 @@ public class GameController : MonoBehaviour
             // SORT the list from greatest to least:
             agilityPointsList.Sort((a, b) => b.CompareTo(a));
 
-            // loop through the floats in the list and set the priority list according to their agilityPoints:
             foreach(float highAgility in agilityPointsList) {
                 
                 foreach(GameObject character in charactersList) {
@@ -177,7 +176,6 @@ public class GameController : MonoBehaviour
                     
                     var currentAgility = characterScript.agility;
 
-                    // && character not in priorityList
                     if (currentAgility == highAgility && !priorityList.Contains(character)) {
                         priorityList.Add(character);
                         priorityScriptsList.Add(characterScript);
@@ -221,9 +219,6 @@ public class GameController : MonoBehaviour
             // from my understanding: we remove current script, get it's gameObj, then readd it immediatley???
             GameObject currentCharacterObj = currentFighterStatsScript.gameObject;
 
-            // if not dead, just add it to the end (was at the start before):
-            // readd the SCRIPT, not the game object:
-
             priorityScriptsList.Add(currentFighterStatsScript);
             
             Debug.Log($"CURRENT CHARACTER'S TURN: {currentCharacterObj.name}");
@@ -261,10 +256,8 @@ public class GameController : MonoBehaviour
             else
             {
                 EnemyScript = currentCharacterObj.GetComponent<FighterStatsScript>();
-                // seems to only ever work with ONE enemy:
                 currentFighterStatsScript.turnIsOver = false;
 
-                // playerFighterStatsScript.drawTheCircle = false;
                 currentFighterStatsScript.drawTheCircle = false;
 
                 EnemyScript.drawTheCircle = true;
