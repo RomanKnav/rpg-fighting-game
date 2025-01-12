@@ -277,6 +277,7 @@ public class FighterStatsScript : MonoBehaviour
     }
 
     // ENEMY HEALTH SHOULD CHANGE ON HOVER:
+    // FUCK. NO WORK DONE TODAY
     void OnMouseOver()
     {
         hoveringOver = true; 
