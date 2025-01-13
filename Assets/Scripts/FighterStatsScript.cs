@@ -25,6 +25,7 @@ public class FighterStatsScript : MonoBehaviour
     public float health;                // what's this? a manually entered NUMBER. Does it update automatically?
     public float magic;
 
+    // FUCK
     public float melee;
     public float magicRange;
     public float defense;
