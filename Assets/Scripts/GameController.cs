@@ -63,7 +63,6 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        // makeButtonScript = GameObject.Find("");
         buttonsList = (GameObject.FindGameObjectsWithTag("Button")).ToList();
 
         // this originally an array:
@@ -194,18 +193,21 @@ public class GameController : MonoBehaviour
         // goes through the WHOLE LIST:
         FighterStatsScript currentFighterStatsScript = priorityScriptsList[0];
 
+        // for the GLOBAL variable:
         currentStatsScript = priorityScriptsList[0];
 
+        // if current-turn character is friendly:
         if (currentFighterStatsScript.isFriendly) {
             currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
 
+            // IRRELEVANT TO PROBLEM:
+            // what this? runs at start of each character's turn:
             if (selectedCharacter != null) {
                 Debug.Log($"SELECTEDCHARACTER FOUND BY NEXTTURN: {selectedCharacter.name}");
                 playerActionScript.enemy = selectedCharacter;
             } else {
                 Debug.Log("SELECTEDCHARACTER NOT FOUND: ");
             }
-            
         } else {
             currentHeroObj.GetComponent<FighterAction>();
         }
@@ -216,7 +218,7 @@ public class GameController : MonoBehaviour
         if (!currentFighterStatsScript.GetDead())
         // if current fighter is NOT dead:
         {
-            // from my understanding: we remove current script, get it's gameObj, then readd it immediatley???
+            // from my understanding: we remove current script, get it's gameObj, then readd it immediatley??? yes, add to the BACK: 
             GameObject currentCharacterObj = currentFighterStatsScript.gameObject;
 
             priorityScriptsList.Add(currentFighterStatsScript);
@@ -234,6 +236,7 @@ public class GameController : MonoBehaviour
                 // enable/disable respective circles:
                 currentFighterStatsScript.drawTheCircle = true;
 
+                // what this do? makes so buttons makes current-turn hero take action. Used at new hero's turn:
                 resetButtons();
 
                 // NOT GOOD: EnemyScript should be updated during EACH character's turn:
@@ -243,6 +246,7 @@ public class GameController : MonoBehaviour
                 playerAttackScript = currentHeroObj.transform.GetChild(0).gameObject.GetComponent<AttackScript>();
                 playerActionScript = currentHeroObj.GetComponent<FighterAction>();
 
+                // RESPONSIBLE FOR not showing action menu until a character is selected:
                 if (selectedCharacter != null) {
                     this.actionMenu.SetActive(true);
                 } 

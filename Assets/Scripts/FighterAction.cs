@@ -10,7 +10,7 @@ public class FighterAction : MonoBehaviour
     public GameObject hero;
 
     // Where is this set? in FighterStatsScript and GameController (???)
-    public GameObject enemy;           // this should probably be set externally. 
+    public GameObject enemy;          
 
     [SerializeField]
     private GameObject meleePrefab;
@@ -56,9 +56,10 @@ public class FighterAction : MonoBehaviour
             Debug.Log("SELECTATTACK COULDN'T FIND ENEMY OBJECT");
         } else {
             // it CAN find it (SUCCESS):
-            Debug.Log("ENEMY OBJECT FOUND BY SELECTATTACK");
+            Debug.Log("ENEMY OBJECT FOUND BY SELECTATTACK");            // DOES print when trying to attack ally
         }
 
+        // for SELF:
         FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
 
         GameObject victim = hero;
