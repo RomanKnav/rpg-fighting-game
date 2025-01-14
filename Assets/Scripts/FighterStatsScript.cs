@@ -333,7 +333,6 @@ public class FighterStatsScript : MonoBehaviour
     // only runs when object clicked on?
     void OnMouseDown()
     {
-        // CAN CONFIRM THIS NOT BEING UPDATED:
         if (!gameControllerScript.aCharacterLockedIn) 
         {
             SelectNewCharacter();
@@ -341,6 +340,7 @@ public class FighterStatsScript : MonoBehaviour
     }
 
     // used ONLY when player manually selects new character:
+    // this works on THIS object, not the other being selected:
     public void SelectNewCharacter() {
 
         gameControllerScript.aCharacterLockedIn = true;
@@ -349,6 +349,7 @@ public class FighterStatsScript : MonoBehaviour
         if (gameControllerScript.freeState == true) 
         {
             gameControllerScript.characterManuallySelected = true;      // why's this here?
+            
             if ((gameControllerScript.selectedCharacter != null && !dead) || (hoveringOver == true && !dead))
             {
                 selected = true;
