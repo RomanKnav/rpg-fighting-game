@@ -144,27 +144,9 @@ public class GameController : MonoBehaviour
             }
         }
 
-        //  THIS needs to be changed at every turn:
-        // Create an instance of Random
-        // System.Random random = new System.Random();
-
-        // // Get a random index
-        // int randomIndex = random.Next(heroesList.Count);
-        // randomHeroObj = heroesList[randomIndex];
-
         Debug.Log($"HERO LIST LENGTH: {heroesList.Count}");
         SetRandomHero();
     }
-
-    // public GameObject SetRandomHero() {
-    //     System.Random random = new System.Random();
-
-    //     // Get a random index
-    //     int randomIndex = random.Next(heroesList.Count);
-    //     // randomHeroObj = heroesList[randomIndex];
-
-    //     return heroesList[randomIndex];
-    // }
 
     public void SetRandomHero() {
         System.Random random = new System.Random();
@@ -172,8 +154,6 @@ public class GameController : MonoBehaviour
         // Get a random index
         int randomIndex = random.Next(heroesList.Count);
         randomHeroObj = heroesList[randomIndex];
-
-        Debug.Log($"NEW RANDOM HERO: {randomHeroObj}");
     }
 
 
@@ -206,7 +186,7 @@ public class GameController : MonoBehaviour
                 if (characterScript.isFriendly == true) {
                     Debug.Log($"ADDING TO HERO LIST: {character.name}");
                     heroesList.Add(character);
-                }
+                }   
             }
 
             // SORT the list from greatest to least:
