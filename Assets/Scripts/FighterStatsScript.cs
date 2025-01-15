@@ -234,6 +234,9 @@ public class FighterStatsScript : MonoBehaviour
 
             gameControllerScript.priorityList.Remove(gameObject);
 
+            // putting this here allows enemy thumbnail and name to update (otherwise, issues arise if remains null):
+            gameControllerScript.selectedCharacter = gameControllerScript.priorityList[0];
+
         // UPDATE HEALTH HERE:
         } 
         else if (damage > 0)

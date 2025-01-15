@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
 
     // MAKE THIS LIST OF CHARACTER SCRIPTS:
     public List<GameObject> priorityList = new List<GameObject>();     // this one MUST be initialized
-    public List<FighterStatsScript> priorityScriptsList = new List<FighterStatsScript>();    
+    public List<FighterStatsScript> priorityScriptsList = new List<FighterStatsScript>();
 
     private List<float> agilityPointsList = new List<float>();
 
@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
 
     // purpose of these is to have a secondary option to fall back to when ally 1 dies:
     public GameObject currentHeroObj;     // what's this? set by SetHeroes(). The first friendly found in PriorityList
+    
     // i FORGOT what the purpose of this is! We used to have "playerObject = GameObject.Find("WizardHero");" hardcoded
     public GameObject secondHeroObj;
 
@@ -65,7 +66,7 @@ public class GameController : MonoBehaviour
 
     // new button crap:
     public List<GameObject> buttonsList;        // list of gameObjects
-    public MakeButton makeButtonScript; 
+    public MakeButton makeButtonScript;
 
     private void Awake()
     {
@@ -73,7 +74,7 @@ public class GameController : MonoBehaviour
 
         // this originally an array:
         // where for loop used for this? CreatePriorityList()
-        charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();;
+        charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList(); ;
 
         CreatePriorityList();
         SetHeroes();               // defines currentHeroObj and secondHeroObj
@@ -91,18 +92,20 @@ public class GameController : MonoBehaviour
         enemiesParent = GameObject.Find("Enemies");
 
         // get default character to attack at start:
-        if (enemiesParent.transform.childCount > 0) {
+        if (enemiesParent.transform.childCount > 0)
+        {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;     // selects first character listed in the parent
         }
 
         // what this do? if playerActionScript found, set the enemy in that script:
-        if (playerActionScript != null) {
+        if (playerActionScript != null)
+        {
             // NOT culprit:
             playerActionScript.enemy = selectedCharacter;   // THIS IS NULL BY DEFAULT
         }
 
         // set name of INITIAL enemy to attack:
-        GameObject oppNameObject = GameObject.Find("EnemyFrameLabel"); 
+        GameObject oppNameObject = GameObject.Find("EnemyFrameLabel");
         oppNameObject.GetComponent<Text>().text = selectedCharacter.name;
 
         // UPDATE THIS VAR DYNAMICALLY:
@@ -116,19 +119,22 @@ public class GameController : MonoBehaviour
         musicSource.Play();
 
         // gets INITIAL enemy:
-        if (EnemyScript != null) {
+        if (EnemyScript != null)
+        {
             EnemyScript.SetEnemyThumbnail();
         }
 
         NextTurn();
     }
 
-    void Update() {
+    void Update()
+    {
         SetFreeState();
     }
 
     // REMEMBER: priorityList already sorted by agility points:
-    public void SetHeroes() {
+    public void SetHeroes()
+    {
         bool firstFound = false;
 
         foreach (GameObject character in priorityList)
@@ -136,12 +142,16 @@ public class GameController : MonoBehaviour
             Debug.Log($"{character.name}, isFriendly: {character.GetComponent<FighterStatsScript>().isFriendly}");
 
 
-            if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
+            if (character.GetComponent<FighterStatsScript>().isFriendly == true)
+            {
 
-                if (!firstFound) {
+                if (!firstFound)
+                {
                     currentHeroObj = character;
                     firstFound = true;
-                } else {
+                }
+                else
+                {
                     secondHeroObj = character;
                     break;
                 }
@@ -152,7 +162,8 @@ public class GameController : MonoBehaviour
         SetRandomHero();
     }
 
-    public void SetRandomHero() {
+    public void SetRandomHero()
+    {
         System.Random random = new System.Random();
 
         // Get a random index
@@ -161,50 +172,64 @@ public class GameController : MonoBehaviour
     }
 
 
-    void SetFreeState() {
-        if (movementHappening == true || currentStatsScript.isFriendly == false || !currentStatsScript.isFriendly) {
+    void SetFreeState()
+    {
+        if (movementHappening == true || currentStatsScript.isFriendly == false || !currentStatsScript.isFriendly)
+        {
             freeState = false;
-        } else {
+        }
+        else
+        {
             freeState = true;
         }
     }
-    
+
     // responsible for setting "hero" in buttons to next hero:
     // best place to put this?
-    void resetButtons() {
-        if (buttonsList.Count > 0) {
-            foreach (GameObject button in buttonsList) {
+    void resetButtons()
+    {
+        if (buttonsList.Count > 0)
+        {
+            foreach (GameObject button in buttonsList)
+            {
                 button.GetComponent<MakeButton>().hero = currentHeroObj;
             }
         }
     }
 
     // if four characters are in battle scene, this adds SIX gameObjects. Why?
-    public void CreatePriorityList() {
-        if (charactersList.Count > 0) {
-            foreach(GameObject character in charactersList) {
+    public void CreatePriorityList()
+    {
+        if (charactersList.Count > 0)
+        {
+            foreach (GameObject character in charactersList)
+            {
                 var characterScript = character.GetComponent<FighterStatsScript>();
                 var currentAgility = characterScript.agility;
                 agilityPointsList.Add(currentAgility);
 
-                if (characterScript.isFriendly == true) {
+                if (characterScript.isFriendly == true)
+                {
                     Debug.Log($"ADDING TO HERO LIST: {character.name}");
                     heroesList.Add(character);
-                }   
+                }
             }
 
             // SORT the list from greatest to least:
             agilityPointsList.Sort((a, b) => b.CompareTo(a));
 
-            foreach(float highAgility in agilityPointsList) {
-                
-                foreach(GameObject character in charactersList) {
+            foreach (float highAgility in agilityPointsList)
+            {
+
+                foreach (GameObject character in charactersList)
+                {
 
                     FighterStatsScript characterScript = character.GetComponent<FighterStatsScript>();
-                    
+
                     var currentAgility = characterScript.agility;
 
-                    if (currentAgility == highAgility && !priorityList.Contains(character)) {
+                    if (currentAgility == highAgility && !priorityList.Contains(character))
+                    {
                         priorityList.Add(character);
                         priorityScriptsList.Add(characterScript);
                     }
@@ -227,17 +252,23 @@ public class GameController : MonoBehaviour
         currentStatsScript = priorityScriptsList[0];
 
         // if current-turn character is friendly:
-        if (currentFighterStatsScript.isFriendly) {
+        if (currentFighterStatsScript.isFriendly)
+        {
             currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
 
             // IRRELEVANT TO PROBLEM:
             // what this? runs at start of each character's turn:
-            if (selectedCharacter != null) {
+            if (selectedCharacter != null)
+            {
                 playerActionScript.enemy = selectedCharacter;
-            } else {
+            }
+            else
+            {
                 Debug.Log("SELECTEDCHARACTER NOT FOUND: ");
             }
-        } else {
+        }
+        else
+        {
             currentHeroObj.GetComponent<FighterAction>();
         }
 
@@ -253,7 +284,7 @@ public class GameController : MonoBehaviour
             priorityScriptsList.Add(currentFighterStatsScript);
 
             SetRandomHero();
-            
+
             Debug.Log($"CURRENT CHARACTER'S TURN: {currentCharacterObj.name}");
 
             // drawTheCircle NOT RUNNING FOR FRIENDLY:
@@ -278,15 +309,17 @@ public class GameController : MonoBehaviour
                 playerActionScript = currentHeroObj.GetComponent<FighterAction>();
 
                 // RESPONSIBLE FOR not showing action menu until a character is selected:
-                if (selectedCharacter != null) {
+                if (selectedCharacter != null)
+                {
                     this.actionMenu.SetActive(true);
-                } 
+                }
                 // we want to automatically select next enemy character:
-                else {
-                   return; 
+                else
+                {
+                    return;
                 }
             }
-            
+
             // if player isn't current unit, undraw circle, disable actionMenu, and have enemy attack:
             else
             {
@@ -303,7 +336,7 @@ public class GameController : MonoBehaviour
                 string attackType = Random.Range(0, 2) == 1 ? "melee" : "range";
                 currentCharacterObj.GetComponent<FighterAction>().SelectAttack(attackType);
             }
-        } 
+        }
         // otherwise, current character is dead, move on to next:
         else
         {
