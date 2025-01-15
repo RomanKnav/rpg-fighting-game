@@ -130,10 +130,9 @@ public class GameController : MonoBehaviour
         foreach (GameObject character in priorityList)
         {
             Debug.Log($"{character.name}, isFriendly: {character.GetComponent<FighterStatsScript>().isFriendly}");
-            if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
 
-                Debug.Log($"ADDING TO HERO LIST: {character.name}");
-                heroesList.Add(character);
+
+            if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
 
                 if (!firstFound) {
                     currentHeroObj = character;
@@ -203,6 +202,11 @@ public class GameController : MonoBehaviour
                 var characterScript = character.GetComponent<FighterStatsScript>();
                 var currentAgility = characterScript.agility;
                 agilityPointsList.Add(currentAgility);
+
+                if (characterScript.isFriendly == true) {
+                    Debug.Log($"ADDING TO HERO LIST: {character.name}");
+                    heroesList.Add(character);
+                }
             }
 
             // SORT the list from greatest to least:
@@ -217,7 +221,6 @@ public class GameController : MonoBehaviour
                     var currentAgility = characterScript.agility;
 
                     if (currentAgility == highAgility && !priorityList.Contains(character)) {
-                        Debug.Log($"ADDING TO PRIORITY LIST: {character.name}");
                         priorityList.Add(character);
                         priorityScriptsList.Add(characterScript);
                     }
