@@ -51,7 +51,9 @@ public class FighterAction : MonoBehaviour
         //     hero = gameControllerScript.currentHeroObj;             // individual hero per script
         // }
 
+        // this is the hero that all enemies will attack:
         hero = gameControllerScript.currentHeroObj;
+        // hero = gameControllerScript.randomHeroObj;
     }
 
     // where is this used? in GameController's NextTurn() by enemy
@@ -69,7 +71,12 @@ public class FighterAction : MonoBehaviour
         // if it's an enemy attacking, attack the hero (here's what makes enemies attack the same hero):
         if (!characterScript.isFriendly) 
         {
-            victim = hero;
+            // victim = hero;
+            // victim = gameControllerScript.GetRandomHero();
+            victim = gameControllerScript.randomHeroObj;
+
+
+            Debug.Log($"ATTACKING RANDOM HERO: {victim}");
         }
         else
         {

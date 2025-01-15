@@ -130,6 +130,7 @@ public class GameController : MonoBehaviour
         foreach (GameObject character in priorityList)
         {
             if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
+
                 heroesList.Add(character);
 
                 if (!firstFound) {
@@ -144,13 +145,36 @@ public class GameController : MonoBehaviour
 
         //  THIS needs to be changed at every turn:
         // Create an instance of Random
+        // System.Random random = new System.Random();
+
+        // // Get a random index
+        // int randomIndex = random.Next(heroesList.Count);
+        // randomHeroObj = heroesList[randomIndex];
+
+        Debug.Log($"HERO LIST LENGTH: {heroesList.Count}");
+        SetRandomHero();
+    }
+
+    // public GameObject SetRandomHero() {
+    //     System.Random random = new System.Random();
+
+    //     // Get a random index
+    //     int randomIndex = random.Next(heroesList.Count);
+    //     // randomHeroObj = heroesList[randomIndex];
+
+    //     return heroesList[randomIndex];
+    // }
+
+    public void SetRandomHero() {
         System.Random random = new System.Random();
 
         // Get a random index
         int randomIndex = random.Next(heroesList.Count);
-
         randomHeroObj = heroesList[randomIndex];
+
+        Debug.Log($"NEW RANDOM HERO: {randomHeroObj}");
     }
+
 
     void SetFreeState() {
         if (movementHappening == true || currentStatsScript.isFriendly == false || !currentStatsScript.isFriendly) {
@@ -198,6 +222,7 @@ public class GameController : MonoBehaviour
                     }
                 }
             }
+            Debug.Log($"PRIORITYLIST LENGTH: {priorityList.Count}");
         }
     }
 
@@ -220,7 +245,6 @@ public class GameController : MonoBehaviour
             // IRRELEVANT TO PROBLEM:
             // what this? runs at start of each character's turn:
             if (selectedCharacter != null) {
-                Debug.Log($"SELECTEDCHARACTER FOUND BY NEXTTURN: {selectedCharacter.name}");
                 playerActionScript.enemy = selectedCharacter;
             } else {
                 Debug.Log("SELECTEDCHARACTER NOT FOUND: ");
@@ -239,6 +263,8 @@ public class GameController : MonoBehaviour
             GameObject currentCharacterObj = currentFighterStatsScript.gameObject;
 
             priorityScriptsList.Add(currentFighterStatsScript);
+
+            SetRandomHero();
             
             Debug.Log($"CURRENT CHARACTER'S TURN: {currentCharacterObj.name}");
 

@@ -385,13 +385,6 @@ public class FighterStatsScript : MonoBehaviour
                 if (ownerObject == null) {
                     Debug.Log("OWNEROBJECT NOT FOUND!!!!!");
                 } else {
-                    // this WORKS:
-                    Debug.Log($"NEW FUCKING CHARACTER SELECTED: {gameControllerScript.selectedCharacter}");
-
-                    Debug.Log($"ARE THEY EQUAL TO EACHOTHER???: {ownerObject == gameControllerScript.currentHeroObj}");
-
-                    // why's this not working to set friendly guy?:
-
                     // THIS IS NOT SETTING!!!!!!!!
                     playerActionScript.enemy = gameControllerScript.selectedCharacter; 
                 }
