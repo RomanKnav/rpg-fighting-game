@@ -140,6 +140,7 @@ public class AttackScript : MonoBehaviour
                     owner.GetComponent<SpriteRenderer>().flipX = true;      // the DEFAULT when idle
                     attackerStats.retreating = false;
 
+                    // wtf is this??? movement set to false after returning to original position:
                     if (attackerStats.isFriendly == true) {
                         gameController.GetComponent<GameController>().movementHappening = false;
                     }

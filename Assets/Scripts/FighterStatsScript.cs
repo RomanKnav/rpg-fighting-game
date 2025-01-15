@@ -65,6 +65,8 @@ public class FighterStatsScript : MonoBehaviour
     public Transform currentCircleOutline;
     public Transform highlightCursor;
     public GameObject ownerObject;              // can I get the sprite's coords frpom this? Yes, we use the TRANSFORM.
+
+
     public FighterAction playerActionScript;    // how's this assigned?
     public float damageTaken = 0f;
 
@@ -111,6 +113,10 @@ public class FighterStatsScript : MonoBehaviour
           gameControllerScript = gameControllerObj.GetComponent<GameController>();
         }
 
+        // if (playerActionScript == null) {
+        //     playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
+        // }
+
         // MY STUFF:
         // this sprite is CONSTANTLY changing due to animations:
         currentSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
@@ -132,6 +138,7 @@ public class FighterStatsScript : MonoBehaviour
     }
 
     void Update() {
+        // it works, but seems like a bad place to put this in:
         SetActionScript();
 
         // moving this from DrawCircle() to here fixed Escape issue:
@@ -155,15 +162,19 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
+    // THIS could be causing the fucking issue:
     void SetActionScript() {
         // ONLY BEING SET FOR FIRST HERO (must set elsewhere):
-        // it works, but seems like a bad place to put this in:
         if (isFriendly == true) {
             playerActionScript = gameObject.GetComponent<FighterAction>();
         } 
         else {
             // set this way if current character is enemy:
             playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
+        }
+
+        if (playerActionScript == null) {
+            Debug.LogError($"PlayerActionScript is null for {gameObject.name}");
         }
     }
 
@@ -210,6 +221,8 @@ public class FighterStatsScript : MonoBehaviour
         {
             dead = true;
             gameObject.tag = "Dead";
+
+            // ONLY place where this var is set:
             gameControllerScript.selectedCharacter = null; // successfully makes it empty
 
             animator.enabled = false;
@@ -335,13 +348,15 @@ public class FighterStatsScript : MonoBehaviour
     {
         if (!gameControllerScript.aCharacterLockedIn) 
         {
-            SelectNewCharacter();
+            ThisCharacterSelected();
         }
     }
 
     // used ONLY when player manually selects new character:
     // this works on THIS object, not the other being selected:
-    public void SelectNewCharacter() {
+
+    // ONLY used in OnMouseDown():
+    public void ThisCharacterSelected() {
 
         gameControllerScript.aCharacterLockedIn = true;
 
@@ -352,21 +367,32 @@ public class FighterStatsScript : MonoBehaviour
             
             if ((gameControllerScript.selectedCharacter != null && !dead) || (hoveringOver == true && !dead))
             {
+                // ALL THIS WORKS:
                 selected = true;
+
+                // ONLY place where this var is set apart from RecieveDamage:
                 gameControllerScript.selectedCharacter = ownerObject;
+
+                // this WORKS:
+                // Debug.Log($"NEW FUCKING CHARACTER SELECTED: {gameControllerScript.selectedCharacter}");
+
                 gameControllerScript.actionMenu.SetActive(true);
 
                 // makes it so that next enemy to attack is the one selected:
                 
                 // ISSUE IS NOT IN HERE (does its job):
                 if (ownerObject == null) {
-                    Debug.Log("SELECTNEWCHARACTER could not find ownerObject");
+                    Debug.Log("FUCK FUCK FUCK OWNEROBJECT NOT FOUND!!!!!");
                 } else {
-                    // this prints the VICTIM'S name:
-                    Debug.Log($"ownerObject found by {gameObject.name}'s SELECTNEWCHARACTER");
+                    Debug.Log($"NEW FUCKING CHARACTER SELECTED: {gameControllerScript.selectedCharacter}");
 
                     // why's this not working to set friendly guy?:
-                    playerActionScript.enemy = ownerObject;
+
+                    // playerActionScript.enemy = ownerObject;
+                    // playerActionScript.enemy = gameControllerScript.selectedCharacter;
+
+                    // THIS STUPID FUCKING SHIT IS NOT SETTING!!!!!!!!
+                    playerActionScript.enemy = gameControllerScript.selectedCharacter;   
                 }
             } 
         }

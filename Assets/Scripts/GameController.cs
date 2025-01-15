@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
     public FighterStatsScript currentStatsScript;
 
     // purpose of these is to have a secondary option to fall back to when ally 1 dies:
-    public GameObject currentHeroObj;                       // what's this? set by FindHeroes(). The first friendly found in PriorityList
+    public GameObject currentHeroObj;                       // what's this? set by SetHeroes(). The first friendly found in PriorityList
     public GameObject secondHeroObj;
 
     // so that player can't attack while attacks are happening:
@@ -70,8 +70,8 @@ public class GameController : MonoBehaviour
         charactersList = (GameObject.FindGameObjectsWithTag("Character")).ToList();;
 
         CreatePriorityList();
+        SetHeroes();               // defines currentHeroObj and secondHeroObj
         currentStatsScript = priorityScriptsList[0];
-        FindHeroes();               // defines currentHeroObj and secondHeroObj
 
         playerActionScript = currentHeroObj.gameObject.GetComponent<FighterAction>();
 
@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
     }
 
     // REMEMBER: priorityList already sorted by agility points:
-    public void FindHeroes() {
+    public void SetHeroes() {
         bool firstFound = false;
 
         foreach (GameObject character in priorityList)

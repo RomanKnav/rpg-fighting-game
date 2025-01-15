@@ -7,6 +7,7 @@ using UnityEngine.UI;
 // placed on both friendlies and foes:
 public class FighterAction : MonoBehaviour
 {
+    // what's this for again? determine which character enemy attacks:
     public GameObject hero;
 
     // Where is this set? in FighterStatsScript and GameController (???)
@@ -40,6 +41,7 @@ public class FighterAction : MonoBehaviour
     void Start() {
         // won't work if added to Awake():
 
+        // what's this?
         if (characterStatsScript.isFriendly == true) {
             hero = gameObject;
         }
@@ -50,25 +52,24 @@ public class FighterAction : MonoBehaviour
 
     // where is this used? in GameController's NextTurn() by enemy
     // and by AttachCallback() in MakeButton(), which handles the buttons (in MakeButton.cs):
+
+    // DOESN'T RUN UNTIL ATTACK HAPPENS: 
     public void SelectAttack(string btn)
     {
-        if (enemy == null) {
-            Debug.Log("SELECTATTACK COULDN'T FIND ENEMY OBJECT");
-        } else {
-            // it CAN find it (SUCCESS):
-            Debug.Log("ENEMY OBJECT FOUND BY SELECTATTACK");            // DOES print when trying to attack ally
-        }
-
         // for SELF:
         FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
 
         GameObject victim = hero;
+        Debug.Log($"FUCKING VICTIM SET: {hero}"); 
 
         // checks name of gameObject:
         if (characterScript.isFriendly == true)
         {
             victim = enemy;
+             Debug.Log($"FUCKING VICTIM SET IN IF STATEMENT: {hero}"); 
         }
+
+        // victim = enemy;
 
         /* when using CompareTo: 
             < 0, current precedes other object 
