@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     private GameObject enemiesParent;
 
     // LIST OF GAMEOBJECTS:
+    public List<GameObject> heroesList;
     public List<GameObject> charactersList;
 
     // MAKE THIS LIST OF CHARACTER SCRIPTS:
@@ -52,6 +53,7 @@ public class GameController : MonoBehaviour
     // i FORGOT what the purpose of this is! We used to have "playerObject = GameObject.Find("WizardHero");" hardcoded
     public GameObject secondHeroObj;
 
+    // SUCCESS:
     public GameObject randomHeroObj;
     // make it so that enemies attack a random hero each time. Should change after every turn.
 
@@ -128,6 +130,8 @@ public class GameController : MonoBehaviour
         foreach (GameObject character in priorityList)
         {
             if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
+                heroesList.Add(character);
+
                 if (!firstFound) {
                     currentHeroObj = character;
                     firstFound = true;
@@ -137,6 +141,15 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+
+        //  THIS needs to be changed at every turn:
+        // Create an instance of Random
+        System.Random random = new System.Random();
+
+        // Get a random index
+        int randomIndex = random.Next(heroesList.Count);
+
+        randomHeroObj = heroesList[randomIndex];
     }
 
     void SetFreeState() {
