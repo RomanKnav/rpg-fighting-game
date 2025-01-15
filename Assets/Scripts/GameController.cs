@@ -48,8 +48,9 @@ public class GameController : MonoBehaviour
     public FighterStatsScript currentStatsScript;
 
     // purpose of these is to have a secondary option to fall back to when ally 1 dies:
-    public GameObject currentHeroObj;                       // what's this? set by SetHeroes(). The first friendly found in PriorityList
-    public GameObject secondHeroObj;
+    public GameObject currentHeroObj;     // what's this? set by SetHeroes(). The first friendly found in PriorityList
+    // i FORGOT what the purpose of this is! We used to have "playerObject = GameObject.Find("WizardHero");" hardcoded
+    // public GameObject secondHeroObj;
 
     // so that player can't attack while attacks are happening:
     public bool freeState = true;                           // true ONLY when player is able to select crap/enemies. False when attacking. 
@@ -117,6 +118,24 @@ public class GameController : MonoBehaviour
         SetFreeState();
     }
 
+    // REMEMBER: priorityList already sorted by agility points:
+    public void SetHeroes() {
+        bool firstFound = false;
+
+        foreach (GameObject character in priorityList)
+        {
+            if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
+                if (!firstFound) {
+                    currentHeroObj = character;
+                    firstFound = true;
+                } else {
+                    // secondHeroObj = character;
+                    break;
+                }
+            }
+        }
+    }
+
     void SetFreeState() {
         if (movementHappening == true || currentStatsScript.isFriendly == false || !currentStatsScript.isFriendly) {
             freeState = false;
@@ -131,24 +150,6 @@ public class GameController : MonoBehaviour
         if (buttonsList.Count > 0) {
             foreach (GameObject button in buttonsList) {
                 button.GetComponent<MakeButton>().hero = currentHeroObj;
-            }
-        }
-    }
-
-    // REMEMBER: priorityList already sorted by agility points:
-    public void SetHeroes() {
-        bool firstFound = false;
-
-        foreach (GameObject character in priorityList)
-        {
-            if (character.GetComponent<FighterStatsScript>().isFriendly == true) {
-                if (!firstFound) {
-                    currentHeroObj = character;
-                    firstFound = true;
-                } else {
-                    secondHeroObj = character;
-                    break;
-                }
             }
         }
     }

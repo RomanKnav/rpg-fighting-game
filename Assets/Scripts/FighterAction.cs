@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class FighterAction : MonoBehaviour
 {
     // what's this for again? determine which character enemy attacks:
+    // used externally? NOPE
     public GameObject hero;
 
     // Where is this set? in FighterStatsScript and GameController (???)
@@ -41,29 +42,36 @@ public class FighterAction : MonoBehaviour
     void Start() {
         // won't work if added to Awake():
 
-        // what's this?
-        if (characterStatsScript.isFriendly == true) {
-            hero = gameObject;
-        }
-        else {
-            hero = gameControllerScript.currentHeroObj;             // individual hero per script
-        }
+        // what's this? if character is friendly, set hero to itself:
+        // if (characterStatsScript.isFriendly == true) {
+        //     hero = gameObject;
+        // }
+        // // if character this script is placed on is not friendly, set hero to currentHeroObj from GameController:
+        // else {
+        //     hero = gameControllerScript.currentHeroObj;             // individual hero per script
+        // }
+
+        hero = gameControllerScript.currentHeroObj;
     }
 
     // where is this used? in GameController's NextTurn() by enemy
     // and by AttachCallback() in MakeButton(), which handles the buttons (in MakeButton.cs):
 
     // DOESN'T RUN UNTIL ATTACK HAPPENS: 
+    // ISSUE IS NOT HERE, STOP LOOKING:
     public void SelectAttack(string btn)
     {
         // for SELF:
         FighterStatsScript characterScript = gameObject.GetComponent<FighterStatsScript>();
 
-        GameObject victim = hero;
-        Debug.Log($"FUCKING VICTIM SET: {hero}"); 
+        GameObject victim;
 
-        // checks name of gameObject:
-        if (characterScript.isFriendly == true)
+        // if it's an enemy attacking, attack the hero (here's what makes enemies attack the same hero):
+        if (!characterScript.isFriendly) 
+        {
+            victim = hero;
+        }
+        else
         {
             victim = enemy;
              Debug.Log($"FUCKING VICTIM SET IN IF STATEMENT: {hero}"); 

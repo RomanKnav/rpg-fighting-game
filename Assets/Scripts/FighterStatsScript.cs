@@ -162,25 +162,29 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
+    // AHHHHH HERE'S WHERE THE FUCKING BUGGER IS!!!!!!!!!!!!!!
+
+
     // THIS could be causing the fucking issue:
+    // what's this for again? if we are friendly, get our own actionScript.
+    // if enemy, get the actionScript of currentHeroObj:
     void SetActionScript() {
         // ONLY BEING SET FOR FIRST HERO (must set elsewhere):
-        if (isFriendly == true) {
-            playerActionScript = gameObject.GetComponent<FighterAction>();
-        } 
-        else {
-            // set this way if current character is enemy:
-            playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
-        }
 
-        if (playerActionScript == null) {
-            Debug.LogError($"PlayerActionScript is null for {gameObject.name}");
-        }
+        // commenting this out makes possible for friendlies to attack eachother:
+        // if (isFriendly == true) {
+        //     playerActionScript = gameObject.GetComponent<FighterAction>();
+        // } 
+        // else {
+        //     // set this way if current character is enemy:
+        //     playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
+        // }
+
+        playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
     }
 
     // used in Update():
     void DrawCircle() {
-        // this sucks:
         if (health >= 70) {
             currentCircleOutline = circleOutlineGreen;
         } 
@@ -373,26 +377,23 @@ public class FighterStatsScript : MonoBehaviour
                 // ONLY place where this var is set apart from RecieveDamage:
                 gameControllerScript.selectedCharacter = ownerObject;
 
-                // this WORKS:
-                // Debug.Log($"NEW FUCKING CHARACTER SELECTED: {gameControllerScript.selectedCharacter}");
-
                 gameControllerScript.actionMenu.SetActive(true);
 
                 // makes it so that next enemy to attack is the one selected:
                 
                 // ISSUE IS NOT IN HERE (does its job):
                 if (ownerObject == null) {
-                    Debug.Log("FUCK FUCK FUCK OWNEROBJECT NOT FOUND!!!!!");
+                    Debug.Log("OWNEROBJECT NOT FOUND!!!!!");
                 } else {
+                    // this WORKS:
                     Debug.Log($"NEW FUCKING CHARACTER SELECTED: {gameControllerScript.selectedCharacter}");
+
+                    Debug.Log($"ARE THEY EQUAL TO EACHOTHER???: {ownerObject == gameControllerScript.currentHeroObj}");
 
                     // why's this not working to set friendly guy?:
 
-                    // playerActionScript.enemy = ownerObject;
-                    // playerActionScript.enemy = gameControllerScript.selectedCharacter;
-
-                    // THIS STUPID FUCKING SHIT IS NOT SETTING!!!!!!!!
-                    playerActionScript.enemy = gameControllerScript.selectedCharacter;   
+                    // THIS IS NOT SETTING!!!!!!!!
+                    playerActionScript.enemy = gameControllerScript.selectedCharacter; 
                 }
             } 
         }

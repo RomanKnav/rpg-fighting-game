@@ -36,32 +36,38 @@ public class AttackScript : MonoBehaviour
     private float damage = 0.0f;
 
     // MY CRAP:
-    public Animator ownerAnimator;      
+    public Animator ownerAnimator;
     public Animator victimAnimator;
     public GameObject gameController;
     public Vector3 victimPosition;          // to move towards when attacking
     public float moveSpeed;                 // for whatever reason speed doesn't change when this is changed
 
-    public void Awake() {
+    public void Awake()
+    {
         ownerAnimator = owner.GetComponent<Animator>();
         gameController = GameObject.Find("GameControllerObject");
     }
-    
+
     // where this used? FighterAction.cs
-    public void Attack(GameObject victima) {
+    public void Attack(GameObject victima)
+    {
         // stats of the one doing the attacking:
         attackerStats = owner.GetComponent<FighterStatsScript>();
         attackerStats.turnInProgress = true;            // this works
 
-        if (victima != null) {
+        if (victima != null)
+        {
             // keep character from attaking itself:
-            if (victima.name != owner.name) {
-                if (victima != null) {
+            if (victima.name != owner.name)
+            {
+                if (victima != null)
+                {
                     victimPosition = victima.transform.position;                // SUCCESSFULLY gets victim's position
                     victimAnimator = victima.GetComponent<Animator>();          // "object reference not set to instance of object"
                     victimStats = victima.GetComponent<FighterStatsScript>();
-                } 
-                else {
+                }
+                else
+                {
                     GameObject characterToAttack = gameController.GetComponent<GameController>().selectedCharacter;
 
                     victimAnimator = characterToAttack.GetComponent<Animator>();
@@ -75,11 +81,14 @@ public class AttackScript : MonoBehaviour
                     {
                         attackerStats.attacking = true;
                         StartCoroutine(SynchronousAttack());
-                    } else
+                    }
+                    else
                     {
                         Invoke("SkipTurnContinueGame", 2);
-                    }  
-                } else {
+                    }
+                }
+                else
+                {
                     return;
                 }
             }
@@ -87,7 +96,7 @@ public class AttackScript : MonoBehaviour
     }
 
     // whole point of this is so that the animation can run first before certain variables can be set, namely: turnInProgress
-    public IEnumerator SynchronousAttack() 
+    public IEnumerator SynchronousAttack()
     {
         float multiplier = Random.Range(minAttackMultiplier, maxAttackMultiplier);
 
@@ -107,7 +116,7 @@ public class AttackScript : MonoBehaviour
         // which have a "controller", which contains MULTIPLE animations):
 
         ownerAnimator.Play(animationName);          // ANIMATION ARE ASYNCHRONOUS --rest of code doesn't wait for them to finish 
-        
+
         // this ensures crap below is not set until animation is done:
         yield return new WaitForSeconds(ownerAnimator.GetCurrentAnimatorStateInfo(0).length);
 
@@ -115,62 +124,75 @@ public class AttackScript : MonoBehaviour
         victimStats.ReceiveDamage(Mathf.CeilToInt(damage));
         attackerStats.updateMagicFill(magicCost);
 
-        attackerStats.turnIsOver = true;   
-        attackerStats.turnInProgress = false; 
+        attackerStats.turnIsOver = true;
+        attackerStats.turnInProgress = false;
         attackerStats.attacking = false;
     }
 
-   void Update() {
+    void Update()
+    {
         MoveToVictim();
-   }
+    }
 
     // moves attacker to opponent, then back to original position:
-   void MoveToVictim() {
-        if (victimPosition != null && attackerStats != null) {
+    void MoveToVictim()
+    {
+        if (victimPosition != null && attackerStats != null)
+        {
 
-            if (attackerStats.isSniper == false) {
-                if (owner.transform.position != attackerStats.originalPosition && owner.transform.position != victimPosition 
-                    && !attackerStats.attacking) 
+            if (attackerStats.isSniper == false)
+            {
+                if (owner.transform.position != attackerStats.originalPosition && owner.transform.position != victimPosition
+                    && !attackerStats.attacking)
                 {
                     // WE'RE RETREATING, SWITCH SPRITE:
                     owner.GetComponent<SpriteRenderer>().flipX = false;
                     attackerStats.retreating = true;
                 }
-                else if (owner.transform.position == attackerStats.originalPosition || attackerStats.attacking == true) {
+                else if (owner.transform.position == attackerStats.originalPosition || attackerStats.attacking == true)
+                {
                     owner.GetComponent<SpriteRenderer>().flipX = true;      // the DEFAULT when idle
                     attackerStats.retreating = false;
 
                     // wtf is this??? movement set to false after returning to original position:
-                    if (attackerStats.isFriendly == true) {
+                    if (attackerStats.isFriendly == true)
+                    {
                         gameController.GetComponent<GameController>().movementHappening = false;
                     }
                 }
             }
 
             // maybe make "attacking" var
-            if (attackerStats != null && attackerStats.turnInProgress == true) {
-                
-                if (!attackerStats.isFriendly) {
+            if (attackerStats != null && attackerStats.turnInProgress == true)
+            {
+
+                if (!attackerStats.isFriendly)
+                {
                     gameController.GetComponent<GameController>().movementHappening = true;
                 }
 
                 // this can ONLY be used in Update() to work:
-                if (!attackerStats.isSniper && attackerStats.attacking == true) {
+                if (!attackerStats.isSniper && attackerStats.attacking == true)
+                {
                     // MOVE LOGIC: (current position, new position, speed)
                     owner.transform.position = Vector3.MoveTowards(owner.transform.position, victimPosition, moveSpeed * Time.deltaTime);
-                }  
+                }
             }
-            else if (attackerStats.turnInProgress == false) {
+            else if (attackerStats.turnInProgress == false)
+            {
                 // need reference to character's original position:
-                if (owner.transform.position != attackerStats.originalPosition) {
+                if (owner.transform.position != attackerStats.originalPosition)
+                {
                     gameController.GetComponent<GameController>().movementHappening = true;
                     owner.transform.position = Vector3.MoveTowards(owner.transform.position, attackerStats.originalPosition, moveSpeed * Time.deltaTime);
-                } else {
+                }
+                else
+                {
                     return;
                 }
             }
         }
-   }
+    }
 
     void SkipTurnContinueGame()
     {
