@@ -42,15 +42,6 @@ public class FighterAction : MonoBehaviour
     void Start() {
         // won't work if added to Awake():
 
-        // what's this? if character is friendly, set hero to itself:
-        // if (characterStatsScript.isFriendly == true) {
-        //     hero = gameObject;
-        // }
-        // // if character this script is placed on is not friendly, set hero to currentHeroObj from GameController:
-        // else {
-        //     hero = gameControllerScript.currentHeroObj;             // individual hero per script
-        // }
-
         // this is the hero that all enemies will attack:
         hero = gameControllerScript.currentHeroObj;
         // hero = gameControllerScript.randomHeroObj;

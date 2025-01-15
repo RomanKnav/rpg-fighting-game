@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
 
     // LIST OF GAMEOBJECTS:
     public List<GameObject> heroesList;
+    public List<GameObject> EnemiesList;
     public List<GameObject> charactersList;
 
     // MAKE THIS LIST OF CHARACTER SCRIPTS:
@@ -35,6 +36,7 @@ public class GameController : MonoBehaviour
 
     private List<float> agilityPointsList = new List<float>();
 
+    // this update after every turn? YES
     public FighterAction playerActionScript;
     public AttackScript playerAttackScript;         // this is on the PREFAB
 
@@ -50,7 +52,7 @@ public class GameController : MonoBehaviour
 
     // purpose of these is to have a secondary option to fall back to when ally 1 dies:
     public GameObject currentHeroObj;     // what's this? set by SetHeroes(). The first friendly found in PriorityList
-    
+
     // i FORGOT what the purpose of this is! We used to have "playerObject = GameObject.Find("WizardHero");" hardcoded
     public GameObject secondHeroObj;
 
@@ -95,13 +97,6 @@ public class GameController : MonoBehaviour
         if (enemiesParent.transform.childCount > 0)
         {
             selectedCharacter = enemiesParent.transform.GetChild(0).gameObject;     // selects first character listed in the parent
-        }
-
-        // what this do? if playerActionScript found, set the enemy in that script:
-        if (playerActionScript != null)
-        {
-            // NOT culprit:
-            playerActionScript.enemy = selectedCharacter;   // THIS IS NULL BY DEFAULT
         }
 
         // set name of INITIAL enemy to attack:
@@ -213,6 +208,9 @@ public class GameController : MonoBehaviour
                     Debug.Log($"ADDING TO HERO LIST: {character.name}");
                     heroesList.Add(character);
                 }
+                else {
+                    EnemiesList.Add(character);
+                }
             }
 
             // SORT the list from greatest to least:
@@ -254,9 +252,14 @@ public class GameController : MonoBehaviour
         // if current-turn character is friendly:
         if (currentFighterStatsScript.isFriendly)
         {
-            currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
+            Debug.Log($"NEW ALLY TURN: {currentFighterStatsScript.name}");
+            // MUST GET CURRENT ACTIONSCRIPT:
+            // currentFighterStatsScript.playerActionScript = currentFighterStatsScript.gameObject.GetComponent<FighterAction>();
 
-            // IRRELEVANT TO PROBLEM:
+            if (playerActionScript.enemy == null) {
+                currentFighterStatsScript.playerActionScript.enemy = selectedCharacter;
+            }
+
             // what this? runs at start of each character's turn:
             if (selectedCharacter != null)
             {
@@ -266,10 +269,6 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("SELECTEDCHARACTER NOT FOUND: ");
             }
-        }
-        else
-        {
-            currentHeroObj.GetComponent<FighterAction>();
         }
 
         // why're we removing it?? removed only temporarily as their turn's being processed, then add it to back of list to be processed again later:

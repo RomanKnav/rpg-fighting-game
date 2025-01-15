@@ -84,7 +84,7 @@ public class AttackScript : MonoBehaviour
                     }
                     else
                     {
-                        Invoke("SkipTurnContinueGame", 2);
+                        // Invoke("SkipTurnContinueGame", 2);
                     }
                 }
                 else
@@ -194,8 +194,9 @@ public class AttackScript : MonoBehaviour
         }
     }
 
-    void SkipTurnContinueGame()
-    {
-        GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
-    }
+    // no idea what this does:
+    // void SkipTurnContinueGame()
+    // {
+    //     GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
+    // }
 }

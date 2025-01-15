@@ -115,10 +115,6 @@ public class FighterStatsScript : MonoBehaviour
           gameControllerScript = gameControllerObj.GetComponent<GameController>();
         }
 
-        // if (playerActionScript == null) {
-        //     playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
-        // }
-
         // MY STUFF:
         // this sprite is CONSTANTLY changing due to animations:
         currentSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
@@ -172,6 +168,9 @@ public class FighterStatsScript : MonoBehaviour
     // if enemy, get the actionScript of currentHeroObj:
     void SetActionScript() {
         playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
+
+        // automatically set new enemy to attack at each hero's turn:
+        playerActionScript.enemy = gameControllerScript.selectedCharacter;
     }
 
     // used in Update():
@@ -234,14 +233,22 @@ public class FighterStatsScript : MonoBehaviour
 
             gameControllerScript.priorityList.Remove(gameObject);
 
+            if (isFriendly == true) {
+                gameControllerScript.heroesList.Remove(gameObject);
+            } else {
+                gameControllerScript.EnemiesList.Remove(gameObject);
+            }
+
             // putting this here allows enemy thumbnail and name to update (otherwise, issues arise if remains null):
-            gameControllerScript.selectedCharacter = gameControllerScript.priorityList[0];
+            // USE ENEMYLIST INSTEAD (doesn't work):
+            // gameControllerScript.selectedCharacter = gameControllerScript.priorityList[0];
+            gameControllerScript.selectedCharacter = gameControllerScript.EnemiesList[0];
 
         // UPDATE HEALTH HERE:
         } 
         else if (damage > 0)
         {
-            // what is healthScale?
+            // what is healthScale? physical size of the healthbar:
             xNewHealthScale = healthScale.x * (health / startHealth);
 
             // x size changes based on the health:
@@ -273,6 +280,7 @@ public class FighterStatsScript : MonoBehaviour
 
     // Goes to next turn when current turn over.
     // used here and in AttackScript:
+    // ACTUALLY necessary:
     void ContinueGame()
     {
         GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
