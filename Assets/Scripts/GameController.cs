@@ -52,6 +52,9 @@ public class GameController : MonoBehaviour
     // i FORGOT what the purpose of this is! We used to have "playerObject = GameObject.Find("WizardHero");" hardcoded
     public GameObject secondHeroObj;
 
+    public GameObject randomHeroObj;
+    // make it so that enemies attack a random hero each time. Should change after every turn.
+
     // so that player can't attack while attacks are happening:
     public bool freeState = true;                           // true ONLY when player is able to select crap/enemies. False when attacking. 
 
