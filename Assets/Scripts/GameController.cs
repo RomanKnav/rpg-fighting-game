@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
     // purpose of these is to have a secondary option to fall back to when ally 1 dies:
     public GameObject currentHeroObj;     // what's this? set by SetHeroes(). The first friendly found in PriorityList
     // i FORGOT what the purpose of this is! We used to have "playerObject = GameObject.Find("WizardHero");" hardcoded
-    // public GameObject secondHeroObj;
+    public GameObject secondHeroObj;
 
     // so that player can't attack while attacks are happening:
     public bool freeState = true;                           // true ONLY when player is able to select crap/enemies. False when attacking. 
@@ -129,7 +129,7 @@ public class GameController : MonoBehaviour
                     currentHeroObj = character;
                     firstFound = true;
                 } else {
-                    // secondHeroObj = character;
+                    secondHeroObj = character;
                     break;
                 }
             }
