@@ -101,6 +101,10 @@ public class GameController : MonoBehaviour
             playerActionScript.enemy = selectedCharacter;   // THIS IS NULL BY DEFAULT
         }
 
+        // set name of INITIAL enemy to attack:
+        GameObject oppNameObject = GameObject.Find("EnemyFrameLabel"); 
+        oppNameObject.GetComponent<Text>().text = selectedCharacter.name;
+
         // UPDATE THIS VAR DYNAMICALLY:
         EnemyScript = selectedCharacter.GetComponent<FighterStatsScript>();
     }

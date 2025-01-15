@@ -93,6 +93,8 @@ public class FighterStatsScript : MonoBehaviour
 
         name = this.name;
 
+        SetEnemyName();
+
         if (ownerObject != null) {
             originalPosition = ownerObject.transform.position;
         }
@@ -169,17 +171,6 @@ public class FighterStatsScript : MonoBehaviour
     // what's this for again? if we are friendly, get our own actionScript.
     // if enemy, get the actionScript of currentHeroObj:
     void SetActionScript() {
-        // ONLY BEING SET FOR FIRST HERO (must set elsewhere):
-
-        // commenting this out makes possible for friendlies to attack eachother:
-        // if (isFriendly == true) {
-        //     playerActionScript = gameObject.GetComponent<FighterAction>();
-        // } 
-        // else {
-        //     // set this way if current character is enemy:
-        //     playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
-        // }
-
         playerActionScript = gameControllerScript.currentHeroObj.GetComponent<FighterAction>();
     }
 
@@ -277,13 +268,14 @@ public class FighterStatsScript : MonoBehaviour
         return dead;
     }
 
-    // WTF IS THIS????? sus. Goes to next turn when current turn over.
+    // Goes to next turn when current turn over.
     // used here and in AttackScript:
     void ContinueGame()
     {
         GameObject.Find("GameControllerObject").GetComponent<GameController>().NextTurn();
     }
 
+    // not running after first enemy killed:
     public void SetEnemyThumbnail()
     {
         GameObject oppFaceObject = GameObject.Find("EnemyFace");
@@ -291,6 +283,9 @@ public class FighterStatsScript : MonoBehaviour
         if (oppFaceObject != null)
         {
             oppFaceObject.GetComponent<Image>().sprite = thumbnail;
+        }
+        else {
+            oppFaceObject.GetComponent<Image>().sprite = null;
         }
     }
 
