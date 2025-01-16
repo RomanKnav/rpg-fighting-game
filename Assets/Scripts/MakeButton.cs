@@ -6,6 +6,8 @@ using UnityEngine.UI;
 // what in here is responsible for the "clicking"?
 
 // where's this put on? on the melee, range, and run buttons in the ActionMenu:
+
+// TODO: remove all cusswords
 public class MakeButton : MonoBehaviour
 {
     [SerializeField]
