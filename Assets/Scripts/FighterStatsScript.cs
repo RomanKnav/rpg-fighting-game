@@ -40,6 +40,10 @@ public class FighterStatsScript : MonoBehaviour
     public Transform healthTransform;          // this is the Transform component of the HealthFill object.
     private Transform magicTransform;
 
+    // NEW CRAP TO GET THIS HEALTH STUFF OUTTA THE WAY:
+    public GameObject friendlyHealthFill;
+    public GameObject enemyHealthFill;
+
     public Vector2 healthScale;                // what's this? a 2-value tuple. Used to change the size of healthbar
     private Vector2 magicScale;
 
