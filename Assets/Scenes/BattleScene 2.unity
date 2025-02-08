@@ -360,10 +360,15 @@ PrefabInstance:
       propertyPath: isSniper
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 481420674}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.13
+      value: 0.53
       objectReference: {fileID: 0}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
@@ -973,6 +978,11 @@ PrefabInstance:
       propertyPath: agility
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 1800425050}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2226,6 +2236,11 @@ PrefabInstance:
       propertyPath: agility
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 481420674}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2641,6 +2656,11 @@ PrefabInstance:
       propertyPath: agility
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 1800425050}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3362,6 +3382,11 @@ PrefabInstance:
       propertyPath: agility
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 1800425050}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3846,6 +3871,11 @@ PrefabInstance:
       propertyPath: isSniper
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 481420674}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4238,6 +4268,11 @@ PrefabInstance:
       propertyPath: agility
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 481420674}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4852,6 +4887,11 @@ PrefabInstance:
       propertyPath: agility
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 481420674}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5156,6 +5196,11 @@ PrefabInstance:
       propertyPath: agility
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2386232424101880844, guid: 7845f560d50a24d6084afa3addee2fb5,
+        type: 3}
+      propertyPath: otherHealthFill
+      value: 
+      objectReference: {fileID: 1800425050}
     - target: {fileID: 2386232424101880846, guid: 7845f560d50a24d6084afa3addee2fb5,
         type: 3}
       propertyPath: m_LocalPosition.x

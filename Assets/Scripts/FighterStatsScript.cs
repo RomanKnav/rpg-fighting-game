@@ -9,12 +9,20 @@ public class FighterStatsScript : MonoBehaviour
     [SerializeField]
     private Animator animator;          // how's this assigned? manually
 
-    [SerializeField]
+    
 
     // change this when new character selected:
 
-    // THIS IS 'ENEMYHEALTHFILL', manually assigned in Editor.
+    // MANUALLY assigned in Editor.
+    // even though its private, SerializeField makes it visible.
+    // HeroHealthFill goes to heroes, EnemyHealthFill goes to enemies:
+
+    // FIX THIS CRAP TO GET THIS HEALTH STUFF OUTTA THE WAY:
+    [SerializeField]
     private GameObject healthFill;
+
+    [SerializeField]
+    private GameObject otherHealthFill;
 
     [SerializeField]
     private GameObject magicFill;
@@ -39,10 +47,6 @@ public class FighterStatsScript : MonoBehaviour
 
     public Transform healthTransform;          // this is the Transform component of the HealthFill object.
     private Transform magicTransform;
-
-    // NEW CRAP TO GET THIS HEALTH STUFF OUTTA THE WAY:
-    public GameObject friendlyHealthFill;
-    public GameObject enemyHealthFill;
 
     public Vector2 healthScale;                // what's this? a 2-value tuple. Used to change the size of healthbar
     private Vector2 magicScale;
@@ -163,7 +167,6 @@ public class FighterStatsScript : MonoBehaviour
             this.currentCircleOutline.gameObject.SetActive(false);
         }
     }
-
     // AHHHHH HERE'S WHERE THE FUCKING BUGGER IS!!!!!!!!!!!!!!
 
 
@@ -197,13 +200,25 @@ public class FighterStatsScript : MonoBehaviour
         }
     }
 
-    // used in OnMouseOver():
+    // used ONLY in OnMouseOver():
     void UpdateHealth()
     {
         xNewHealthScale = healthScale.x * (health / startHealth);
 
         // x size changes based on the health:
-        healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
+        // this is DEPENDENT on objs passed in editor:
+
+
+        // healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
+
+        if (isFriendly) {
+            otherHealthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
+        }
+        else {
+            healthFill.transform.localScale = new Vector2(xNewHealthScale, healthScale.y);
+        }
+        
+
     }
 
     // this is for the VICTIM:
@@ -328,6 +343,7 @@ public class FighterStatsScript : MonoBehaviour
                     SetEnemyThumbnail();
                     SetEnemyName();
 
+                    // issue could be in here:
                     UpdateHealth();
                 }
             }
